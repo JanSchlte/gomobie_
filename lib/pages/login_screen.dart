@@ -15,7 +15,7 @@ class LoginScreen extends StatelessWidget {
         SizedBox(height: 40),
         Image.asset(
           'assets/logo/app_logo.png',
-          height: 60,
+          height: 75,
         ),
         RichText(
           text: TextSpan(
@@ -52,7 +52,7 @@ class LoginScreen extends StatelessWidget {
             decoration: InputDecoration(
               filled: true,
               fillColor: Color(0xFF949494).withOpacity(0.5),
-              prefixIcon: Icon(Icons.email, color: Colors.white),
+              prefixIcon: Icon(Icons.mail_outline, color: Colors.white),
               labelText: 'Email / Kundennummer',
               labelStyle: TextStyle(color: Colors.white),
             ),
