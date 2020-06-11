@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 import '../validators.dart' as validators;
-import 'registration_screen_1.dart';
+import 'registration_screens/registration_screen_personal.dart';
 
 class LoginScreen extends StatelessWidget {
   static const routeName = '/login';

@@ -68,13 +68,13 @@ class RegistrationSuccess extends StatelessWidget {
                 style: TextStyle(color: Colors.grey),
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   FlatButton(
                     onPressed: () {
                       //TODO: Insert Home-Route
                       //Navigator.of(context).pushNamed(home-route.routeName);
                     },
-                    //TODO: Abstand fixen
                     child: Text(
                       'Verwaltungskonto',
                       style: TextStyle(color: Theme.of(context).primaryColor),
