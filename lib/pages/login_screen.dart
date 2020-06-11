@@ -158,7 +158,7 @@ class LoginScreen extends StatelessWidget {
               image: AssetImage('assets/login_screen/login_background.png'),
               fit: BoxFit.fill)),
       child: Material(
-        color: Colors.black87.withOpacity(0.8),
+        color: Colors.grey.shade800.withOpacity(0.8),
         child: SafeArea(
           child: Center(
             child: Form(
