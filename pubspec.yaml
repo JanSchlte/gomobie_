@@ -73,6 +73,7 @@ flutter:
     - assets/general_assets/family.png
     - assets/general_assets/flying_money.png
     - assets/general_assets/keys.png
+    - assets/login_screen/login_background.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

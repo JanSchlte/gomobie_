@@ -18,8 +18,8 @@ class App extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         textSelectionHandleColor: Color(0xFF1ABC9C),
-        //TODO: TextSelectionHandleColor eigentlich umgestellt, bleibt aber immer noch blau
         primaryColor: Color(0xFF1ABC9C),
+        cursorColor: Color(0xFF1ABC9C),
         fontFamily: 'Avenir',
         visualDensity: VisualDensity.adaptivePlatformDensity,
         buttonColor: Color(0xFF1ABC9C),

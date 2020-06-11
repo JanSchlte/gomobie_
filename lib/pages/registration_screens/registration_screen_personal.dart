@@ -74,7 +74,10 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                                           ),
                                           Expanded(child: Container()),
                                           DropdownButton<String>(
-                                            style: TextStyle(fontSize: 15.0),
+                                            style: TextStyle(
+                                              fontSize: 15.0,
+                                              color: Colors.grey.shade500,
+                                            ),
                                             hint: _country == null
                                                 ? Text('Auswählen')
                                                 : Text(_country),
@@ -87,7 +90,9 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                                                 child: Text(
                                                   value,
                                                   style: TextStyle(
-                                                      color: Colors.black),
+                                                    color: Colors.grey.shade500,
+                                                    fontSize: 15,
+                                                  ),
                                                 ),
                                               );
                                             }).toList(),
