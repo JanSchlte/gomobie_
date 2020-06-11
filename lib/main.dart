@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gomobie/pages/registration_screen_1.dart';
 
 import 'pages/intro_screen.dart';
 import 'pages/login_screen.dart';
@@ -21,7 +22,8 @@ class App extends StatelessWidget {
       ),
       routes: {
         IntroScreen.routeName: (_) => IntroScreen(),
-        LoginScreen.routeName: (_) => LoginScreen()
+        LoginScreen.routeName: (_) => LoginScreen(),
+        RegistrationScreenOne.routeName: (_) => RegistrationScreenOne()
       },
       initialRoute: IntroScreen.routeName,
     );

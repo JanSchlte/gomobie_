@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 import '../validators.dart' as validators;
+import 'registration_screen_1.dart';
 
 class LoginScreen extends StatelessWidget {
   static const routeName = '/login';
@@ -137,7 +138,9 @@ class LoginScreen extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
         FlatButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed(RegistrationScreenOne.routeName);
+          },
           child: Text(
             'Hier registrieren',
             style: TextStyle(color: Theme.of(context).primaryColor),
