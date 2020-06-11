@@ -1,0 +1,23 @@
+include: package:effective_dart/analysis_options.yaml
+
+linter:
+  rules:
+    - prefer_final_locals
+    - prefer_final_in_for_each
+    - prefer_const_declarations
+    - prefer_single_quotes
+    - prefer_if_elements_to_conditional_expressions
+    - prefer_if_null_operators
+    - prefer_is_empty
+    - prefer_null_aware_operators
+    - prefer_typing_uninitialized_variables
+    - recursive_getters
+    - unnecessary_await_in_return
+
+analyzer:
+  strong-mode:
+    implicit-casts: false
+  exclude:
+    - lib/api/src/models/*.g.dart
+  enable-experiment:
+    - extension-methods
