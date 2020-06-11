@@ -83,6 +83,16 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+<<<<<<< HEAD
+=======
+  flutter_svg:
+    dependency: "direct main"
+    description:
+      name: flutter_svg
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.17.4"
+>>>>>>> a6f35c2045b6da4017bbeac150f0053309200386
   flutter_test:
     dependency: "direct dev"
     description: flutter

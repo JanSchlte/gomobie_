@@ -735,6 +735,11 @@
 <g mask="url(#mask115)">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M151.637 48.0459L151.604 48.0242L151.667 48.0427L151.637 48.0459Z" fill="#FF9248"/>
 </g>
+<linearGradient id="paint0_linear" x1="159.429" y1="62.1494" x2="156.598" y2="61.2892" gradientUnits="userSpaceOnUse">
+<stop/>
+<stop offset="0.577133" stop-color="#7D7D7D"/>
+<stop offset="1"/>
+</linearGradient>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M149.053 37.7085C149.053 37.7085 154.614 59.3966 158.763 62.4082C158.763 62.4082 162.754 59.0785 156.847 42.9421C156.847 42.9421 162.72 38.9782 160.081 15.8303H157.24C157.24 15.8303 158.337 31.7939 149.053 37.7085Z" fill="#1ABC9C"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M142.95 38.9582C142.95 38.9582 140.745 54.6238 141.836 63.4989C141.836 63.4989 138.275 64.9832 137.746 62.0709C137.217 59.1583 139.29 46.2706 139.29 46.2706C139.29 46.2706 124.832 41.3981 124.213 27.4959L125.817 26.3838C125.817 26.3838 129.554 38.6471 142.95 38.9582Z" fill="#1ABC9C"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M160.124 16.3209L159.858 14.3378C159.858 14.3378 159.644 11.4638 158.095 11.3142C156.547 11.1645 154.722 13.5208 156.683 14.6683L157.283 16.3209H160.124Z" fill="#F87673"/>
@@ -878,11 +883,6 @@
 <path fill-rule="evenodd" clip-rule="evenodd" d="M166.378 186.948C167.278 185.425 168.495 184.083 170.128 183.179C167.02 183.42 165.205 184.995 164.105 186.948H166.378Z" fill="#0C0E35"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M164.147 186.948C164.653 186.066 165.305 185.259 166.157 184.614C166.953 182.875 168.058 181.732 169.376 180.918C166.339 181.408 164.262 183.549 163.354 186.948H164.147Z" fill="#270243"/>
 <defs>
-<linearGradient id="paint0_linear" x1="159.429" y1="62.1494" x2="156.598" y2="61.2892" gradientUnits="userSpaceOnUse">
-<stop/>
-<stop offset="0.577133" stop-color="#7D7D7D"/>
-<stop offset="1"/>
-</linearGradient>
 <linearGradient id="paint1_linear" x1="212.541" y1="58.6958" x2="211.874" y2="62.5022" gradientUnits="userSpaceOnUse">
 <stop/>
 <stop offset="0.577133" stop-color="#7D7D7D"/>
