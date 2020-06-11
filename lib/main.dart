@@ -18,7 +18,7 @@ class App extends StatelessWidget {
         fontFamily: 'Avenir',
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: RegistrationScreenOne(),
+      home: IntroScreen(),
     );
   }
 }
