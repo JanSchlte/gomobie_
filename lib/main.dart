@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:gomobie/pages/intro_screen.dart';
+import 'package:gomobie/pages/registration_screen_1.dart';
+
+import 'pages/intro_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(App());
 }
 
-class MyApp extends StatelessWidget {
+class App extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Color(0xFF1ABC9C),
+        fontFamily: 'Avenir',
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: IntroScreen(),
+      home: RegistrationScreenOne(),
     );
   }
 }

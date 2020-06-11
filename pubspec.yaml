@@ -56,13 +56,21 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - assets/intro_screens/intro_screen_1.svg
+    - assets/intro_screens/intro_screen_1.png
+    - assets/intro_screens/intro_screen_2.png
+    - assets/intro_screens/intro_screen_3.png
+    - assets/registration_screens/registration_head.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
+  fonts:
+    - family: Metropolis
+      fonts:
+        - asset: fonts/Metropolis-Regular.ttf
+        - asset: fonts/Metropolis-Medium.ttf
+          weight: 500
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
