@@ -16,6 +16,7 @@ class App extends StatelessWidget {
         primaryColor: Color(0xFF1ABC9C),
         fontFamily: 'Avenir',
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        buttonColor: Color(0xFF1ABC9C),
       ),
       home: IntroScreen(),
     );
