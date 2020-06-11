@@ -70,18 +70,24 @@ class RegistrationSuccess extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  FlatButton(
-                    onPressed: () {
-                      //TODO: Insert Home-Route
-                      //Navigator.of(context).pushNamed(home-route.routeName);
-                    },
-                    child: Text(
-                      'Verwaltungskonto',
-                      style: TextStyle(color: Theme.of(context).primaryColor),
+                  ButtonTheme(
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    padding: EdgeInsets.zero,
+                    minWidth: 0,
+                    height: 0,
+                    child: FlatButton(
+                      onPressed: () {
+                        //TODO: Insert Home-Route
+                        //Navigator.of(context).pushNamed(home-route.routeName);
+                      },
+                      child: Text(
+                        'Verwaltungskonto',
+                        style: TextStyle(color: Theme.of(context).primaryColor),
+                      ),
                     ),
                   ),
                   Text(
-                    'durchführen',
+                    ' durchführen',
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.grey),
                   ),

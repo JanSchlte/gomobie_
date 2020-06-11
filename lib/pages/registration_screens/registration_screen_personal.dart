@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gomobie/pages/registration_screens/registration_screen_contact_data.dart';
+import 'package:gomobie/util/routes/registration_screen_contact_args.dart';
 import 'package:intl/intl.dart';
 
 class RegistrationScreenOne extends StatefulWidget {
@@ -304,7 +306,24 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                             ),
                             Expanded(
                               child: RaisedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  if (_formKey.currentState.validate()) {
+                                    Navigator.of(context).pushNamed(
+                                      RegistrationScreenContactData.routeName,
+                                      arguments:
+                                          RegistrationScreenContactArguments(
+                                        _firstNameController.text,
+                                        _lastNameController.text,
+                                        _postalCodeController.text,
+                                        _cityController.text,
+                                        _streetController.text,
+                                        _country,
+                                        _title,
+                                        _birthday,
+                                      ),
+                                    );
+                                  }
+                                },
                                 elevation: 0,
                                 padding: EdgeInsets.symmetric(vertical: 20),
                                 child: Text(
