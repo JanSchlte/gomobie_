@@ -3,6 +3,7 @@ import 'package:gomobie/pages/registration_screen_1.dart';
 
 import 'pages/intro_screen.dart';
 import 'pages/login_screen.dart';
+import 'pages/registration_success.dart';
 
 void main() {
   runApp(App());
@@ -25,7 +26,8 @@ class App extends StatelessWidget {
       routes: {
         IntroScreen.routeName: (_) => IntroScreen(),
         LoginScreen.routeName: (_) => LoginScreen(),
-        RegistrationScreenOne.routeName: (_) => RegistrationScreenOne()
+        RegistrationScreenOne.routeName: (_) => RegistrationScreenOne(),
+        RegistrationSuccess.routeName: (_) => RegistrationSuccess()
       },
       initialRoute: IntroScreen.routeName,
     );
