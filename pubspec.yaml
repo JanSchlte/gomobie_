@@ -60,6 +60,8 @@ flutter:
     - assets/intro_screens/intro_screen_2.png
     - assets/intro_screens/intro_screen_3.png
     - assets/registration_screens/registration_head.png
+    - assets/registration_screens/registration_bankkarte.png
+    - assets/registration_screens/registration_successful.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
