@@ -32,8 +32,7 @@ class App extends StatelessWidget {
         RegistrationScreenContactData.routeName: (_) =>
             RegistrationScreenContactData()
       },
-      home: RegistrationSuccess(),
-      //initialRoute: IntroScreen.routeName,
+      initialRoute: IntroScreen.routeName,
     );
   }
 }
