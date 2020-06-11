@@ -8,6 +8,7 @@ class RegistrationScreenOne extends StatefulWidget {
 class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
   List<String> availableCountries = ['Deutschland', 'Österreich'];
   List<String> titles = ['Herr', 'Frau', 'Andere'];
+  String country = '';
 
   @override
   Widget build(BuildContext context) {
@@ -31,16 +32,40 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                 ),
               ),
               SizedBox(
-                height: 30.0,
+                height: 48.0,
               ),
               Row(
                 children: <Widget>[
-                  Text('Land'),
-                  /*
-                  DropdownButton<String>(
-                    items: availableCountries,
-                  ),*/
+                  Padding(
+                    padding: const EdgeInsets.only(left: 40.0),
+                    child: Text(
+                      'Land',
+                      style: TextStyle(color: Colors.grey.shade500),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 190.0),
+                    // TODO: Adjust the position so that it is not hard coded but dependent on the individual screen size
+                    child: DropdownButton<String>(
+                      hint: country == '' ? Text('Auswählen') : Text(country),
+                      items: <String>['Deutschland', 'Österreich']
+                          .map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String newValue) {
+                        setState(() {
+                          country = newValue;
+                        });
+                      },
+                    ),
+                  )
                 ],
+              ),
+              SizedBox(
+                height: 10.0,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 40.0),
