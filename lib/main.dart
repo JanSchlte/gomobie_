@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gomobie/pages/registration_screen_1.dart';
 
 import 'pages/intro_screen.dart';
+import 'pages/login_screen.dart';
 
 void main() {
   runApp(App());
@@ -17,8 +17,13 @@ class App extends StatelessWidget {
         primaryColor: Color(0xFF1ABC9C),
         fontFamily: 'Avenir',
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        buttonColor: Color(0xFF1ABC9C),
       ),
-      home: IntroScreen(),
+      routes: {
+        IntroScreen.routeName: (_) => IntroScreen(),
+        LoginScreen.routeName: (_) => LoginScreen()
+      },
+      initialRoute: IntroScreen.routeName,
     );
   }
 }
