@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'pages/intro_screen.dart';
+import 'pages/login_screen.dart';
 
 void main() {
   runApp(App());
@@ -18,7 +19,11 @@ class App extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         buttonColor: Color(0xFF1ABC9C),
       ),
-      home: IntroScreen(),
+      routes: {
+        IntroScreen.routeName: (_) => IntroScreen(),
+        LoginScreen.routeName: (_) => LoginScreen()
+      },
+      initialRoute: IntroScreen.routeName,
     );
   }
 }

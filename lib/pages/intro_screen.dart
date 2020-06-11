@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gomobie/pages/intro_screen/first_screen.dart';
 
-enum IntroScreenProgress { first, second, third }
+import 'intro_screen/first_screen.dart';
+import 'login_screen.dart';
 
 class IntroScreen extends StatefulWidget {
+  static const routeName = '/intro';
+
   IntroScreen({Key key}) : super(key: key);
 
   @override
@@ -135,6 +137,9 @@ class _IntroScreenState extends State<IntroScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              SizedBox(
+                height: 30,
+              ),
               Expanded(
                 child: PageView.builder(
                   controller: _controller,
@@ -151,9 +156,13 @@ class _IntroScreenState extends State<IntroScreen> {
               ),
               RaisedButton(
                 onPressed: () {
-                  _controller.nextPage(
-                      duration: Duration(milliseconds: 500),
-                      curve: Curves.easeIn);
+                  if (_currentPage == 2) {
+                    Navigator.of(context).pushNamed(LoginScreen.routeName);
+                  } else {
+                    _controller.nextPage(
+                        duration: Duration(milliseconds: 500),
+                        curve: Curves.easeIn);
+                  }
                 },
                 child: Text('WEITER'),
                 textColor: Colors.white,
@@ -166,7 +175,9 @@ class _IntroScreenState extends State<IntroScreen> {
                 height: 20,
               ),
               FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed(LoginScreen.routeName);
+                },
                 child: Text(
                   'ÜBERSPRINGEN',
                   style: TextStyle(
