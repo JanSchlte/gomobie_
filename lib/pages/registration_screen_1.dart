@@ -6,9 +6,8 @@ class RegistrationScreenOne extends StatefulWidget {
 }
 
 class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
-  List<String> availableCountries = ['Deutschland', 'Österreich'];
-  List<String> titles = ['Herr', 'Frau', 'Andere'];
   String country = '';
+  String title = '';
 
   @override
   Widget build(BuildContext context) {
@@ -40,13 +39,15 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                     padding: const EdgeInsets.only(left: 40.0),
                     child: Text(
                       'Land',
-                      style: TextStyle(color: Colors.grey.shade500),
+                      style: TextStyle(
+                          color: Colors.grey.shade500, fontSize: 15.0),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 190.0),
                     // TODO: Adjust the position so that it is not hard coded but dependent on the individual screen size
                     child: DropdownButton<String>(
+                      style: TextStyle(fontSize: 15.0),
                       hint: country == '' ? Text('Auswählen') : Text(country),
                       items: <String>['Deutschland', 'Österreich']
                           .map((String value) {
@@ -65,7 +66,52 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                 ],
               ),
               SizedBox(
-                height: 10.0,
+                height: 4.0,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40.0),
+                child: Container(
+                  height: 3.0,
+                  color: Colors.grey.shade200,
+                ),
+              ),
+              Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 40.0),
+                    child: Text(
+                      'Anrede',
+                      style: TextStyle(
+                          color: Colors.grey.shade500, fontSize: 15.0),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 190.0),
+                    // TODO: Adjust the position so that it is not hard coded but dependent on the individual screen size
+                    child: DropdownButton<String>(
+                      style: TextStyle(
+                        color: Colors.grey.shade500,
+                        fontSize: 15,
+                      ),
+                      hint: title == '' ? Text('Auswählen') : Text(title),
+                      items: <String>['Herr', 'Frau', 'Andere']
+                          .map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String newValue) {
+                        setState(() {
+                          title = newValue;
+                        });
+                      },
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 4.0,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 40.0),
