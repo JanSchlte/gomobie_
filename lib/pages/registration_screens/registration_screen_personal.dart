@@ -137,7 +137,7 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                                       ),
                                       Divider(thickness: 1),
                                       TextFormField(
-                                        decoration: InputDecoration.collapsed(
+                                        decoration: InputDecoration(
                                             hintText: 'Vorname',
                                             hintStyle: TextStyle(
                                               color: Colors.grey.shade500,
@@ -153,7 +153,7 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                                       ),
                                       Divider(thickness: 1),
                                       TextFormField(
-                                        decoration: InputDecoration.collapsed(
+                                        decoration: InputDecoration(
                                             hintText: 'Nachname',
                                             hintStyle: TextStyle(
                                               color: Colors.grey.shade500,
@@ -228,7 +228,7 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                                       TextFormField(
                                         keyboardType: TextInputType.number,
                                         controller: _postalCodeController,
-                                        decoration: InputDecoration.collapsed(
+                                        decoration: InputDecoration(
                                             hintText: 'Postleitzahl',
                                             hintStyle: TextStyle(
                                               color: Colors.grey.shade500,
@@ -247,7 +247,7 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                                       Divider(thickness: 1),
                                       TextFormField(
                                         controller: _cityController,
-                                        decoration: InputDecoration.collapsed(
+                                        decoration: InputDecoration(
                                             hintText: 'City',
                                             hintStyle: TextStyle(
                                               color: Colors.grey.shade500,
@@ -263,7 +263,7 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                                       Divider(thickness: 1),
                                       TextFormField(
                                         controller: _streetController,
-                                        decoration: InputDecoration.collapsed(
+                                        decoration: InputDecoration(
                                             hintText: 'Straße/Nr.',
                                             hintStyle: TextStyle(
                                               color: Colors.grey.shade500,
