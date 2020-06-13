@@ -51,8 +51,8 @@ class _RegistrationScreenContactDataState
                         ),
                       ),
                       Text(
-                        'Können auch die des Enrziehungsberechtigten\n'
-                        'entsprechen',
+                        'Können auch die des Erziehungsberechtigten\n'
+                        'sein',
                         style: TextStyle(color: Colors.grey),
                         textAlign: TextAlign.center,
                       ),

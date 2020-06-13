@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:gomobie/pages/create_child_account/child_account_bank.dart';
+import 'package:gomobie/pages/create_child_account/child_account_contact_data.dart';
 import 'package:gomobie/pages/create_child_account/child_account_personal.dart';
+import 'package:gomobie/pages/create_child_account/child_account_success.dart';
 import 'package:gomobie/pages/registration_screens/registration_screen_contact_data.dart';
 import 'package:gomobie/pages/registration_screens/registration_screen_personal.dart';
 import 'pages/create_child_account/child_account_personal.dart';
 
 import 'pages/intro_screen.dart';
 import 'pages/login_screen.dart';
-import 'pages/registration_success.dart';
+import 'pages/registration_screens/registration_success.dart';
 
 void main() {
   runApp(App());
@@ -33,9 +36,13 @@ class App extends StatelessWidget {
         RegistrationSuccess.routeName: (_) => RegistrationSuccess(),
         RegistrationScreenContactData.routeName: (_) =>
             RegistrationScreenContactData(),
-        ChildAccountPersonal.routeName: (_) => ChildAccountPersonal()
+        ChildAccountPersonal.routeName: (_) => ChildAccountPersonal(),
+        ChildAccountContactData.routeName: (_) => ChildAccountContactData(),
+        // ignore: lines_longer_than_80_chars
+        ChildAccountBank.routeName: (_) => ChildAccountBank(),
+        ChildRegistrationSuccess.routeName: (_) => ChildRegistrationSuccess()
       },
-      initialRoute: ChildAccountPersonal.routeName,
+      initialRoute: IntroScreen.routeName,
     );
   }
 }

@@ -1,24 +1,31 @@
 import 'package:flutter/material.dart';
-import 'file:///D:/Business/Flutter/gomobie/lib/pages/registration_screens/registration_success.dart';
+import 'package:flutter/painting.dart';
+import 'package:gomobie/pages/create_child_account/child_account_bank.dart';
+import 'package:gomobie/pages/registration_screens/registration_screen_bank.dart';
 
-class RegistrationScreenBank extends StatefulWidget {
-  static const routeName = '/register/bank';
+import '../../util/routes/registration_screen_contact_args.dart';
+import '../../validators.dart' as validators;
+
+class ChildAccountContactData extends StatefulWidget {
+  static const routeName = '/child_register/contact';
 
   @override
-  _RegistrationScreenBankState createState() => _RegistrationScreenBankState();
+  _ChildAccountContactDataState createState() =>
+      _ChildAccountContactDataState();
 }
 
-class _RegistrationScreenBankState extends State<RegistrationScreenBank> {
-  final TextEditingController _accountHolderController =
-      TextEditingController();
-  final TextEditingController _ibanController = TextEditingController();
-  final TextEditingController _bicController = TextEditingController();
-  final TextEditingController _cardNumberController = TextEditingController();
-  final TextEditingController _validUntilController = TextEditingController();
+class _ChildAccountContactDataState extends State<ChildAccountContactData> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _idNumberController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
+  bool _hidePassword = true;
 
   @override
   Widget build(BuildContext context) {
+    final arguments = ModalRoute.of(context).settings.arguments
+        as RegistrationScreenContactArguments;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -32,16 +39,21 @@ class _RegistrationScreenBankState extends State<RegistrationScreenBank> {
                       SizedBox(
                         height: 30.0,
                       ),
-                      Image.asset(
-                          'assets/registration_screens/registration_bankkarte.png'),
+                      Image.asset('assets/child_account/kinderkonto_child.png'),
                       SizedBox(height: 30.0),
                       Text(
-                        'Bankkonto hinzufügen',
+                        'Optionale Daten',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 22.0,
                           fontWeight: FontWeight.w600,
                         ),
+                      ),
+                      Text(
+                        'Können auch die des Erziehungsberechtigten\n'
+                        'sein',
+                        style: TextStyle(color: Colors.grey),
+                        textAlign: TextAlign.center,
                       ),
                       SizedBox(
                         height: 24.0,
@@ -61,47 +73,53 @@ class _RegistrationScreenBankState extends State<RegistrationScreenBank> {
                                   child: Column(
                                     children: [
                                       TextFormField(
-                                        controller: _accountHolderController,
+                                        keyboardType:
+                                            TextInputType.emailAddress,
+                                        controller: _emailController,
                                         decoration: InputDecoration(
-                                            hintText: 'Kontoinhaber',
+                                            hintText: 'Email',
                                             hintStyle: TextStyle(
                                               color: Colors.grey.shade500,
                                               fontSize: 15,
                                             )),
-                                        validator: (id) {
-                                          if (id.trim().isEmpty) {
-                                            return 'Dieses Feld kann nicht leer sein';
+                                        validator: (email) {
+                                          if (email.trim().isEmpty) {
+                                            return 'Dieses Feld darf nicht leer sein';
+                                          } else if (!validators
+                                              .isValidEmail(email)) {
+                                            return 'Ungültige Email-Adresse';
                                           }
                                           return null;
                                         },
                                       ),
                                       Divider(thickness: 1),
                                       TextFormField(
-                                        controller: _ibanController,
+                                        controller: _phoneNumberController,
+                                        keyboardType: TextInputType.phone,
                                         decoration: InputDecoration(
-                                            hintText: 'IBAN',
-                                            hintStyle: TextStyle(
-                                              color: Colors.grey.shade500,
-                                              fontSize: 15,
-                                            )),
-                                        validator: (id) {
-                                          if (id.trim().isEmpty) {
-                                            return 'Dieses Feld kann nicht leer sein';
-                                          }
-                                          return null;
-                                        },
-                                      ),
-                                      Divider(thickness: 1),
-                                      TextFormField(
-                                        controller: _bicController,
-                                        decoration: InputDecoration(
-                                            hintText: 'BIC',
+                                            hintText: 'Handynummer',
                                             hintStyle: TextStyle(
                                               color: Colors.grey.shade500,
                                               fontSize: 15,
                                             )),
                                         validator: (phoneNumber) {
                                           if (phoneNumber.trim().isEmpty) {
+                                            return 'Dieses Feld kann nicht leer sein';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      Divider(thickness: 1),
+                                      TextFormField(
+                                        controller: _idNumberController,
+                                        decoration: InputDecoration(
+                                            hintText: 'Ausweisnummer',
+                                            hintStyle: TextStyle(
+                                              color: Colors.grey.shade500,
+                                              fontSize: 15,
+                                            )),
+                                        validator: (id) {
+                                          if (id.trim().isEmpty) {
                                             return 'Dieses Feld kann nicht leer sein';
                                           }
                                           return null;
@@ -111,9 +129,7 @@ class _RegistrationScreenBankState extends State<RegistrationScreenBank> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 10),
-                              Text('optional'),
-                              SizedBox(height: 10),
+                              SizedBox(height: 20),
                               Card(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(25)),
@@ -123,33 +139,40 @@ class _RegistrationScreenBankState extends State<RegistrationScreenBank> {
                                   child: Column(
                                     children: [
                                       TextFormField(
-                                        keyboardType: TextInputType.number,
-                                        controller: _cardNumberController,
+                                        controller: _passwordController,
+                                        obscureText: _hidePassword,
                                         decoration: InputDecoration(
-                                            hintText: 'Kartennummer',
-                                            hintStyle: TextStyle(
-                                              color: Colors.grey.shade500,
-                                              fontSize: 15,
-                                            )),
-                                        validator: (id) {
-                                          if (id.trim().isEmpty) {
-                                            return 'Dieses Feld kann nicht leer sein';
+                                          hintText: 'Passwort festlegen',
+                                          hintStyle: TextStyle(
+                                            color: Colors.grey.shade500,
+                                            fontSize: 15,
+                                          ),
+                                          suffixIcon:
+                                              _buildPasswordVisibility(),
+                                        ),
+                                        validator: (password) {
+                                          if (password.trim().length < 8) {
+                                            return 'Das Passwort muss mindestens 8 Zeichen lang sein';
                                           }
                                           return null;
                                         },
                                       ),
                                       Divider(thickness: 1),
                                       TextFormField(
-                                        controller: _validUntilController,
+                                        obscureText: _hidePassword,
                                         decoration: InputDecoration(
-                                            hintText: 'Gültig bis',
-                                            hintStyle: TextStyle(
-                                              color: Colors.grey.shade500,
-                                              fontSize: 15,
-                                            )),
-                                        validator: (phoneNumber) {
-                                          if (phoneNumber.trim().isEmpty) {
-                                            return 'Dieses Feld kann nicht leer sein';
+                                          hintText: 'Passwort wiederholen',
+                                          hintStyle: TextStyle(
+                                            color: Colors.grey.shade500,
+                                            fontSize: 15,
+                                          ),
+                                          suffixIcon:
+                                              _buildPasswordVisibility(),
+                                        ),
+                                        validator: (password) {
+                                          if (password !=
+                                              _passwordController.text) {
+                                            return 'Die Passwörter stimmen nicht überein';
                                           }
                                           return null;
                                         },
@@ -162,7 +185,6 @@ class _RegistrationScreenBankState extends State<RegistrationScreenBank> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 22),
                       Row(
                         children: <Widget>[
                           Expanded(
@@ -187,13 +209,13 @@ class _RegistrationScreenBankState extends State<RegistrationScreenBank> {
                               onPressed: () {
                                 if (_formKey.currentState.validate()) {
                                   Navigator.of(context)
-                                      .pushNamed(RegistrationSuccess.routeName);
+                                      .pushNamed(ChildAccountBank.routeName);
                                 }
                               },
                               elevation: 0,
                               padding: EdgeInsets.symmetric(vertical: 20),
                               child: Text(
-                                'Fertig',
+                                'Weiter',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 20),
                               ),
@@ -211,5 +233,15 @@ class _RegistrationScreenBankState extends State<RegistrationScreenBank> {
         ),
       ),
     );
+  }
+
+  IconButton _buildPasswordVisibility() {
+    return IconButton(
+        icon: Icon(_hidePassword ? Icons.visibility_off : Icons.visibility),
+        onPressed: () {
+          setState(() {
+            _hidePassword = !_hidePassword;
+          });
+        });
   }
 }

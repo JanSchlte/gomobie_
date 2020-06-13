@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:gomobie/pages/create_child_account/child_account_bank.dart';
+import 'package:gomobie/pages/create_child_account/child_account_contact_data.dart';
 import 'package:gomobie/pages/registration_screens/registration_screen_contact_data.dart';
-import 'package:gomobie/util/routes/registration_screen_contact_args.dart';
 import 'package:intl/intl.dart';
 
 class ChildAccountPersonal extends StatefulWidget {
-  static const routeName = '/child_personal';
+  static const routeName = '/child_register';
 
   @override
   _ChildAccountPersonalState createState() => _ChildAccountPersonalState();
@@ -320,23 +321,13 @@ class _ChildAccountPersonalState extends State<ChildAccountPersonal> {
                             ),
                             Expanded(
                               child: RaisedButton(
-                                //TODO: (Am besten mit Provider) prüfen, ob PLZ, Stadt und Straße mit den Daten der Erziehungsberechtigten übereinstimmen
                                 onPressed: () {
                                   if (_formKey.currentState.validate()) {
                                     Navigator.of(context).pushNamed(
-                                      RegistrationScreenContactData.routeName,
-                                      arguments:
-                                          RegistrationScreenContactArguments(
-                                        _firstNameController.text,
-                                        _lastNameController.text,
-                                        _postalCodeController.text,
-                                        _cityController.text,
-                                        _streetController.text,
-                                        _country,
-                                        _title,
-                                        _birthday,
-                                      ),
-                                    );
+                                        ChildAccountContactData.routeName,
+                                        arguments: null
+                                        //TODO: An ChildContactArguments weitergeben
+                                        );
                                   }
                                 },
                                 elevation: 0,
