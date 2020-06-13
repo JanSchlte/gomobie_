@@ -234,7 +234,8 @@ class _ChildAccountPersonalState extends State<ChildAccountPersonal> {
                               SizedBox(height: 25),
                               Card(
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25)),
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
                                 elevation: 1,
                                 child: Padding(
                                   padding: const EdgeInsets.all(20),

@@ -38,11 +38,10 @@ class App extends StatelessWidget {
             RegistrationScreenContactData(),
         ChildAccountPersonal.routeName: (_) => ChildAccountPersonal(),
         ChildAccountContactData.routeName: (_) => ChildAccountContactData(),
-        // ignore: lines_longer_than_80_chars
         ChildAccountBank.routeName: (_) => ChildAccountBank(),
         ChildRegistrationSuccess.routeName: (_) => ChildRegistrationSuccess()
       },
-      initialRoute: IntroScreen.routeName,
+      initialRoute: ChildAccountPersonal.routeName,
     );
   }
 }
