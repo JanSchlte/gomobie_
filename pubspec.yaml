@@ -63,6 +63,7 @@ flutter:
     - assets/logo/app_logo.png
     - assets/login_screen/login_background.png
     - assets/registration_screens/registration_head.png
+    - assets/registration_screens/registration_bankkarte.png
     - assets/registration_screens/2.0x/registration_head.png
     - assets/registration_screens/3.0x/registration_head.png
     - assets/registration_screens/4.0x/registration_head.png
