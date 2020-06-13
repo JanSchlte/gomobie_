@@ -3,14 +3,14 @@ import 'package:gomobie/pages/registration_screens/registration_screen_contact_d
 import 'package:gomobie/util/routes/registration_screen_contact_args.dart';
 import 'package:intl/intl.dart';
 
-class RegistrationScreenOne extends StatefulWidget {
-  static const routeName = '/register';
+class ChildAccountPersonal extends StatefulWidget {
+  static const routeName = '/child_personal';
 
   @override
-  _RegistrationScreenOneState createState() => _RegistrationScreenOneState();
+  _ChildAccountPersonalState createState() => _ChildAccountPersonalState();
 }
 
-class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
+class _ChildAccountPersonalState extends State<ChildAccountPersonal> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _postalCodeController = TextEditingController();
@@ -39,7 +39,7 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                           height: 30.0,
                         ),
                         Image.asset(
-                            'assets/registration_screens/registration_head.png'),
+                            'assets/child_account/kinderkonto_child.png'),
                         SizedBox(height: 30.0),
                         Text(
                           'Persönliche Daten',
@@ -187,19 +187,18 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                                               final birthday =
                                                   await showDatePicker(
                                                 context: context,
-                                                //TODO: This won't work with "Schaltjahre"
-                                                //TODO: Ich glaube die Zahlen sind falsch, da man ja nicht das 18te Lebensjahr vollenden muss, sondern schon am ersten Tag dieses Lebensjahres access hat
+                                                //TODO: Not sure whether these are the correct numbers. Especially initalDate
                                                 initialDate: DateTime.now()
                                                     .subtract(Duration(
                                                         days: (365.25 * 18)
                                                             .ceil())),
                                                 firstDate: DateTime.now()
                                                     .subtract(Duration(
-                                                        days: (365.25 * 125)
+                                                        days: (365.25 * 17)
                                                             .ceil())),
                                                 lastDate: DateTime.now()
                                                     .subtract(Duration(
-                                                        days: (365.25 * 18)
+                                                        days: (365.25 * 6)
                                                             .ceil())),
                                               );
                                               setState(() {
@@ -222,7 +221,16 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 20),
+                              SizedBox(height: 25),
+                              Text(
+                                'Folgende Daten müssen mit mindestens einem \n'
+                                'Erziehungsberechtigten übereinstimmen:',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.grey.shade500,
+                                ),
+                              ),
+                              SizedBox(height: 25),
                               Card(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(25)),
@@ -312,6 +320,7 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                             ),
                             Expanded(
                               child: RaisedButton(
+                                //TODO: (Am besten mit Provider) prüfen, ob PLZ, Stadt und Straße mit den Daten der Erziehungsberechtigten übereinstimmen
                                 onPressed: () {
                                   if (_formKey.currentState.validate()) {
                                     Navigator.of(context).pushNamed(
