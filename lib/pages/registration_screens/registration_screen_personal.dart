@@ -253,7 +253,7 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                                       TextFormField(
                                         controller: _cityController,
                                         decoration: InputDecoration(
-                                            hintText: 'City',
+                                            hintText: 'Stadt',
                                             hintStyle: TextStyle(
                                               color: Colors.grey.shade500,
                                               fontSize: 15,

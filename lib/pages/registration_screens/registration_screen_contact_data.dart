@@ -153,7 +153,7 @@ class _RegistrationScreenContactDataState
                                         ),
                                         validator: (password) {
                                           if (password.trim().length < 8) {
-                                            return 'Das Passwort muss mindestens 8 zeichen lang sein';
+                                            return 'Das Passwort muss mindestens 8 Zeichen lang sein';
                                           }
                                           return null;
                                         },
