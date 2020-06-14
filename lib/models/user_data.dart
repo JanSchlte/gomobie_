@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import '../extensions/map.dart';
+import 'bank_account.dart';
+import 'credit_card.dart';
 
 class UserData {
   final DocumentSnapshot snapshot;
@@ -23,6 +26,12 @@ class UserData {
   String get street => snapshot.data.get('street') as String;
 
   String get title => snapshot.data.get('title') as String;
+
+  Future<List<BankAccount>> get bankAccounts =>
+      BankAccount.get(snapshot.reference);
+
+  Future<List<CreditCard>> get creditCards =>
+      CreditCard.get(snapshot.reference);
 
   static Future<UserData> get(FirebaseUser user) async {
     final doc =
