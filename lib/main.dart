@@ -41,7 +41,8 @@ class App extends StatelessWidget {
         ChildAccountBank.routeName: (_) => ChildAccountBank(),
         ChildRegistrationSuccess.routeName: (_) => ChildRegistrationSuccess()
       },
-      initialRoute: ChildAccountPersonal.routeName,
+      //initialRoute: ChildAccountBank.routeName,
+      initialRoute: IntroScreen.routeName,
     );
   }
 }
