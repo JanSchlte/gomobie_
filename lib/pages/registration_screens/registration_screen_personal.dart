@@ -188,7 +188,6 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                                                   await showDatePicker(
                                                 context: context,
                                                 //TODO: This won't work with "Schaltjahre"
-                                                //TODO: Ich glaube die Zahlen sind falsch, da man ja nicht das 18te Lebensjahr vollenden muss, sondern schon am ersten Tag dieses Lebensjahres access hat
                                                 initialDate: DateTime.now()
                                                     .subtract(Duration(
                                                         days: (365.25 * 18)
@@ -201,6 +200,29 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                                                     .subtract(Duration(
                                                         days: (365.25 * 18)
                                                             .ceil())),
+                                                builder: (BuildContext context,
+                                                    Widget child) {
+                                                  return Theme(
+                                                    data: ThemeData.light()
+                                                        .copyWith(
+                                                      primaryColor: const Color(
+                                                          0xFF1ABC9C),
+                                                      accentColor: const Color(
+                                                          0xFF1ABC9C),
+                                                      colorScheme:
+                                                          ColorScheme.light(
+                                                        primary: const Color(
+                                                            0xFF1ABC9C),
+                                                      ),
+                                                      buttonTheme:
+                                                          ButtonThemeData(
+                                                              textTheme:
+                                                                  ButtonTextTheme
+                                                                      .primary),
+                                                    ),
+                                                    child: child,
+                                                  );
+                                                },
                                               );
                                               setState(() {
                                                 _birthday = birthday;

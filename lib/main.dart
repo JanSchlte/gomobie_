@@ -24,6 +24,8 @@ class App extends StatelessWidget {
       theme: ThemeData(
         textSelectionHandleColor: Color(0xFF1ABC9C),
         primaryColor: Color(0xFF1ABC9C),
+        accentColor: Color(0xFF1ABC9C),
+        splashColor: Color(0xFF1ABC9C),
         cursorColor: Color(0xFF1ABC9C),
         fontFamily: 'Avenir',
         visualDensity: VisualDensity.adaptivePlatformDensity,
