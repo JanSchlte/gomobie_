@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'file:///D:/Business/Flutter/gomobie/lib/pages/registration_screens/registration_success.dart';
+
+import 'registration_success.dart';
 
 class RegistrationScreenBank extends StatefulWidget {
   static const routeName = '/register/bank';

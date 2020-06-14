@@ -1,0 +1,10 @@
+packages: flutter pub get
+build:
+  - $packages
+  - flutter build appbundle
+apk:
+  - $packages
+  - flutter build apk
+clean:
+  - flutter clean
+  - $packages
