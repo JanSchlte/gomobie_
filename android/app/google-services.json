@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1080119425239",
+    "firebase_url": "https://gomobie-finance.firebaseio.com",
+    "project_id": "gomobie-finance",
+    "storage_bucket": "gomobie-finance.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1080119425239:android:ba775fc1f63b68a25e5892",
+        "android_client_info": {
+          "package_name": "de.gomobie.gomobie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1080119425239-a4kdsrlenhiss5lqt9lmdkqbf67u11si.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "de.gomobie.gomobie",
+            "certificate_hash": "bd900265d83d8fe346053b136458ac8fddc5d91f"
+          }
+        },
+        {
+          "client_id": "1080119425239-gngct3atkghupo5d6qlt635ku6i5tnen.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCs3zhC0SfTrUANpbpU3IE2fTUvYZ97BnM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1080119425239-gngct3atkghupo5d6qlt635ku6i5tnen.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

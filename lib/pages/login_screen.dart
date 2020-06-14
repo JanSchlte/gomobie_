@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:gomobie/provider/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../validators.dart' as validators;
 import 'registration_screens/registration_screen_personal.dart';
 
 class LoginScreen extends StatelessWidget {
   static const routeName = '/login';
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   Widget _buildHeader() {
@@ -48,6 +52,7 @@ class LoginScreen extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: TextFormField(
+            controller: _emailController,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               filled: true,
@@ -76,6 +81,7 @@ class LoginScreen extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: TextFormField(
+        controller: _passwordController,
         obscureText: true,
         decoration: InputDecoration(
           filled: true,
@@ -89,8 +95,8 @@ class LoginScreen extends StatelessWidget {
         ),
         style: TextStyle(color: Colors.white),
         validator: (email) {
-          if (email.trim().length < 8) {
-            return 'Mindestends 8 Buchstaben';
+          if (email.trim().length < 6) {
+            return 'Mindestends 6 Buchstaben';
           }
           return null;
         },
@@ -116,10 +122,15 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSignInButton() {
+  Widget _buildSignInButton(BuildContext context) {
     return RaisedButton(
-      onPressed: () {
-        _formKey.currentState.validate();
+      onPressed: () async {
+        if (_formKey.currentState.validate()) {
+          final success = await context.read<AuthProvider>().login(
+                email: _emailController.text,
+                password: _passwordController.text,
+              );
+        }
       },
       child: Text('ANMELDEN'),
       textColor: Colors.white,
@@ -169,7 +180,7 @@ class LoginScreen extends StatelessWidget {
                   _buildEmailField(),
                   _buildPasswordField(),
                   _buildLostPassword(context),
-                  _buildSignInButton(),
+                  _buildSignInButton(context),
                   Expanded(child: Container()),
                   _buildRegisterButton(context),
                 ],
