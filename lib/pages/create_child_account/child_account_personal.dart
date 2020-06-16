@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gomobie/pages/create_child_account/child_account_bank.dart';
 import 'package:gomobie/pages/create_child_account/child_account_contact_data.dart';
 import 'package:gomobie/pages/registration_screens/registration_screen_contact_data.dart';
+import 'package:gomobie/util/routes/child_account_contact_arguments.dart';
 import 'package:intl/intl.dart';
 
 class ChildAccountPersonal extends StatefulWidget {
@@ -348,10 +349,18 @@ class _ChildAccountPersonalState extends State<ChildAccountPersonal> {
                                 onPressed: () {
                                   if (_formKey.currentState.validate()) {
                                     Navigator.of(context).pushNamed(
-                                        ChildAccountContactData.routeName,
-                                        arguments: null
-                                        //TODO: An ChildContactArguments weitergeben
-                                        );
+                                      ChildAccountContactData.routeName,
+                                      arguments: ChildAccountContactArguments(
+                                        _firstNameController.text,
+                                        _lastNameController.text,
+                                        _postalCodeController.text,
+                                        _cityController.text,
+                                        _streetController.text,
+                                        _country,
+                                        _title,
+                                        _birthday,
+                                      ),
+                                    );
                                   }
                                 },
                                 elevation: 0,

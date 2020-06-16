@@ -3,6 +3,7 @@ import 'package:gomobie/pages/create_child_account/child_account_bank.dart';
 import 'package:gomobie/pages/create_child_account/child_account_contact_data.dart';
 import 'package:gomobie/pages/create_child_account/child_account_personal.dart';
 import 'package:gomobie/pages/create_child_account/child_account_success.dart';
+import 'package:gomobie/pages/registration_screens/registration_screen_bank.dart';
 import 'package:gomobie/pages/registration_screens/registration_screen_contact_data.dart';
 import 'package:gomobie/pages/registration_screens/registration_screen_personal.dart';
 import 'pages/create_child_account/child_account_personal.dart';
@@ -41,7 +42,7 @@ class App extends StatelessWidget {
         ChildAccountBank.routeName: (_) => ChildAccountBank(),
         ChildRegistrationSuccess.routeName: (_) => ChildRegistrationSuccess()
       },
-      initialRoute: ChildAccountPersonal.routeName,
+      initialRoute: RegistrationScreenBank.routeName,
     );
   }
 }

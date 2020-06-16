@@ -98,7 +98,7 @@ packages:
       name: derry
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.6"
+    version: "0.0.7"
   effective_dart:
     dependency: "direct dev"
     description:
@@ -126,7 +126,7 @@ packages:
       name: file
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.1.0"
+    version: "5.2.0"
   firebase:
     dependency: transitive
     description:
