@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gomobie/pages/registration_screens/registration_screen_contact_data.dart';
+import 'package:gomobie/util/generic_controller.dart';
 import 'package:gomobie/util/routes/registration_screen_contact_args.dart';
+import 'package:gomobie/widgets/birthday_form_field.dart';
+import 'package:gomobie/widgets/drop_down_form_field.dart';
 import 'package:intl/intl.dart';
 
 class RegistrationScreenOne extends StatefulWidget {
@@ -16,9 +19,10 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
   final TextEditingController _postalCodeController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _streetController = TextEditingController();
-  String _country;
-  String _title;
-  DateTime _birthday;
+  final GenericController<String> _titleController = GenericController();
+  final GenericController<String> _countryController = GenericController();
+  final GenericController<DateTime> _birthdayController = GenericController();
+
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   @override
@@ -73,14 +77,18 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                                                 fontSize: 15.0),
                                           ),
                                           Expanded(child: Container()),
-                                          DropdownButton<String>(
+                                          DropDownFormField(
+                                            validator: (v) {
+                                              if (v == null) {
+                                                return 'Bitte auswählen';
+                                              }
+                                              return null;
+                                            },
+                                            controller: _countryController,
                                             style: TextStyle(
                                               fontSize: 15.0,
                                               color: Colors.grey.shade500,
                                             ),
-                                            hint: _country == null
-                                                ? Text('Auswählen')
-                                                : Text(_country),
                                             items: <String>[
                                               'Deutschland',
                                               'Österreich'
@@ -96,12 +104,7 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                                                 ),
                                               );
                                             }).toList(),
-                                            onChanged: (newValue) {
-                                              setState(() {
-                                                _country = newValue;
-                                              });
-                                            },
-                                          )
+                                          ),
                                         ],
                                       ),
                                       Divider(thickness: 1),
@@ -114,14 +117,18 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                                                 fontSize: 15.0),
                                           ),
                                           Expanded(child: Container()),
-                                          DropdownButton<String>(
+                                          DropDownFormField<String>(
+                                            validator: (v) {
+                                              if (v == null) {
+                                                return 'Bitte auswählen';
+                                              }
+                                              return null;
+                                            },
                                             style: TextStyle(
                                               color: Colors.grey.shade500,
                                               fontSize: 15,
                                             ),
-                                            hint: _title == null
-                                                ? Text('Auswählen')
-                                                : Text(_title),
+                                            controller: _titleController,
                                             items: <String>[
                                               'Herr',
                                               'Frau',
@@ -132,11 +139,6 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                                                 child: Text(value),
                                               );
                                             }).toList(),
-                                            onChanged: (newValue) {
-                                              setState(() {
-                                                _title = newValue;
-                                              });
-                                            },
                                           )
                                         ],
                                       ),
@@ -182,39 +184,31 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                                                 fontSize: 15.0),
                                           ),
                                           Expanded(child: Container()),
-                                          FlatButton(
-                                            onPressed: () async {
-                                              final birthday =
-                                                  await showDatePicker(
-                                                context: context,
-                                                //TODO: This won't work with "Schaltjahre"
-                                                //TODO: Ich glaube die Zahlen sind falsch, da man ja nicht das 18te Lebensjahr vollenden muss, sondern schon am ersten Tag dieses Lebensjahres access hat
-                                                initialDate: DateTime.now()
-                                                    .subtract(Duration(
-                                                        days: (365.25 * 18)
-                                                            .ceil())),
-                                                firstDate: DateTime.now()
-                                                    .subtract(Duration(
-                                                        days: (365.25 * 125)
-                                                            .ceil())),
-                                                lastDate: DateTime.now()
-                                                    .subtract(Duration(
-                                                        days: (365.25 * 18)
-                                                            .ceil())),
-                                              );
-                                              setState(() {
-                                                _birthday = birthday;
-                                              });
+                                          BirthdayFormField(
+                                            controller: _birthdayController,
+                                            hint: 'Auswählen',
+                                            validator: (d) {
+                                              if (d == null) {
+                                                return 'Auswählen';
+                                              }
+                                              return null;
                                             },
-                                            child: Text(
-                                              _birthday != null
-                                                  ? '${DateFormat('dd.MM.yyyy').format(_birthday)}'
-                                                  : 'Auswählen',
-                                              style: TextStyle(
-                                                  color: Colors.grey.shade500,
-                                                  fontSize: 15.0),
-                                            ),
-                                          )
+                                            initialDate: DateTime.now()
+                                                .subtract(Duration(
+                                                    days:
+                                                        (365.25 * 18).ceil())),
+                                            firstDate: DateTime.now().subtract(
+                                                Duration(
+                                                    days:
+                                                        (365.25 * 125).ceil())),
+                                            lastDate: DateTime.now().subtract(
+                                                Duration(
+                                                    days:
+                                                        (365.25 * 18).ceil())),
+                                            style: TextStyle(
+                                                color: Colors.grey.shade500,
+                                                fontSize: 15.0),
+                                          ),
                                         ],
                                       ),
                                       Divider(thickness: 1),
@@ -323,9 +317,9 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                                         _postalCodeController.text,
                                         _cityController.text,
                                         _streetController.text,
-                                        _country,
-                                        _title,
-                                        _birthday,
+                                        _countryController.value,
+                                        _titleController.value,
+                                        _birthdayController.value,
                                       ),
                                     );
                                   }

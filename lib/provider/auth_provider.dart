@@ -22,6 +22,17 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  Future<bool> register({String email, String password}) async {
+    try {
+      final authResult = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      _currentUser = authResult.user;
+      return true;
+    } on Exception catch (_) {
+      return false;
+    }
+  }
+
   // Listen to authentication changes
   void _registerListener() {
     FirebaseAuth.instance.onAuthStateChanged.listen(
