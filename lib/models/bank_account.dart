@@ -1,17 +1,30 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../extensions/map.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class BankAccount {
-  final DocumentSnapshot snapshot;
+import 'snapshot_able.dart';
 
-  BankAccount(this.snapshot);
+part 'bank_account.g.dart';
 
-  String get iban => snapshot.data.get("iban") as String;
+@JsonSerializable()
+class BankAccount extends SnapshotAble<BankAccount> {
+  final String iban;
+  final String bic;
 
-  String get bic => snapshot.data.get('bic') as String;
+  BankAccount({
+    this.iban,
+    this.bic,
+    DocumentSnapshot snapshot,
+  }) : super(snapshot);
+
+  @override
+  BankAccount fromJson() => _$BankAccountFromJson(snapshot.data);
+
+  Map<String, dynamic> toJson() => _$BankAccountToJson(this);
 
   static Future<List<BankAccount>> get(DocumentReference reference) async {
     final snap = await reference.collection('bankAccounts').getDocuments();
-    return snap.documents.map((e) => BankAccount(e)).toList();
+    return snap.documents
+        .map((e) => BankAccount(snapshot: e).fromJson())
+        .toList();
   }
 }
