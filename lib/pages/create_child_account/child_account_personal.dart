@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gomobie/pages/create_child_account/child_account_bank.dart';
 import 'package:gomobie/pages/create_child_account/child_account_contact_data.dart';
-import 'package:gomobie/pages/registration_screens/registration_screen_contact_data.dart';
+import 'package:gomobie/util/routes/child_account_contact_arguments.dart';
 import 'package:intl/intl.dart';
 
 class ChildAccountPersonal extends StatefulWidget {
@@ -195,12 +194,35 @@ class _ChildAccountPersonalState extends State<ChildAccountPersonal> {
                                                             .ceil())),
                                                 firstDate: DateTime.now()
                                                     .subtract(Duration(
-                                                        days: (365.25 * 17)
+                                                        days: (365.25 * 18)
                                                             .ceil())),
                                                 lastDate: DateTime.now()
                                                     .subtract(Duration(
-                                                        days: (365.25 * 6)
+                                                        days: (365.25 * 7)
                                                             .ceil())),
+                                                builder: (BuildContext context,
+                                                    Widget child) {
+                                                  return Theme(
+                                                    data: ThemeData.light()
+                                                        .copyWith(
+                                                      primaryColor: const Color(
+                                                          0xFF1ABC9C),
+                                                      accentColor: const Color(
+                                                          0xFF1ABC9C),
+                                                      colorScheme:
+                                                          ColorScheme.light(
+                                                        primary: const Color(
+                                                            0xFF1ABC9C),
+                                                      ),
+                                                      buttonTheme:
+                                                          ButtonThemeData(
+                                                              textTheme:
+                                                                  ButtonTextTheme
+                                                                      .primary),
+                                                    ),
+                                                    child: child,
+                                                  );
+                                                },
                                               );
                                               setState(() {
                                                 _birthday = birthday;
@@ -325,10 +347,18 @@ class _ChildAccountPersonalState extends State<ChildAccountPersonal> {
                                 onPressed: () {
                                   if (_formKey.currentState.validate()) {
                                     Navigator.of(context).pushNamed(
-                                        ChildAccountContactData.routeName,
-                                        arguments: null
-                                        //TODO: An ChildContactArguments weitergeben
-                                        );
+                                      ChildAccountContactData.routeName,
+                                      arguments: ChildAccountContactArguments(
+                                        _firstNameController.text,
+                                        _lastNameController.text,
+                                        _postalCodeController.text,
+                                        _cityController.text,
+                                        _streetController.text,
+                                        _country,
+                                        _title,
+                                        _birthday,
+                                      ),
+                                    );
                                   }
                                 },
                                 elevation: 0,

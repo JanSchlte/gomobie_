@@ -4,7 +4,6 @@ import 'package:gomobie/util/generic_controller.dart';
 import 'package:gomobie/util/routes/registration_screen_contact_args.dart';
 import 'package:gomobie/widgets/birthday_form_field.dart';
 import 'package:gomobie/widgets/drop_down_form_field.dart';
-import 'package:intl/intl.dart';
 
 class RegistrationScreenOne extends StatefulWidget {
   static const routeName = '/register';
@@ -193,18 +192,34 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                                               }
                                               return null;
                                             },
-                                            initialDate: DateTime.now()
-                                                .subtract(Duration(
-                                                    days:
-                                                        (365.25 * 18).ceil())),
+                                            dialogBuilder:
+                                                (BuildContext context,
+                                                    Widget child) {
+                                              return Theme(
+                                                data:
+                                                    ThemeData.light().copyWith(
+                                                  primaryColor:
+                                                      const Color(0xFF1ABC9C),
+                                                  accentColor:
+                                                      const Color(0xFF1ABC9C),
+                                                  colorScheme:
+                                                      ColorScheme.light(
+                                                    primary:
+                                                        const Color(0xFF1ABC9C),
+                                                  ),
+                                                  buttonTheme: ButtonThemeData(
+                                                      textTheme: ButtonTextTheme
+                                                          .primary),
+                                                ),
+                                                child: child,
+                                              );
+                                            },
+                                            initialDate: DateTime.now(),
                                             firstDate: DateTime.now().subtract(
                                                 Duration(
                                                     days:
                                                         (365.25 * 125).ceil())),
-                                            lastDate: DateTime.now().subtract(
-                                                Duration(
-                                                    days:
-                                                        (365.25 * 18).ceil())),
+                                            lastDate: DateTime.now(),
                                             style: TextStyle(
                                                 color: Colors.grey.shade500,
                                                 fontSize: 15.0),

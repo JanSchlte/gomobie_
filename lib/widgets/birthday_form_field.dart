@@ -12,6 +12,7 @@ class BirthdayFormField extends FormField<DateTime> {
   final DateTime initialDate;
   final DateTime firstDate;
   final DateTime lastDate;
+  final TransitionBuilder dialogBuilder;
 
   ///
   BirthdayFormField({
@@ -19,6 +20,7 @@ class BirthdayFormField extends FormField<DateTime> {
     this.validator,
     this.hint,
     this.style,
+    this.dialogBuilder,
     bool autovalidate = true,
     @required this.initialDate,
     @required this.firstDate,
@@ -39,9 +41,12 @@ class BirthdayFormField extends FormField<DateTime> {
                   initialDate: initialDate,
                   firstDate: firstDate,
                   lastDate: lastDate,
+                  builder: dialogBuilder,
                 );
-                if (birthday != null) controller.value = birthday;
-                state.didChange(birthday);
+                if (birthday != null) {
+                  controller.value = birthday;
+                  state.didChange(birthday);
+                }
               },
             );
           },
