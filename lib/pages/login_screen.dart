@@ -4,7 +4,7 @@ import 'package:flutter/painting.dart';
 import 'package:gomobie/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../validators.dart' as validators;
+import '../util/validators.dart' as validators;
 import 'home.dart';
 import 'registration_screens/registration_screen_personal.dart';
 
@@ -95,9 +95,10 @@ class LoginScreen extends StatelessWidget {
           labelStyle: TextStyle(color: Colors.white),
         ),
         style: TextStyle(color: Colors.white),
-        validator: (email) {
-          if (email.trim().length < 6) {
-            return 'Mindestends 6 Buchstaben';
+        validator: (password) {
+          final security = validators.isPasswordSecure(password);
+          if (security != validators.PasswordSecurity.ok) {
+            return security.message();
           }
           return null;
         },

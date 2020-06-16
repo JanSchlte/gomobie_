@@ -194,8 +194,12 @@ class _RegistrationScreenBankState extends State<RegistrationScreenBank> {
                               owner: _accountHolderController.value.text,
                               iban: _ibanController.value.text,
                               bic: _bicController.value.text);
-                          Navigator.of(context)
-                              .pushNamed(RegistrationSuccess.routeName);
+                          if (context.read<AuthProvider>().isRegistering) {
+                            Navigator.of(context)
+                                .pushNamed(RegistrationSuccess.routeName);
+                          } else {
+                            Navigator.of(context).pop();
+                          }
                         }
                       },
                       elevation: 0,

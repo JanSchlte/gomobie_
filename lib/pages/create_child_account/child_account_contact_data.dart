@@ -3,7 +3,7 @@ import 'package:flutter/painting.dart';
 import 'package:gomobie/pages/create_child_account/child_account_bank.dart';
 
 import '../../util/routes/registration_args.dart';
-import '../../validators.dart' as validators;
+import '../../util/validators.dart' as validators;
 
 class ChildAccountContactData extends StatefulWidget {
   static const routeName = '/child_register/contact';
@@ -150,8 +150,11 @@ class _ChildAccountContactDataState extends State<ChildAccountContactData> {
                                               _buildPasswordVisibility(),
                                         ),
                                         validator: (password) {
-                                          if (password.trim().length < 8) {
-                                            return 'Das Passwort muss mindestens 8 Zeichen lang sein';
+                                          final security = validators
+                                              .isPasswordSecure(password);
+                                          if (security !=
+                                              validators.PasswordSecurity.ok) {
+                                            return security.message();
                                           }
                                           return null;
                                         },

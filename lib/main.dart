@@ -38,7 +38,7 @@ class App extends StatelessWidget {
           textSelectionHandleColor: Color(0xFF1ABC9C),
           primaryColor: Color(0xFF1ABC9C),
           cursorColor: Color(0xFF1ABC9C),
-          fontFamily: 'Avenir',
+          fontFamily: 'Metropolis',
           visualDensity: VisualDensity.adaptivePlatformDensity,
           buttonColor: Color(0xFF1ABC9C),
         ),

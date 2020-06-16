@@ -13,9 +13,11 @@ class AuthProvider extends ChangeNotifier {
 
   bool get isLoggedIn => _currentUser != null;
 
+  bool get isRegistering => _currentRegistration != null;
+
   Future<void> _getUserData() async {
     if (isLoggedIn) {
-      _userData = await UserData.get(_currentUser);
+      _userData = await UserData.get(_currentUser.uid);
       notifyListeners();
     } else {
       _userData = null;

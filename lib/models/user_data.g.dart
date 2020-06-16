@@ -21,8 +21,7 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$UserDataToJson(UserData instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
       'birthday': _toTimeStamp(instance.birthday),
       'city': instance.city,
       'country': instance.country,
