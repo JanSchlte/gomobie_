@@ -5,6 +5,7 @@ import 'package:gomobie/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../validators.dart' as validators;
+import 'home.dart';
 import 'registration_screens/registration_screen_personal.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -130,6 +131,9 @@ class LoginScreen extends StatelessWidget {
                 email: _emailController.text,
                 password: _passwordController.text,
               );
+          if (success) {
+            Navigator.of(context).pushNamed(Home.routeName);
+          }
         }
       },
       child: Text('ANMELDEN'),
