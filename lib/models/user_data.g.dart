@@ -17,10 +17,12 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) {
     street: json['street'] as String,
     title: json['title'] as String,
     idNumber: json['idNumber'] as String,
+    balance: json['balance'] as int,
   );
 }
 
-Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
+Map<String, dynamic> _$UserDataToJson(UserData instance) =>
+    <String, dynamic>{
       'birthday': _toTimeStamp(instance.birthday),
       'city': instance.city,
       'country': instance.country,
@@ -29,5 +31,6 @@ Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
       'postalCode': instance.postalCode,
       'street': instance.street,
       'title': instance.title,
+      'balance': instance.balance,
       'idNumber': instance.idNumber,
     };

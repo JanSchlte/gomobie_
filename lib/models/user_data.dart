@@ -19,7 +19,12 @@ class UserData extends SnapshotAble<UserData> {
   final int postalCode;
   final String street;
   final String title;
-  final String idNumber;
+
+  // Doubles may cause rounding errors
+  final int balance;
+  String idNumber;
+
+  String get name => '$firstName $lastName';
 
   UserData({
     this.birthday,
@@ -31,6 +36,7 @@ class UserData extends SnapshotAble<UserData> {
     this.street,
     this.title,
     this.idNumber,
+    this.balance = 0,
     DocumentSnapshot snapshot,
   }) : super(snapshot);
 
@@ -47,13 +53,13 @@ class UserData extends SnapshotAble<UserData> {
   }
 
   /// This method should only be called ONCE when registering!
-  Future<void> create(FirebaseUser user, String idNumber) async {
-    final mappedData = toJson();
-    mappedData['idNumber'] = idNumber;
+  Future<UserData> create(FirebaseUser user, String idNumber) async {
+    this.idNumber = idNumber;
     await Firestore.instance
         .collection('users')
         .document(user.uid)
-        .setData(mappedData);
+        .setData(toJson());
+    return this;
   }
 
   // Keep the snapshot for bankAccounts and creditCards

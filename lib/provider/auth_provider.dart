@@ -9,9 +9,21 @@ class AuthProvider extends ChangeNotifier {
   UserData _userData;
   UserData _currentRegistration;
 
+  bool get hasData => _userData != null;
+
   bool get isLoggedIn => _currentUser != null;
 
-  void _getUserData() async => _userData = await UserData.get(_currentUser);
+  Future<void> _getUserData() async {
+    if (isLoggedIn) {
+      _userData = await UserData.get(_currentUser);
+      notifyListeners();
+    } else {
+      _userData = null;
+      notifyListeners();
+    }
+  }
+
+  UserData get userData => _userData;
 
   void setRegisterArgs(
       String firstName,
@@ -39,7 +51,6 @@ class AuthProvider extends ChangeNotifier {
       final authResult = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       _currentUser = authResult.user;
-      _getUserData();
       return true;
     } on Exception catch (_) {
       return false;
@@ -75,6 +86,7 @@ class AuthProvider extends ChangeNotifier {
     FirebaseAuth.instance.onAuthStateChanged.listen(
       (event) {
         _currentUser = event;
+        _getUserData();
         notifyListeners();
       },
     );

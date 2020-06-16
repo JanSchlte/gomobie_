@@ -1,27 +1,33 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gomobie/pages/create_child_account/child_account_bank.dart';
-import 'package:gomobie/pages/create_child_account/child_account_contact_data.dart';
-import 'package:gomobie/pages/create_child_account/child_account_personal.dart';
-import 'package:gomobie/pages/create_child_account/child_account_success.dart';
-import 'package:gomobie/pages/registration_screens/registration_screen_bank.dart';
-import 'package:gomobie/pages/registration_screens/registration_screen_contact_data.dart';
-import 'package:gomobie/pages/registration_screens/registration_screen_personal.dart';
-import 'package:gomobie/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
+import 'pages/create_child_account/child_account_bank.dart';
+import 'pages/create_child_account/child_account_contact_data.dart';
 import 'pages/create_child_account/child_account_personal.dart';
+import 'pages/create_child_account/child_account_success.dart';
+import 'pages/home.dart';
 import 'pages/intro_screen.dart';
 import 'pages/login_screen.dart';
+import 'pages/registration_screens/registration_screen_bank.dart';
+import 'pages/registration_screens/registration_screen_contact_data.dart';
+import 'pages/registration_screens/registration_screen_personal.dart';
 import 'pages/registration_screens/registration_success.dart';
+import 'provider/auth_provider.dart';
 
-void main() {
-  runApp(App());
-  FirebaseAuth.instance.signOut();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final user = await FirebaseAuth.instance.currentUser();
+  runApp(App(
+    isLoggedIn: user != null,
+  ));
 }
 
 class App extends StatelessWidget {
-  // This widget is the root of your application.
+  final bool isLoggedIn;
+
+  const App({Key key, this.isLoggedIn}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -47,9 +53,10 @@ class App extends StatelessWidget {
           ChildAccountPersonal.routeName: (_) => ChildAccountPersonal(),
           ChildAccountContactData.routeName: (_) => ChildAccountContactData(),
           ChildAccountBank.routeName: (_) => ChildAccountBank(),
-          ChildRegistrationSuccess.routeName: (_) => ChildRegistrationSuccess()
+          ChildRegistrationSuccess.routeName: (_) => ChildRegistrationSuccess(),
+          Home.routeName: (_) => Home(),
         },
-        initialRoute: IntroScreen.routeName,
+        initialRoute: isLoggedIn ? Home.routeName : IntroScreen.routeName,
       ),
     );
   }

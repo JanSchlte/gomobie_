@@ -81,6 +81,7 @@ class RegistrationSuccess extends StatelessWidget {
                         //Navigator.of(context).pushNamed(home-route.routeName);
                       },
                       child: Text(
+                        //TODO: Use RichText
                         'Verwaltungskonto',
                         style: TextStyle(color: Theme.of(context).primaryColor),
                       ),
