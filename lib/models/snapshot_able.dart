@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 abstract class SnapshotAble<E> {
   @JsonKey(ignore: true)
-  final DocumentSnapshot snapshot;
+  DocumentSnapshot snapshot;
 
   SnapshotAble(this.snapshot);
 

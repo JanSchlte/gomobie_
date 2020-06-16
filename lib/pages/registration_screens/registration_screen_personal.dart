@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:gomobie/pages/registration_screens/registration_screen_contact_data.dart';
+import 'package:gomobie/provider/auth_provider.dart';
 import 'package:gomobie/util/generic_controller.dart';
-import 'package:gomobie/util/routes/registration_screen_contact_args.dart';
 import 'package:gomobie/widgets/birthday_form_field.dart';
 import 'package:gomobie/widgets/drop_down_form_field.dart';
+import 'package:provider/provider.dart';
 
-class RegistrationScreenOne extends StatefulWidget {
+class RegistrationScreenOne extends StatelessWidget {
   static const routeName = '/register';
 
-  @override
-  _RegistrationScreenOneState createState() => _RegistrationScreenOneState();
-}
-
-class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
+
+  //TODO: Validate with google maps api?
   final TextEditingController _postalCodeController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _streetController = TextEditingController();
+
+  //TODO: Replace with enum
   final GenericController<String> _titleController = GenericController();
   final GenericController<String> _countryController = GenericController();
   final GenericController<DateTime> _birthdayController = GenericController();
@@ -323,19 +323,20 @@ class _RegistrationScreenOneState extends State<RegistrationScreenOne> {
                               child: RaisedButton(
                                 onPressed: () {
                                   if (_formKey.currentState.validate()) {
+                                    context
+                                        .read<AuthProvider>()
+                                        .setRegisterArgs(
+                                          _firstNameController.text,
+                                          _lastNameController.text,
+                                          int.parse(_postalCodeController.text),
+                                          _cityController.text,
+                                          _streetController.text,
+                                          _countryController.value,
+                                          _titleController.value,
+                                          _birthdayController.value,
+                                        );
                                     Navigator.of(context).pushNamed(
                                       RegistrationScreenContactData.routeName,
-                                      arguments:
-                                          RegistrationScreenContactArguments(
-                                        _firstNameController.text,
-                                        _lastNameController.text,
-                                        _postalCodeController.text,
-                                        _cityController.text,
-                                        _streetController.text,
-                                        _countryController.value,
-                                        _titleController.value,
-                                        _birthdayController.value,
-                                      ),
                                     );
                                   }
                                 },

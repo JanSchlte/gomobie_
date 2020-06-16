@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:gomobie/pages/registration_screens/registration_screen_bank.dart';
+import 'package:gomobie/provider/auth_provider.dart';
+import 'package:provider/provider.dart';
 
-import '../../util/routes/registration_screen_contact_args.dart';
 import '../../validators.dart' as validators;
 
 class RegistrationScreenContactData extends StatefulWidget {
@@ -24,8 +25,6 @@ class _RegistrationScreenContactDataState
 
   @override
   Widget build(BuildContext context) {
-    final arguments = ModalRoute.of(context).settings.arguments
-        as RegistrationScreenContactArguments;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -209,6 +208,13 @@ class _RegistrationScreenContactDataState
                             child: RaisedButton(
                               onPressed: () {
                                 if (_formKey.currentState.validate()) {
+                                  context.read<AuthProvider>().register(
+                                        email: _emailController.value.text,
+                                        password:
+                                            _passwordController.value.text,
+                                        idNumber:
+                                            _idNumberController.value.text,
+                                      );
                                   Navigator.of(context).pushNamed(
                                       RegistrationScreenBank.routeName);
                                 }

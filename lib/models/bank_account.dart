@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'snapshot_able.dart';
@@ -9,15 +10,27 @@ part 'bank_account.g.dart';
 class BankAccount extends SnapshotAble<BankAccount> {
   final String iban;
   final String bic;
+  final String owner;
 
   BankAccount({
     this.iban,
     this.bic,
+    this.owner,
     DocumentSnapshot snapshot,
   }) : super(snapshot);
 
   @override
   BankAccount fromJson() => _$BankAccountFromJson(snapshot.data);
+
+  /// Only call this when adding new credit cards
+  Future<void> create(FirebaseUser user) async {
+    await Firestore.instance
+        .collection('users')
+        .document(user.uid)
+        .collection('bankAccounts')
+        .document()
+        .setData(toJson());
+  }
 
   Map<String, dynamic> toJson() => _$BankAccountToJson(this);
 

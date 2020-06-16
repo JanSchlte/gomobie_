@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:gomobie/pages/create_child_account/child_account_bank.dart';
-import 'package:gomobie/pages/registration_screens/registration_screen_bank.dart';
 
-import '../../util/routes/registration_screen_contact_args.dart';
+import '../../util/routes/registration_args.dart';
 import '../../validators.dart' as validators;
 
 class ChildAccountContactData extends StatefulWidget {
@@ -24,8 +23,8 @@ class _ChildAccountContactDataState extends State<ChildAccountContactData> {
 
   @override
   Widget build(BuildContext context) {
-    final arguments = ModalRoute.of(context).settings.arguments
-        as RegistrationScreenContactArguments;
+    final arguments =
+        ModalRoute.of(context).settings.arguments as RegistrationArguments;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(

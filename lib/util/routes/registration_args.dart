@@ -1,14 +1,14 @@
-class RegistrationScreenContactArguments {
+class RegistrationArguments {
   final String firstName;
   final String lastName;
-  final String postalCode;
+  final int postalCode;
   final String city;
   final String street;
   final String country;
   final String title;
   final DateTime birthday;
 
-  RegistrationScreenContactArguments(
+  RegistrationArguments(
     this.firstName,
     this.lastName,
     this.postalCode,

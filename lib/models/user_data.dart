@@ -1,31 +1,38 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gomobie/models/snapshot_able.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-import '../extensions/map.dart';
 import 'bank_account.dart';
 import 'credit_card.dart';
 
-class UserData {
-  final DocumentSnapshot snapshot;
+part 'user_data.g.dart';
 
-  UserData._(this.snapshot);
+@JsonSerializable()
+class UserData extends SnapshotAble<UserData> {
+  @JsonKey(fromJson: _fromTimeStamp, toJson: _toTimeStamp)
+  final DateTime birthday;
+  final String city;
+  final String country;
+  final String firstName;
+  final String lastName;
+  final int postalCode;
+  final String street;
+  final String title;
+  final String idNumber;
 
-  DateTime get birthday =>
-      (snapshot.data.get('birthday') as Timestamp).toDate();
-
-  String get city => snapshot.data.get('city') as String;
-
-  String get country => snapshot.data.get('country') as String;
-
-  String get firstName => snapshot.data.get('firstName') as String;
-
-  String get lastName => snapshot.data.get('lastName') as String;
-
-  int get postalCode => snapshot.data.get('postalCode') as int;
-
-  String get street => snapshot.data.get('street') as String;
-
-  String get title => snapshot.data.get('title') as String;
+  UserData({
+    this.birthday,
+    this.city,
+    this.country,
+    this.firstName,
+    this.lastName,
+    this.postalCode,
+    this.street,
+    this.title,
+    this.idNumber,
+    DocumentSnapshot snapshot,
+  }) : super(snapshot);
 
   Future<List<BankAccount>> get bankAccounts =>
       BankAccount.get(snapshot.reference);
@@ -36,6 +43,27 @@ class UserData {
   static Future<UserData> get(FirebaseUser user) async {
     final doc =
         await Firestore.instance.collection('users').document(user.uid).get();
-    UserData._(doc);
+    return UserData(snapshot: doc).fromJson();
   }
+
+  /// This method should only be called ONCE when registering!
+  Future<void> create(FirebaseUser user, String idNumber) async {
+    final mappedData = toJson();
+    mappedData['idNumber'] = idNumber;
+    await Firestore.instance
+        .collection('users')
+        .document(user.uid)
+        .setData(mappedData);
+  }
+
+  // Keep the snapshot for bankAccounts and creditCards
+  @override
+  UserData fromJson() => _$UserDataFromJson(snapshot.data)..snapshot = snapshot;
+
+  Map<String, dynamic> toJson() => _$UserDataToJson(this);
 }
+
+//TODO: Put into file
+DateTime _fromTimeStamp(Timestamp timestamp) => timestamp.toDate();
+
+Timestamp _toTimeStamp(DateTime dateTime) => Timestamp.fromDate(dateTime);
