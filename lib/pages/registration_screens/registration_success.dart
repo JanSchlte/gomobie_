@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:gomobie/pages/home.dart';
 
 class RegistrationSuccess extends StatelessWidget {
   static const routeName = '/success';
 
-  Widget _buildContinueButton() {
+  Widget _buildContinueButton(BuildContext context) {
     return RaisedButton(
       onPressed: () {
-        //Navigator.of(context).pushNamed(home-route.routeName);
-        //TODO: Insert Home-Route
+        Navigator.of(context).pushNamed(Home.routeName);
       },
       child: Text('FERTIG'),
       textColor: Colors.white,
@@ -58,7 +58,7 @@ class RegistrationSuccess extends StatelessWidget {
               SizedBox(
                 height: 150.0,
               ),
-              _buildContinueButton(),
+              _buildContinueButton(context),
               SizedBox(
                 height: 50.0,
               ),
@@ -77,8 +77,8 @@ class RegistrationSuccess extends StatelessWidget {
                     height: 0,
                     child: FlatButton(
                       onPressed: () {
-                        //TODO: Insert Home-Route
-                        //Navigator.of(context).pushNamed(home-route.routeName);
+                        //TODO: Replace
+                        Navigator.of(context).pushNamed(Home.routeName);
                       },
                       child: Text(
                         //TODO: Use RichText

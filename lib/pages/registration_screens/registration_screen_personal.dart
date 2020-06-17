@@ -214,12 +214,18 @@ class RegistrationScreenOne extends StatelessWidget {
                                                 child: child,
                                               );
                                             },
-                                            initialDate: DateTime.now(),
+                                            initialDate: DateTime.now()
+                                                .subtract(Duration(
+                                                    days:
+                                                        (365.25 * 18).ceil())),
                                             firstDate: DateTime.now().subtract(
                                                 Duration(
                                                     days:
                                                         (365.25 * 125).ceil())),
-                                            lastDate: DateTime.now(),
+                                            lastDate: DateTime.now().subtract(
+                                                Duration(
+                                                    days:
+                                                        (365.25 * 18).ceil())),
                                             style: TextStyle(
                                                 color: Colors.grey.shade500,
                                                 fontSize: 15.0),
@@ -252,8 +258,8 @@ class RegistrationScreenOne extends StatelessWidget {
                                         validator: (postalCode) {
                                           final parsed =
                                               int.tryParse(postalCode);
-                                          if (parsed == null ||
-                                              parsed < 1067 && parsed > 99998) {
+                                          if (parsed == null || parsed < 1067 ||
+                                              parsed > 99998) {
                                             return 'Diese Postleitzahl ist nicht valide';
                                           }
                                           return null;
