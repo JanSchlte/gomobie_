@@ -4,7 +4,7 @@ import 'package:gomobie/pages/registration_screens/registration_screen_bank.dart
 import 'package:gomobie/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../validators.dart' as validators;
+import '../../util/validators.dart' as validators;
 
 class RegistrationScreenContactData extends StatefulWidget {
   static const routeName = '/register/contact';
@@ -151,8 +151,11 @@ class _RegistrationScreenContactDataState
                                               _buildPasswordVisibility(),
                                         ),
                                         validator: (password) {
-                                          if (password.trim().length < 8) {
-                                            return 'Das Passwort muss mindestens 8 Zeichen lang sein';
+                                          final security = validators
+                                              .isPasswordSecure(password);
+                                          if (security !=
+                                              validators.PasswordSecurity.ok) {
+                                            return security.message();
                                           }
                                           return null;
                                         },

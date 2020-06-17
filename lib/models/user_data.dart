@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gomobie/models/snapshot_able.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../extensions/map.dart';
 import 'bank_account.dart';
 import 'credit_card.dart';
 
@@ -46,9 +47,13 @@ class UserData extends SnapshotAble<UserData> {
   Future<List<CreditCard>> get creditCards =>
       CreditCard.get(snapshot.reference);
 
-  static Future<UserData> get(FirebaseUser user) async {
+  Future<List<UserData>> get children =>
+      Future.wait((snapshot.data.get('children') as List)
+          ?.map((e) => UserData.get(e as String)));
+
+  static Future<UserData> get(String userId) async {
     final doc =
-        await Firestore.instance.collection('users').document(user.uid).get();
+        await Firestore.instance.collection('users').document(userId).get();
     return UserData(snapshot: doc).fromJson();
   }
 
