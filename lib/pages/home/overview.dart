@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -43,16 +44,20 @@ class Overview extends StatelessWidget {
               fit: BoxFit.fill),
         ),
         child: Material(
-          color: Colors.grey.shade800.withOpacity(0.75),
+          color: Colors.grey.shade800.withOpacity(0.9),
           child: SafeArea(
             child: Center(
               child: provider.hasData
                   ? Column(
                       children: [
+                        SizedBox(
+                          height: 25,
+                        ),
                         CircleAvatar(
                           radius: 60,
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               IconButton(
                                 icon: Icon(
@@ -125,6 +130,7 @@ class Overview extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(25.0),
                               ),
+                              elevation: 10,
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -136,7 +142,7 @@ class Overview extends StatelessWidget {
                                     child: Text(
                                       'Sammelgruppen',
                                       style: _headlinesBlack,
-                                      textAlign: TextAlign.center,
+                                      //textAlign: TextAlign.center,
                                     ),
                                   ),
                                   Container(
@@ -150,7 +156,7 @@ class Overview extends StatelessWidget {
                                           value: 0.8,
                                           strokeWidth: 6,
                                           valueColor:
-                                              new AlwaysStoppedAnimation<Color>(
+                                              AlwaysStoppedAnimation<Color>(
                                                   _mainColor),
                                         ),
                                         Align(
@@ -188,6 +194,7 @@ class Overview extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(25.0),
                               ),
+                              elevation: 10,
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -199,12 +206,12 @@ class Overview extends StatelessWidget {
                                     child: Text(
                                       'Offene\nRechnungen',
                                       style: _headlinesWhite,
-                                      textAlign: TextAlign.center,
+                                      //textAlign: TextAlign.center,
                                     ),
                                   ),
                                   Container(
-                                      height: 90,
-                                      width: 90,
+                                      height: 67,
+                                      width: 110,
                                       margin: EdgeInsets.all(30),
                                       child: Text(
                                         '34.99€',
