@@ -41,15 +41,17 @@ dependencies:
 
 dev_dependencies:
   # Install with pub global activate derry
-  derry: ^0.0.7
-  build_runner: ^1.10.0
-  json_serializable: ^3.3.0
+  derry: ^0.0.6
   effective_dart: ^1.2.2
   flutter_test:
     sdk: flutter
 
 scripts: scripts.yaml
-# For information on the generic Dart part of this file, see the
+# For information on the genLaunching lib\main.dart on Android SDK built for x86 in debug mode...
+  #Running Gradle task 'assembleDebug'...
+  #Plugin project :firebase_core_web not found. Please update settings.gradle.
+#Plugin project :firebase_auth_web not found. Please update settings.gradle.
+#Plugin project :cloud_firestore_web not found. Please update settings.gradle.eric Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
@@ -83,6 +85,9 @@ flutter:
     - assets/general_assets/flying_money.png
     - assets/general_assets/keys.png
     - assets/login_screen/login_background.png
+    - assets/backgrounds/skyscrapers.jpg
+    - assets/icon_buttons/money_get.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
