@@ -51,31 +51,25 @@ class Overview extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 60,
-                          child: Stack(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              Positioned(
-                                top: 30,
-                                left: 30,
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.add,
-                                    color: _mainColor,
-                                    size: 60,
-                                  ),
-                                  padding: EdgeInsets.only(),
-                                  onPressed: () {
-                                    //TODO: Add upload image page and upload it to Firebase
-                                  },
+                              IconButton(
+                                icon: Icon(
+                                  Icons.add,
+                                  color: _mainColor,
+                                  size: 80,
+                                  //TODO: Flutter scaled den Button innerhalb des CircleAvatars nicht korrekt. Issue muss noch behoben werden. Changed by min-AxisSiize
                                 ),
+                                onPressed: () {
+                                  //TODO: Add upload image page and upload it to Firebase
+                                },
                               ),
-                              Align(
-                                alignment: Alignment(0, 0.55),
-                                child: Text(
-                                  'Bild hinzufügen',
-                                  style: Theme.of(context).textTheme.caption,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
+                              /*Text(
+                                'Bild hinzufügen',
+                                style: Theme.of(context).textTheme.caption,
+                                textAlign: TextAlign.center,
+                              ),*/
                             ],
                           ),
                           backgroundColor: Colors.white,

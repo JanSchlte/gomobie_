@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'pages/create_child_account/child_account_bank.dart';
 import 'pages/create_child_account/child_account_contact_data.dart';
 import 'pages/create_child_account/child_account_personal.dart';
