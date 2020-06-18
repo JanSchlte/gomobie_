@@ -28,6 +28,8 @@ class AuthProvider extends ChangeNotifier {
 
   UserData get userData => _userData;
 
+  String get userId => _currentUser?.uid;
+
   void setRegisterArgs(
       String firstName,
       String lastName,
