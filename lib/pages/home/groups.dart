@@ -6,7 +6,7 @@ class CollectionGroups extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade800,
+      backgroundColor: Colors.white,
       body: Column(
         children: <Widget>[
           GroupCard('GEBURTSTAG LEON'),

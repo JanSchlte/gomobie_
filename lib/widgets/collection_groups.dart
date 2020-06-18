@@ -17,7 +17,7 @@ class GroupCard extends StatelessWidget {
           height: 30,
         ),
         CustomPaint(
-          painter: CardBackgroundPainter(backgroundColor: Colors.white),
+          painter: CardBackgroundPainter(backgroundColor: Colors.black12),
           child: Container(
             width: MediaQuery.of(context).size.width * 0.8,
             child: Row(
@@ -31,7 +31,7 @@ class GroupCard extends StatelessWidget {
                     fit: StackFit.expand,
                     children: [
                       CircularProgressIndicator(
-                        value: 0.8,
+                        value: 0.85,
                         strokeWidth: 10,
                         valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
                         backgroundColor: Colors.grey.shade400,
@@ -44,15 +44,13 @@ class GroupCard extends StatelessWidget {
                             Text(
                               '80.00€/',
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
                                 color: Colors.red,
                               ),
                             ),
                             Text(
                               '100.00€',
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey.shade500,
+                                color: Colors.grey.shade800,
                               ),
                             ),
                           ],
@@ -60,6 +58,9 @@ class GroupCard extends StatelessWidget {
                       )
                     ],
                   ),
+                ),
+                SizedBox(
+                  width: 25,
                 ),
                 Column(
                   children: <Widget>[
@@ -69,9 +70,16 @@ class GroupCard extends StatelessWidget {
                       style: TextStyle(
                         color: _mainColor,
                         fontWeight: FontWeight.bold,
-                        fontSize: 10,
+                        fontSize: 15,
                       ),
                     ),
+                    SizedBox(height: 10),
+                    Text(
+                      'Endatum: 24.03.2020',
+                      style: TextStyle(
+                        color: Colors.grey.shade800,
+                      ),
+                    )
                   ],
                 ),
               ],
@@ -79,13 +87,14 @@ class GroupCard extends StatelessWidget {
           ),
         ),
         SizedBox(
+          //TODO: @Dominik Wie spalte ich den Container farblich in 2 Teile auf, so dass ich den FlatButton nicht separat machen muss?
           width: MediaQuery.of(context).size.width * 0.8,
           height: MediaQuery.of(context).size.width * 0.09,
           child: FlatButton(
             color: _mainColor,
             onPressed: () {},
             child: Align(
-              alignment: Alignment(0.33, 0),
+              alignment: Alignment(0.49, 0),
               child: Text(
                 'DETAILS',
                 style: TextStyle(color: Colors.white),
