@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gomobie/util/card_background_painter.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/auth_provider.dart';
@@ -127,63 +128,67 @@ class Overview extends StatelessWidget {
                         ),
                         Wrap(
                           children: [
-                            Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25.0),
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.all(10),
-                                    child: Text(
-                                      'Sammelgruppen',
-                                      style: _headlinesBlack,
-                                      textAlign: TextAlign.center,
+                            CustomPaint(
+                              painter: CardBackgroundPainter(
+                                  backgroundColor: Color(0xFFffffff)),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25.0),
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    SizedBox(
+                                      height: 10,
                                     ),
-                                  ),
-                                  Container(
-                                    height: 90,
-                                    width: 90,
-                                    margin: EdgeInsets.all(30),
-                                    child: Stack(
-                                      fit: StackFit.expand,
-                                      children: [
-                                        CircularProgressIndicator(
-                                          value: 0.8,
-                                          strokeWidth: 6,
-                                          valueColor:
-                                              new AlwaysStoppedAnimation<Color>(
-                                                  _mainColor),
-                                        ),
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Text(
-                                                '80.00€/',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              Text(
-                                                '100.00€',
-                                                style: TextStyle(
-                                                  color: _mainColor,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ],
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Text(
+                                        'Sammelgruppen',
+                                        style: _headlinesBlack,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 90,
+                                      width: 90,
+                                      margin: EdgeInsets.all(30),
+                                      child: Stack(
+                                        fit: StackFit.expand,
+                                        children: [
+                                          CircularProgressIndicator(
+                                            value: 0.8,
+                                            strokeWidth: 6,
+                                            valueColor:
+                                                new AlwaysStoppedAnimation<
+                                                    Color>(_mainColor),
                                           ),
-                                        )
-                                      ],
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Text(
+                                                  '80.00€/',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '100.00€',
+                                                  style: TextStyle(
+                                                    color: _mainColor,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                             SizedBox(
