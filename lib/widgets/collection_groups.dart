@@ -19,7 +19,7 @@ class GroupCard extends StatelessWidget {
         CustomPaint(
           painter: CardBackgroundPainter(backgroundColor: Colors.black12),
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.8,
+            width: MediaQuery.of(context).size.width * 0.85,
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -63,6 +63,8 @@ class GroupCard extends StatelessWidget {
                   width: 25,
                 ),
                 Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(
                       title,
@@ -75,17 +77,27 @@ class GroupCard extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      'Endatum: 24.03.2020',
+                      'Enddatum: 24.03.2020',
                       style: TextStyle(
                         color: Colors.grey.shade800,
                       ),
-                    )
+                    ),
+                    FlatButton(
+                      onPressed: () {
+                        // Nicht vorhergesehen beim MVP
+                      },
+                      child: Text(
+                        'DETAILS',
+                        style: TextStyle(color: Colors.grey.shade800),
+                      ),
+                    ),
                   ],
                 ),
               ],
             ),
           ),
         ),
+        /*
         SizedBox(
           //TODO: @Dominik Wie spalte ich den Container farblich in 2 Teile auf, so dass ich den FlatButton nicht separat machen muss?
           width: MediaQuery.of(context).size.width * 0.8,
@@ -101,7 +113,7 @@ class GroupCard extends StatelessWidget {
               ),
             ),
           ),
-        ),
+        ),*/
       ],
     );
   }
