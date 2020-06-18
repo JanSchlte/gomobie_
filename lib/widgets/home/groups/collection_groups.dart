@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gomobie/util/card_background_painter.dart';
-import 'package:gomobie/util/home_painter.dart';
 
 class GroupCard extends StatelessWidget {
   final String title;
-
   GroupCard(this.title);
 
   Color _mainColor = Color(0xFF1ABC9C);

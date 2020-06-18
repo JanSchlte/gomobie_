@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gomobie/widgets/collection_groups.dart';
+import 'file:///D:/Business/Flutter/gomobie/lib/widgets/home/groups/collection_groups.dart';
 
 class CollectionGroups extends StatelessWidget {
   static const routeName = '/groups';
