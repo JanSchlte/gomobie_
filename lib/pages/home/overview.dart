@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gomobie/util/card_background_painter.dart';
+import 'package:gomobie/util/home_painter.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/auth_provider.dart';
@@ -16,20 +18,14 @@ class Overview extends StatelessWidget {
     color: Colors.white,
   );
 
-  Widget _buildIconButton(Icon icon, Function function) {
-    return Padding(
-      padding: EdgeInsets.all(15),
+  Widget _buildIconButton(AssetImage icon, VoidCallback onPressed) {
+    return InkResponse(
+      //TODO: Add action
+      onTap: () {},
       child: CircleAvatar(
-        radius: 30,
-        child: IconButton(
-          icon: icon,
-          iconSize: 30,
-          color: Colors.white,
-          onPressed: () {
-            function;
-          },
-        ),
-        backgroundColor: _mainColor,
+        radius: 25,
+        child: Image(image: icon, fit: BoxFit.contain),
+        backgroundColor: Color(0xFF505050),
       ),
     );
   }
@@ -94,34 +90,41 @@ class Overview extends StatelessWidget {
                         SizedBox(
                           height: 25,
                         ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 15),
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25.0),
-                            ),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 25),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                        Stack(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(top: 26),
+                              child: CustomPaint(
+                                painter: HomePainter(),
+                                child: Container(
+                                  width: double.infinity,
+                                  child: Column(
                                     children: [
-                                      _buildIconButton(
-                                          Icon(Icons.attach_money), null),
-                                      _buildIconButton(
-                                          Icon(Icons.money_off), null),
-                                      _buildIconButton(Icon(Icons.group), null),
+                                      SizedBox(height: 50),
+                                      Text('Hello')
                                     ],
                                   ),
                                 ),
-                                /*Text(
-                                //Warum diese komische Angabe?
-                                    '${(provider.userData.balance / 100).toStringAsFixed(2)}€'),*/
-                              ],
+                              ),
                             ),
-                          ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                _buildIconButton(
+                                    AssetImage(
+                                        'assets/icon_buttons/money_get.png'),
+                                    null),
+                                _buildIconButton(
+                                    AssetImage(
+                                        'assets/icon_buttons/money_send.png'),
+                                    null),
+                                _buildIconButton(
+                                    AssetImage(
+                                        'assets/icon_buttons/money_get.png'),
+                                    null),
+                              ],
+                            )
+                          ],
                         ),
                         SizedBox(
                           height: 25,
@@ -132,9 +135,7 @@ class Overview extends StatelessWidget {
                               painter: CardBackgroundPainter(
                                   backgroundColor: Color(0xFFffffff)),
                               child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25.0),
-                                ),
+                                width: MediaQuery.of(context).size.width * 0.45,
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -160,8 +161,8 @@ class Overview extends StatelessWidget {
                                             value: 0.8,
                                             strokeWidth: 6,
                                             valueColor:
-                                                new AlwaysStoppedAnimation<
-                                                    Color>(_mainColor),
+                                            AlwaysStoppedAnimation<Color>(
+                                                _mainColor),
                                           ),
                                           Align(
                                             alignment: Alignment.center,
@@ -194,36 +195,39 @@ class Overview extends StatelessWidget {
                             SizedBox(
                               width: 25,
                             ),
-                            Card(
-                              color: _mainColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25.0),
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.all(10),
-                                    child: Text(
-                                      'Offene\nRechnungen',
-                                      style: _headlinesWhite,
-                                      textAlign: TextAlign.center,
+                            CustomPaint(
+                              painter: CardBackgroundPainter(
+                                  backgroundColor: _mainColor),
+                              child: Container(
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width * 0.45,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    SizedBox(
+                                      height: 10,
                                     ),
-                                  ),
-                                  Container(
-                                      height: 90,
-                                      width: 90,
-                                      margin: EdgeInsets.all(30),
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
                                       child: Text(
-                                        '34.99€',
+                                        'Offene Rechnungen',
                                         style: _headlinesWhite,
-                                      )),
-                                ],
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    Container(
+                                        height: 90,
+                                        margin: EdgeInsets.all(30),
+                                        child: Text(
+                                          '34.99€',
+                                          style: _headlinesWhite,
+                                        )),
+                                  ],
+                                ),
                               ),
-                            ),
+                            )
                             /*Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5.0),
