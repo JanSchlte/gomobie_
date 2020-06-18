@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:gomobie/widgets/home/transaction_card.dart';
+import 'package:gomobie/widgets/home/transactions/transaction_card.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'transaction.g.dart';

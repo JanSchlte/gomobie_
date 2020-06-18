@@ -35,14 +35,15 @@ class App extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          brightness: Brightness.dark,
-          textSelectionHandleColor: Color(0xFF1ABC9C),
-          primaryColor: Color(0xFF1ABC9C),
-          cursorColor: Color(0xFF1ABC9C),
-          fontFamily: 'Metropolis',
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          buttonColor: Color(0xFF1ABC9C),
-        ),
+            textSelectionHandleColor: Color(0xFF1ABC9C),
+            primaryColor: Color(0xFF1ABC9C),
+            cursorColor: Color(0xFF1ABC9C),
+            fontFamily: 'Metropolis',
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            buttonColor: Color(0xFF1ABC9C),
+            floatingActionButtonTheme: FloatingActionButtonThemeData(
+              backgroundColor: Color(0xFF1ABC9C),
+            )),
         routes: {
           IntroScreen.routeName: (_) => IntroScreen(),
           LoginScreen.routeName: (_) => LoginScreen(),

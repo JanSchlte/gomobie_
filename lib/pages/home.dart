@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gomobie/pages/home/family.dart';
 import 'package:gomobie/pages/home/transactions.dart';
 
 import 'home/overview.dart';
@@ -18,7 +19,7 @@ class _HomeState extends State<Home> {
     Overview(),
     Transactions(),
     Overview(),
-    Overview(),
+    Family(),
     Settings(),
   ];
 
@@ -39,12 +40,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF4C4C4C),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        unselectedItemColor: Colors.grey,
-        selectedItemColor: Colors.black,
         items: [
           BottomNavigationBarItem(
               icon: Icon(Icons.people_outline), title: Container()),

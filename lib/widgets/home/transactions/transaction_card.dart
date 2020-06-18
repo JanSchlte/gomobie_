@@ -20,7 +20,6 @@ class TransactionCard extends StatelessWidget {
       ),
       title: Text(
         transaction.title,
-        style: TextStyle(color: Colors.white),
       ),
       subtitle: Column(
         mainAxisSize: MainAxisSize.min,
@@ -68,7 +67,6 @@ class TransactionCard extends StatelessWidget {
       ),
       trailing: Text(
         '${transaction.value}€',
-        style: TextStyle(color: Colors.white),
       ),
     );
   }

@@ -5,7 +5,19 @@ import 'package:gomobie/pages/registration_screens/registration_screen_bank.dart
 import 'package:gomobie/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
+//TODO: Add to UserData
 enum AccountType { owner, child }
+
+extension AccountTypeX on AccountType {
+  String message() {
+    switch (this) {
+      case AccountType.owner:
+        return 'Erziehungsberechtigter';
+      default:
+        return 'Kinderkonto';
+    }
+  }
+}
 
 class Transactions extends StatefulWidget {
   @override
@@ -81,7 +93,7 @@ class _TransactionsState extends State<Transactions> {
           SizedBox(height: 10),
           Text(
             'Letzte Transaktionen',
-            style: TextStyle(fontSize: 20, color: Colors.white),
+            style: TextStyle(fontSize: 20),
           ),
           Transaction(
                   amount: 200,
@@ -130,75 +142,72 @@ class _TransactionsState extends State<Transactions> {
   @override
   Widget build(BuildContext context) {
     return context.watch<AuthProvider>().hasData
-        ? Container(
-            decoration: BoxDecoration(color: Colors.black54),
-            child: SafeArea(
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  Column(
-                    children: [
-                      SizedBox(height: 75),
-                      if (_accountType == AccountType.owner)
-                        _buildAccountDisplay()
-                      else
-                        _buildChildrenAccounts()
+        ? SafeArea(
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Column(
+                  children: [
+                    SizedBox(height: 75),
+                    if (_accountType == AccountType.owner)
+                      _buildAccountDisplay()
+                    else
+                      _buildChildrenAccounts()
+                  ],
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: RaisedButton(
+                          onPressed: () {
+                            setState(() {
+                              _accountType = AccountType.owner;
+                            });
+                          },
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(),
+                          padding: EdgeInsets.symmetric(vertical: 20),
+                          child: Text(
+                            'Mein Konto',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                          textColor: _accountType == AccountType.child
+                              ? Colors.grey
+                              : Colors.white,
+                          color: _accountType == AccountType.child
+                              ? Colors.white
+                              : null,
+                        ),
+                      ),
+                      Expanded(
+                        child: RaisedButton(
+                          onPressed: () {
+                            setState(() {
+                              _accountType = AccountType.child;
+                            });
+                          },
+                          elevation: 0,
+                          padding: EdgeInsets.symmetric(vertical: 20),
+                          child: Text(
+                            'Kinderkonten',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                          textColor: _accountType == AccountType.child
+                              ? Colors.white
+                              : Colors.grey,
+                          color: _accountType == AccountType.owner
+                              ? Colors.white
+                              : null,
+                        ),
+                      )
                     ],
                   ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: RaisedButton(
-                            onPressed: () {
-                              setState(() {
-                                _accountType = AccountType.owner;
-                              });
-                            },
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(),
-                            padding: EdgeInsets.symmetric(vertical: 20),
-                            child: Text(
-                              'Mein Konto',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
-                            ),
-                            textColor: _accountType == AccountType.child
-                                ? Colors.grey
-                                : Colors.white,
-                            color: _accountType == AccountType.child
-                                ? Colors.white
-                                : null,
-                          ),
-                        ),
-                        Expanded(
-                          child: RaisedButton(
-                            onPressed: () {
-                              setState(() {
-                                _accountType = AccountType.child;
-                              });
-                            },
-                            elevation: 0,
-                            padding: EdgeInsets.symmetric(vertical: 20),
-                            child: Text(
-                              'Kinderkonten',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
-                            ),
-                            textColor: _accountType == AccountType.child
-                                ? Colors.white
-                                : Colors.grey,
-                            color: _accountType == AccountType.owner
-                                ? Colors.white
-                                : null,
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
             ),
           )
         : Text('LOADING...');
