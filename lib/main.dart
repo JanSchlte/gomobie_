@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gomobie/pages/home/groups.dart';
 import 'package:provider/provider.dart';
 import 'pages/create_child_account/child_account_bank.dart';
 import 'pages/create_child_account/child_account_contact_data.dart';
@@ -55,6 +56,7 @@ class App extends StatelessWidget {
           ChildAccountContactData.routeName: (_) => ChildAccountContactData(),
           ChildAccountBank.routeName: (_) => ChildAccountBank(),
           ChildRegistrationSuccess.routeName: (_) => ChildRegistrationSuccess(),
+          CollectionGroups.routeName: (_) => CollectionGroups(),
           Home.routeName: (_) => Home(),
         },
         initialRoute: isLoggedIn ? Home.routeName : IntroScreen.routeName,

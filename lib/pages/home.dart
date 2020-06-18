@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gomobie/pages/home/family.dart';
+import 'package:gomobie/pages/home/groups.dart';
 import 'package:gomobie/pages/home/transactions.dart';
 
 import 'home/overview.dart';
@@ -16,7 +17,7 @@ class _HomeState extends State<Home> {
   int _currentIndex = 2;
 
   final List<Widget> _pages = [
-    Overview(),
+    CollectionGroups(),
     Transactions(),
     Overview(),
     Family(),
@@ -24,7 +25,13 @@ class _HomeState extends State<Home> {
   ];
 
   final List<PreferredSizeWidget> _appBars = [
-    null,
+    AppBar(
+      centerTitle: true,
+      title: Text(
+        'Sammelgruppen',
+        style: TextStyle(color: Colors.white),
+      ),
+    ),
     null,
     null,
     null,
