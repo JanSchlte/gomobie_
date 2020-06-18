@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:gomobie/models/bank_account.dart';
 
 import '../models/user_data.dart';
@@ -54,6 +55,10 @@ class AuthProvider extends ChangeNotifier {
           .signInWithEmailAndPassword(email: email, password: password);
       _currentUser = authResult.user;
       return true;
+    } on PlatformException catch (e) {
+      //TODO: Respond to UI
+      print('${e.code}:${e.message}');
+      return false;
     } on Exception catch (_) {
       return false;
     }
