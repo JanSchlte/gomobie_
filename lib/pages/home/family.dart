@@ -49,7 +49,86 @@ class Family extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: FloatingActionButton.extended(
-                      onPressed: () {},
+                      onPressed: () {
+                        //TODO: Move into own file
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              final _form = GlobalKey<FormState>();
+                              return Dialog(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(child: Container()),
+                                          IconButton(
+                                            icon: Icon(Icons.close),
+                                            onPressed: () =>
+                                                Navigator.of(context).pop(),
+                                          )
+                                        ],
+                                      ),
+                                      Icon(Icons.add,
+                                          size: 75,
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                      Text('Benutzer zur Familie hinzufügen'),
+                                      SizedBox(height: 20),
+                                      //TODO: Needs validation
+                                      Form(
+                                        key: _form,
+                                        child: TextFormField(
+                                          decoration: InputDecoration(
+                                              hintText: 'Benutzer-ID'),
+                                          validator: (id) {
+                                            if (id.trim().isEmpty) {
+                                              return 'Dieses Feld kann nicht leer sein';
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                      SizedBox(height: 10),
+                                      RaisedButton(
+                                        child: Text('Anfrage senden'),
+                                        textColor: Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(6)),
+                                        elevation: 8,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 92, vertical: 20),
+                                        onPressed: () {
+                                          //TODO: Add route
+                                          _form.currentState.validate();
+                                        },
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text('oder'),
+                                      SizedBox(height: 5),
+                                      RaisedButton(
+                                        child:
+                                            Text('Neues Kinderkonto erstellen'),
+                                        textColor: Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(6)),
+                                        elevation: 8,
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 50, vertical: 20),
+                                        onPressed: () {
+                                          //TODO: Add route
+                                        },
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              );
+                            });
+                      },
                       label: Text('Hinzufügen'),
                       icon: Icon(Icons.add),
                     ),

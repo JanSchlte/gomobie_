@@ -253,41 +253,97 @@ class Overview extends StatelessWidget {
     );
   }
 
-  Card _buildAddFriendCard(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(25),
-        ),
-      ),
-      color: _mainColor.withOpacity(0.5),
-      child: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.scaleDown,
-            image:
-                AssetImage('assets/registration_screens/registration_head.png'),
-          ),
-          color: _mainColor.withOpacity(0.8),
+  InkResponse _buildAddFriendCard(BuildContext context) {
+    return InkResponse(
+      onTap: () {
+        //TODO: Move into own file
+        showDialog(
+            context: context,
+            builder: (context) {
+              final _form = GlobalKey<FormState>();
+              return Dialog(
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(child: Container()),
+                          IconButton(
+                            icon: Icon(Icons.close),
+                            onPressed: () => Navigator.of(context).pop(),
+                          )
+                        ],
+                      ),
+                      //TODO: Needs validation
+                      Form(
+                        key: _form,
+                        child: TextFormField(
+                          decoration: InputDecoration(hintText: 'Benutzer-ID'),
+                          validator: (id) {
+                            if (id.trim().isEmpty) {
+                              return 'Dieses Feld kann nicht leer sein';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      RaisedButton(
+                        child: Text('Anfrage senden'),
+                        textColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6)),
+                        elevation: 8,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 92, vertical: 20),
+                        onPressed: () {
+                          //TODO: Add route
+                          _form.currentState.validate();
+                        },
+                      )
+                    ],
+                  ),
+                ),
+              );
+            });
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(25),
           ),
         ),
-        width: MediaQuery.of(context).size.width * 0.44,
-        height: MediaQuery.of(context).size.width * 0.44,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.add,
-              color: Colors.white,
-              size: 42,
+        color: _mainColor.withOpacity(0.5),
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.scaleDown,
+              image: AssetImage(
+                  'assets/registration_screens/registration_head.png'),
             ),
-            Text(
-              'Freund hinzufügen',
-              style: TextStyle(color: Colors.white),
-            )
-          ],
+            color: _mainColor.withOpacity(0.8),
+            borderRadius: BorderRadius.all(
+              Radius.circular(25),
+            ),
+          ),
+          width: MediaQuery.of(context).size.width * 0.44,
+          height: MediaQuery.of(context).size.width * 0.44,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.add,
+                color: Colors.white,
+                size: 42,
+              ),
+              Text(
+                'Freund hinzufügen',
+                style: TextStyle(color: Colors.white),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -296,6 +352,7 @@ class Overview extends StatelessWidget {
   InkResponse _buildQrCodeCard(BuildContext context) {
     return InkWell(
       onTap: () {
+        //TODO: Move into own file
         showDialog(
           context: context,
           builder: (context) {
