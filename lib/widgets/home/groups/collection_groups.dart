@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 class GroupCard extends StatelessWidget {
   final String title;
-  final double money_available;
-  final double money_needed;
+  final double moneyAvailable;
+  final double moneyNeeded;
 
-  GroupCard({this.title, this.money_available, this.money_needed});
+  GroupCard({this.title, this.moneyAvailable, this.moneyNeeded});
+
   Color _mainColor = Color(0xFF1ABC9C);
 
   @override
@@ -90,7 +91,7 @@ class GroupCard extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: Colors.white, shape: BoxShape.circle),
                     child: CircularProgressIndicator(
-                      value: money_available / money_needed,
+                      value: moneyAvailable / moneyNeeded,
                       strokeWidth: 10,
                       valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
                       backgroundColor: Colors.grey.shade400,
@@ -103,13 +104,13 @@ class GroupCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        '$money_available€/',
+                        '$moneyAvailable€/',
                         style: TextStyle(
                           color: Colors.red,
                         ),
                       ),
                       Text(
-                        '$money_needed€',
+                        '$moneyNeeded€',
                         style: TextStyle(
                           color: Colors.grey.shade800,
                         ),
