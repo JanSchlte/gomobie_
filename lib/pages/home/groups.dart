@@ -27,12 +27,12 @@ class CollectionGroups extends StatelessWidget {
           children: <Widget>[
             GroupCard(
                 title: 'GEBURTSTAG LEON',
-                money_available: 80.44,
-                money_needed: 100.00),
+                moneyAvailable: 80.44,
+                moneyNeeded: 100.00),
             GroupCard(
                 title: 'HOCHZEIT \n LUKAS UND LAURA',
-                money_available: 50.22,
-                money_needed: 250.00),
+                moneyAvailable: 50.22,
+                moneyNeeded: 250.00),
           ],
         ),
       ),
