@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gomobie/pages/home/family.dart';
+import 'package:gomobie/pages/home/groups.dart';
 import 'package:gomobie/pages/home/transactions.dart';
 
 import 'home/overview.dart';
@@ -16,25 +17,11 @@ class _HomeState extends State<Home> {
   int _currentIndex = 2;
 
   final List<Widget> _pages = [
-    Overview(),
+    CollectionGroups(),
     Transactions(),
     Overview(),
     Family(),
     Settings(),
-  ];
-
-  final List<PreferredSizeWidget> _appBars = [
-    null,
-    null,
-    null,
-    null,
-    AppBar(
-      centerTitle: true,
-      title: Text(
-        'Einstellungen',
-        style: TextStyle(color: Colors.white),
-      ),
-    )
   ];
 
   @override
@@ -56,7 +43,6 @@ class _HomeState extends State<Home> {
         onTap: (index) => setState(() => _currentIndex = index),
       ),
       body: _pages.elementAt(_currentIndex),
-      appBar: _appBars.elementAt(_currentIndex),
     );
   }
 }
