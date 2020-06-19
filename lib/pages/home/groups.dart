@@ -18,8 +18,14 @@ class CollectionGroups extends StatelessWidget {
       body: Center(
         child: Column(
           children: <Widget>[
-            GroupCard('GEBURTSTAG LEON'),
-            GroupCard('HOCHZEIT \n LUKAS UND LAURA'),
+            GroupCard(
+                title: 'GEBURTSTAG LEON',
+                money_available: 80.44,
+                money_needed: 100.00),
+            GroupCard(
+                title: 'HOCHZEIT \n LUKAS UND LAURA',
+                money_available: 50.22,
+                money_needed: 250.00),
           ],
         ),
       ),
