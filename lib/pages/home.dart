@@ -24,26 +24,6 @@ class _HomeState extends State<Home> {
     Settings(),
   ];
 
-  final List<PreferredSizeWidget> _appBars = [
-    AppBar(
-      centerTitle: true,
-      title: Text(
-        'Sammelgruppen',
-        style: TextStyle(color: Colors.white),
-      ),
-    ),
-    null,
-    null,
-    null,
-    AppBar(
-      centerTitle: true,
-      title: Text(
-        'Einstellungen',
-        style: TextStyle(color: Colors.white),
-      ),
-    )
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +43,6 @@ class _HomeState extends State<Home> {
         onTap: (index) => setState(() => _currentIndex = index),
       ),
       body: _pages.elementAt(_currentIndex),
-      appBar: _appBars.elementAt(_currentIndex),
     );
   }
 }

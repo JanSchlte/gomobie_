@@ -8,6 +8,13 @@ class CollectionGroups extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Sammelgruppen',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         elevation: 5,
         child: Icon(Icons.add),
