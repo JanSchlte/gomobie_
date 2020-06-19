@@ -67,7 +67,7 @@ class App extends StatelessWidget {
           TransactionScreen.routeName: (_) => TransactionScreen()
         },
         initialRoute:
-            isLoggedIn ? IntroScreen.routeName : IntroScreen.routeName,
+            isLoggedIn ? TransactionScreen.routeName : IntroScreen.routeName,
       ),
     );
   }
