@@ -10,11 +10,7 @@ class CollectionGroups extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         elevation: 5,
-        backgroundColor: Color(0xFF1ABC9C),
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
+        child: Icon(Icons.add),
         onPressed: () {
           //Diese Funktionalität soll noch nicht in dem MVP enthalten sein
         },
