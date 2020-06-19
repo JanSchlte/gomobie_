@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gomobie/pages/home/actions/recieve_money.dart';
 import 'package:gomobie/pages/home/actions/send_money.dart';
 import 'package:gomobie/pages/home/groups.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +15,7 @@ import 'pages/registration_screens/registration_screen_contact_data.dart';
 import 'pages/registration_screens/registration_screen_personal.dart';
 import 'pages/registration_screens/registration_success.dart';
 import 'provider/auth_provider.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +32,10 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MultiProvider(
       providers: [ChangeNotifierProvider.value(value: AuthProvider())],
       child: MaterialApp(
@@ -60,10 +64,10 @@ class App extends StatelessWidget {
           ChildRegistrationSuccess.routeName: (_) => ChildRegistrationSuccess(),
           CollectionGroups.routeName: (_) => CollectionGroups(),
           Home.routeName: (_) => Home(),
-          SendMoneyScreen.routeName: (_) => SendMoneyScreen(),
-          RecieveMoneyScreen.routeName: (_) => RecieveMoneyScreen()
+          TransactionScreen.routeName: (_) => TransactionScreen()
         },
-        initialRoute: isLoggedIn ? Home.routeName : IntroScreen.routeName,
+        initialRoute:
+            isLoggedIn ? IntroScreen.routeName : IntroScreen.routeName,
       ),
     );
   }
