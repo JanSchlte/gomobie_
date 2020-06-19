@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gomobie/pages/home/settings/activation_codes.dart';
 
 class Settings extends StatelessWidget {
   @override
@@ -37,6 +38,8 @@ class Settings extends StatelessWidget {
           ListTile(
             title: Text('Aktivierungscodes'),
             trailing: Icon(Icons.arrow_forward),
+            onTap: () =>
+                Navigator.of(context).pushNamed(ActivationCodes.routeName),
           ),
           Divider(),
         ],
