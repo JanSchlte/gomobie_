@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gomobie/pages/home/groups.dart';
 import 'package:gomobie/pages/home/settings/activation_codes.dart';
+import 'package:gomobie/pages/home/settings/help.dart';
 import 'package:provider/provider.dart';
 
 import 'pages/create_child_account/child_account_bank.dart';
@@ -60,7 +61,8 @@ class App extends StatelessWidget {
           ChildRegistrationSuccess.routeName: (_) => ChildRegistrationSuccess(),
           CollectionGroups.routeName: (_) => CollectionGroups(),
           Home.routeName: (_) => Home(),
-          ActivationCodes.routeName: (_) => ActivationCodes()
+          ActivationCodes.routeName: (_) => ActivationCodes(),
+          Help.routeName: (_) => Help()
         },
         initialRoute: isLoggedIn ? Home.routeName : IntroScreen.routeName,
       ),

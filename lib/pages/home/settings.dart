@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gomobie/pages/home/settings/activation_codes.dart';
+import 'package:gomobie/pages/home/settings/help.dart';
 
 class Settings extends StatelessWidget {
   @override
@@ -33,6 +34,7 @@ class Settings extends StatelessWidget {
           ListTile(
             title: Text('Hilfe'),
             trailing: Icon(Icons.arrow_forward),
+            onTap: () => Navigator.of(context).pushNamed(Help.routeName),
           ),
           Divider(),
           ListTile(
