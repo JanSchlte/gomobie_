@@ -161,8 +161,8 @@ class Overview extends StatelessWidget {
                                             value: 0.8,
                                             strokeWidth: 6,
                                             valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                                _mainColor),
+                                                AlwaysStoppedAnimation<Color>(
+                                                    _mainColor),
                                           ),
                                           Align(
                                             alignment: Alignment.center,
@@ -199,10 +199,7 @@ class Overview extends StatelessWidget {
                               painter: CardBackgroundPainter(
                                   backgroundColor: _mainColor),
                               child: Container(
-                                width: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .width * 0.45,
+                                width: MediaQuery.of(context).size.width * 0.45,
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
