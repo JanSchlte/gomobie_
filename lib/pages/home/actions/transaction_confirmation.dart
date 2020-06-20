@@ -38,10 +38,10 @@ class TransactionConfirmation extends StatelessWidget {
       title: Padding(
         padding: EdgeInsets.all(15),
         child:
-            Image.asset('assets/general_assets/flying_money.png', height: 200),
+            Image.asset('assets/general_assets/flying_money.png', height: 150),
       ),
       content: Text(
-        'Geld erfolgreich an Emma gesendet!',
+        'Geld erfolgreich an Harold gesendet!',
         textAlign: TextAlign.center,
         style: TextStyle(
           color: Colors.black,
@@ -59,6 +59,41 @@ class TransactionConfirmation extends StatelessWidget {
       builder: (BuildContext context) {
         return alert;
       },
+    );
+  }
+
+  Widget _buildHeader(String header) {
+    return Align(
+      alignment: Alignment(-0.8, 0),
+      child: Text(
+        header,
+        style: TextStyle(
+          color: _mainColor,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMinorTextBox(String content) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 30),
+      child: SizedBox(
+        width: double.infinity,
+        child: DecoratedBox(
+          decoration: BoxDecoration(color: Colors.grey.shade100),
+          position: DecorationPosition.background,
+          child: Padding(
+            padding: EdgeInsets.all(17),
+            child: Text(
+              content,
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.grey.shade400,
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -80,46 +115,38 @@ class TransactionConfirmation extends StatelessWidget {
           child: Column(
             children: <Widget>[
               SizedBox(
-                height: MediaQuery.of(context).size.width * 0.1,
+                height: MediaQuery.of(context).size.width * 0.04,
               ),
               CircleAvatar(
-                radius: 70,
+                radius: 59,
                 backgroundImage: AssetImage(
                     //TODO: Add the specific Firebase Image of the Transaction-Partner
                     'assets/fake_backend/fake_avatar.jpg'),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.width * 0.04,
+                height: MediaQuery.of(context).size.width * 0.03,
               ),
               Text(
                 '30.00 €',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 30,
+                  fontSize: 27,
                 ),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.width * 0.03,
               ),
               Text(
-                'Geld anfordern',
+                'Geld senden',
                 style: TextStyle(
                   color: Colors.grey.shade500,
-                  fontSize: 17,
+                  fontSize: 13,
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.width * 0.3,
+                height: MediaQuery.of(context).size.width * 0.04,
               ),
-              Align(
-                alignment: Alignment(-0.8, 0),
-                child: Text(
-                  'Person/ID:',
-                  style: TextStyle(
-                    color: _mainColor,
-                  ),
-                ),
-              ),
+              _buildHeader('Person/ID:'),
               SizedBox(
                 height: MediaQuery.of(context).size.width * 0.03,
               ),
@@ -127,7 +154,6 @@ class TransactionConfirmation extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 30),
                 child: SizedBox(
                   width: double.infinity,
-                  height: 60,
                   child: DecoratedBox(
                     decoration: BoxDecoration(color: Colors.grey.shade100),
                     position: DecorationPosition.background,
@@ -144,32 +170,22 @@ class TransactionConfirmation extends StatelessWidget {
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment(-0.8, 0),
-                child: Text(
-                  'Person/ID:',
-                  style: TextStyle(
-                    color: _mainColor,
-                  ),
-                ),
-              ),
               SizedBox(
                 height: MediaQuery.of(context).size.width * 0.03,
               ),
-              DecoratedBox(
-                decoration: BoxDecoration(color: Colors.grey.shade100),
-                position: DecorationPosition.background,
-                child: Padding(
-                  padding: EdgeInsets.all(17),
-                  child: Text(
-                    'Harold ( ID: 546 654 455 )',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.grey.shade400,
-                    ),
-                  ),
-                ),
+              _buildHeader('Verwendungszweck:'),
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.03,
               ),
+              _buildMinorTextBox('Schulden'),
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.03,
+              ),
+              _buildHeader('Nachricht:'),
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.03,
+              ),
+              _buildMinorTextBox('Danke für den schönen Ausflug ;)'),
               Expanded(
                 child: SizedBox(),
               ),
@@ -188,7 +204,7 @@ class TransactionConfirmation extends StatelessWidget {
                           child: Text(
                             'ZURÜCK',
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 20),
+                                fontWeight: FontWeight.bold, fontSize: 15),
                           ),
                           textColor: Colors.grey.shade300,
                           color: Colors.white),
@@ -204,7 +220,7 @@ class TransactionConfirmation extends StatelessWidget {
                         child: Text(
                           'BESTÄTIGEN',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
+                              fontWeight: FontWeight.bold, fontSize: 15),
                         ),
                         textColor: Colors.white,
                         color: _mainColor,
