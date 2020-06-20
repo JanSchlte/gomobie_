@@ -76,6 +76,7 @@ flutter:
     - assets/logo/
     - assets/registration_screens/
     - assets/send_or_recieve_money/
+    - assets/fake_backend/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

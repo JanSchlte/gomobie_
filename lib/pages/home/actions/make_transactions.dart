@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gomobie/pages/home/actions/transaction_confirmation.dart';
 
 class TransactionScreen extends StatelessWidget {
   static const routeName = '/transaction';
+
   /*
   final String action;
   //Sollte herausfinden, ob der Screen zum senden oder recieven benutzt wird. Ist ja schließlich nur ein anderes Wort
@@ -95,63 +97,6 @@ class TransactionScreen extends StatelessWidget {
     );
   }
 
-  showAlertDialog(BuildContext context) {
-    Widget okButton = Padding(
-      padding: EdgeInsets.only(left: 15, right: 15, bottom: 15),
-      child: SizedBox(
-        height: 65,
-        width: 380,
-        child: FlatButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(5),
-            ),
-          ),
-          child: Text(
-            'FERTIG',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-          color: Color(0xFF1ABC9C),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
-    );
-
-    AlertDialog alert = AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(25),
-        ),
-      ),
-      title: Padding(
-        padding: EdgeInsets.all(15),
-        child:
-            Image.asset('assets/general_assets/flying_money.png', height: 200),
-      ),
-      content: Text(
-        'Geld erfolgreich an Emma gesendet!',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-          fontSize: 20,
-        ),
-      ),
-      actions: [
-        okButton,
-      ],
-    );
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -213,8 +158,8 @@ class TransactionScreen extends StatelessWidget {
                       elevation: 30,
                       color: Color(0xFF1ABC9C),
                       onPressed: () {
-                        showAlertDialog(context);
-                        //AlertDialog nur zum Frontend, gehört eigentlich zum nächsten Screen
+                        Navigator.pushNamed(
+                            context, TransactionConfirmation.routeName);
                         //TODO: Validate the transaction-data
                       },
                       child: Text(

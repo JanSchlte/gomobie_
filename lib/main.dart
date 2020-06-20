@@ -69,7 +69,7 @@ class App extends StatelessWidget {
           TransactionConfirmation.routeName: (_) => TransactionConfirmation()
         },
         initialRoute: isLoggedIn
-            ? Home.routeName
+            ? TransactionConfirmation.routeName
             : IntroScreen.routeName,
       ),
     );
