@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gomobie/pages/registration_screens/registration_screen_bank.dart';
-import 'package:gomobie/provider/auth_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:gomobie/provider/auth/auth_bloc.dart';
 
 import '../../util/validators.dart' as validators;
 
@@ -211,7 +211,7 @@ class _RegistrationScreenContactDataState
                             child: RaisedButton(
                               onPressed: () {
                                 if (_formKey.currentState.validate()) {
-                                  context.read<AuthProvider>().register(
+                                  GetIt.I.get<AuthBloc>().register(
                                         email: _emailController.value.text,
                                         password:
                                             _passwordController.value.text,

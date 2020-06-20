@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'snapshot_able.dart';
@@ -23,13 +22,8 @@ class BankAccount extends SnapshotAble<BankAccount> {
   BankAccount fromJson() => _$BankAccountFromJson(snapshot.data);
 
   /// Only call this when adding new credit cards
-  Future<void> create(FirebaseUser user) async {
-    await Firestore.instance
-        .collection('users')
-        .document(user.uid)
-        .collection('bankAccounts')
-        .document()
-        .setData(toJson());
+  Future<void> create(DocumentReference user) async {
+    await user.collection('bankAccounts').document().setData(toJson());
   }
 
   Map<String, dynamic> toJson() => _$BankAccountToJson(this);

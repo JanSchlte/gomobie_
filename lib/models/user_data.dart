@@ -48,7 +48,7 @@ class UserData extends SnapshotAble<UserData> {
       CreditCard.get(snapshot.reference);
 
   Future<List<UserData>> get children =>
-      Future.wait((snapshot.data.get('children') as List)
+      Future.wait((snapshot.data.get('children') as List ?? [])
           ?.map((e) => UserData.get(e as String)));
 
   static Future<UserData> get(String userId) async {

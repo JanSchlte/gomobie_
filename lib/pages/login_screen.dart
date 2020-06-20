@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:gomobie/provider/auth_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gomobie/provider/auth/auth_bloc.dart';
 
 import '../util/validators.dart' as validators;
 import 'home.dart';
@@ -128,13 +128,15 @@ class LoginScreen extends StatelessWidget {
     return RaisedButton(
       onPressed: () async {
         if (_formKey.currentState.validate()) {
-          final success = await context.read<AuthProvider>().login(
+          GetIt.I.get<AuthBloc>().listen((state) {
+            if (state.isLoggedIn) {
+              Navigator.of(context).pushNamed(Home.routeName);
+            }
+          });
+          GetIt.I.get<AuthBloc>().login(
                 email: _emailController.text,
                 password: _passwordController.text,
               );
-          if (success) {
-            Navigator.of(context).pushNamed(Home.routeName);
-          }
         }
       },
       child: Text('ANMELDEN'),

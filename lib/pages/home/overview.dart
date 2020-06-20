@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gomobie/provider/auth/auth_bloc.dart';
+import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 import 'package:gomobie/util/home_painter.dart';
-import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-
-import '../../provider/auth_provider.dart';
 
 class Overview extends StatelessWidget {
   Color _mainColor = Color(0xFF1ABC9C);
@@ -32,7 +33,6 @@ class Overview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<AuthProvider>();
     return Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -43,111 +43,108 @@ class Overview extends StatelessWidget {
           color: Colors.grey.shade800.withOpacity(0.75),
           child: SafeArea(
             child: Center(
-              child: provider.hasData
-                  ? SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          CircleAvatar(
-                            radius: 60,
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  top: 30,
-                                  left: 30,
-                                  child: IconButton(
-                                    icon: Icon(
-                                      Icons.add,
-                                      color: _mainColor,
-                                      size: 60,
-                                    ),
-                                    padding: EdgeInsets.only(),
-                                    onPressed: () {
-                                      //TODO: Add upload image page and upload it to Firebase
-                                    },
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment(0, 0.55),
-                                  child: Text(
-                                    'Bild hinzufügen',
-                                    style: Theme.of(context).textTheme.caption,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ],
+                child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    radius: 60,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          top: 30,
+                          left: 30,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.add,
+                              color: _mainColor,
+                              size: 60,
                             ),
-                            backgroundColor: Colors.white,
+                            padding: EdgeInsets.only(),
+                            onPressed: () {
+                              //TODO: Add upload image page and upload it to Firebase
+                            },
                           ),
-                          SizedBox(
-                            height: 25,
+                        ),
+                        Align(
+                          alignment: Alignment(0, 0.55),
+                          child: Text(
+                            'Bild hinzufügen',
+                            style: Theme.of(context).textTheme.caption,
+                            textAlign: TextAlign.center,
                           ),
-                          Text(
-                            provider.userData.name,
+                        ),
+                      ],
+                    ),
+                    backgroundColor: Colors.white,
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  BlocBuilder<UserDataBloc, UserDataState>(
+                      bloc: GetIt.I.get<UserDataBloc>(),
+                      builder: (context, state) {
+                        if (state is UserStandardData) {
+                          return Text(
+                            state.data.name,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500,
                                 fontSize: 25),
-                          ),
-                          SizedBox(
-                            height: 25,
-                          ),
-                          Stack(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(top: 26),
-                                child: CustomPaint(
-                                  painter: HomePainter(),
-                                  child: Container(
-                                    width: double.infinity,
-                                    child: Column(
-                                      children: [
-                                        SizedBox(height: 50),
-                                        Text('Hello')
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  _buildIconButton(
-                                      AssetImage(
-                                          'assets/icon_buttons/money_get.png'),
-                                      null),
-                                  _buildIconButton(
-                                      AssetImage(
-                                          'assets/icon_buttons/money_send.png'),
-                                      null),
-                                  _buildIconButton(
-                                      AssetImage(
-                                          'assets/icon_buttons/money_get.png'),
-                                      null),
-                                ],
-                              ),
-                              //TODO: Add Family stack
-                            ],
-                          ),
-                          Container(
+                          );
+                        }
+                        return Text('Error');
+                      }),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Stack(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 26),
+                        child: CustomPaint(
+                          painter: HomePainter(),
+                          child: Container(
                             width: double.infinity,
-                            padding: EdgeInsets.only(top: 20),
-                            color: Color(0xFF474747),
-                            child: Wrap(
-                              alignment: WrapAlignment.center,
-                              children: [
-                                _buildMockCollectionGroupCard(context),
-                                _buildMockBillCard(context),
-                                _buildAddFriendCard(context),
-                                _buildQrCodeCard(context)
-                              ],
+                            child: Column(
+                              children: [SizedBox(height: 50), Text('Hello')],
                             ),
                           ),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          _buildIconButton(
+                              AssetImage('assets/icon_buttons/money_get.png'),
+                              null),
+                          _buildIconButton(
+                              AssetImage('assets/icon_buttons/money_send.png'),
+                              null),
+                          _buildIconButton(
+                              AssetImage('assets/icon_buttons/money_get.png'),
+                              null),
                         ],
                       ),
-                    )
-                  : Text('LOADING...'),
-            ),
+                      //TODO: Add Family stack
+                    ],
+                  ),
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.only(top: 20),
+                    color: Color(0xFF474747),
+                    child: Wrap(
+                      alignment: WrapAlignment.center,
+                      children: [
+                        _buildMockCollectionGroupCard(context),
+                        _buildMockBillCard(context),
+                        _buildAddFriendCard(context),
+                        _buildQrCodeCard(context)
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            )),
           ),
         ));
   }
@@ -374,9 +371,14 @@ class Overview extends StatelessWidget {
                       ],
                     ),
                   ),
-                  QrImage(
-                    data: context.watch<AuthProvider>().userId,
-                    padding: EdgeInsets.all(10),
+                  BlocBuilder<AuthBloc, AuthState>(
+                    bloc: GetIt.I.get<AuthBloc>(),
+                    builder: (context, state) {
+                      return QrImage(
+                        data: state.user?.uid,
+                        padding: EdgeInsets.all(10),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -400,9 +402,14 @@ class Overview extends StatelessWidget {
             ),
             child: Stack(
               children: [
-                QrImage(
-                  data: context.watch<AuthProvider>().userId,
-                  padding: EdgeInsets.all(30),
+                BlocBuilder<AuthBloc, AuthState>(
+                  bloc: GetIt.I.get<AuthBloc>(),
+                  builder: (context, state) {
+                    return QrImage(
+                      data: state.user?.uid,
+                      padding: EdgeInsets.all(30),
+                    );
+                  },
                 ),
                 Align(
                   child: Icon(

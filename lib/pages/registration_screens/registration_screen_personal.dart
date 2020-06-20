@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gomobie/pages/registration_screens/registration_screen_contact_data.dart';
-import 'package:gomobie/provider/auth_provider.dart';
+import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 import 'package:gomobie/util/generic_controller.dart';
 import 'package:gomobie/widgets/birthday_form_field.dart';
 import 'package:gomobie/widgets/drop_down_form_field.dart';
-import 'package:provider/provider.dart';
 
 class RegistrationScreenOne extends StatelessWidget {
   static const routeName = '/register';
@@ -258,7 +258,8 @@ class RegistrationScreenOne extends StatelessWidget {
                                         validator: (postalCode) {
                                           final parsed =
                                               int.tryParse(postalCode);
-                                          if (parsed == null || parsed < 1067 ||
+                                          if (parsed == null ||
+                                              parsed < 1067 ||
                                               parsed > 99998) {
                                             return 'Diese Postleitzahl ist nicht valide';
                                           }
@@ -329,18 +330,16 @@ class RegistrationScreenOne extends StatelessWidget {
                               child: RaisedButton(
                                 onPressed: () {
                                   if (_formKey.currentState.validate()) {
-                                    context
-                                        .read<AuthProvider>()
-                                        .setRegisterArgs(
-                                          _firstNameController.text,
-                                          _lastNameController.text,
-                                          int.parse(_postalCodeController.text),
-                                          _cityController.text,
-                                          _streetController.text,
-                                          _countryController.value,
-                                          _titleController.value,
-                                          _birthdayController.value,
-                                        );
+                                    GetIt.I.get<UserDataBloc>().setRegisterArgs(
+                                      _firstNameController.text,
+                                      _lastNameController.text,
+                                      int.parse(_postalCodeController.text),
+                                      _cityController.text,
+                                      _streetController.text,
+                                      _countryController.value,
+                                      _titleController.value,
+                                      _birthdayController.value,
+                                    );
                                     Navigator.of(context).pushNamed(
                                       RegistrationScreenContactData.routeName,
                                     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gomobie/provider/auth_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 
 import 'registration_success.dart';
 
@@ -190,11 +190,11 @@ class _RegistrationScreenBankState extends State<RegistrationScreenBank> {
                     child: RaisedButton(
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          context.read<AuthProvider>().addBankAccount(
+                          GetIt.I.get<UserDataBloc>().addBankAccount(
                               owner: _accountHolderController.value.text,
                               iban: _ibanController.value.text,
                               bic: _bicController.value.text);
-                          if (context.read<AuthProvider>().isRegistering) {
+                          if (GetIt.I.get<UserDataBloc>().state.isRegistering) {
                             Navigator.of(context)
                                 .pushNamed(RegistrationSuccess.routeName);
                           } else {
