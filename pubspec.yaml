@@ -38,14 +38,14 @@ dependencies:
   get_it: ^4.0.2
   intl: ^0.16.1
   firebase_auth: ^0.16.1
-  cloud_firestore: ^0.13.6
+  cloud_firestore: ^0.13.7
   json_annotation: ^3.0.1
   qr_flutter: ^3.2.0
 
 dev_dependencies:
   # Install with pub global activate derry
-  derry: ^0.0.6
-  effective_dart: ^1.2.2
+  derry: ^0.0.8+1
+  effective_dart: ^1.2.3
   flutter_test:
     sdk: flutter
 
