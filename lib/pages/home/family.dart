@@ -4,6 +4,114 @@ import 'package:gomobie/pages/home/transactions.dart';
 import 'package:gomobie/widgets/home/family/family_card.dart';
 
 class Family extends StatelessWidget {
+  showAlertDialog(BuildContext context) {
+    Widget requestButton = Padding(
+      padding: EdgeInsets.only(left: 15, right: 15, bottom: 15),
+      child: SizedBox(
+        height: 50,
+        width: 380,
+        child: FlatButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(5),
+            ),
+          ),
+          child: Text(
+            'ANFRAGE SENDEN',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          color: Color(0xFF1ABC9C),
+          onPressed: () {
+            //TODO: Implement Backend (Anfrage senden)
+          },
+        ),
+      ),
+    );
+
+    Widget createAccountButton = Padding(
+      padding: EdgeInsets.only(left: 15, right: 15, bottom: 15),
+      child: SizedBox(
+        height: 70,
+        width: 380,
+        child: FlatButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(5),
+            ),
+          ),
+          child: Text(
+            'NEUES KINDERKONTO \n'
+            'ANLEGEN',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          color: Color(0xFF1ABC9C),
+          onPressed: () {
+            //TODO: Zum Kinderkonto-Erstellen Screen navigieren
+          },
+        ),
+      ),
+    );
+
+    AlertDialog alert = AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(25),
+        ),
+      ),
+      title: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Image.asset(
+              'assets/general_assets/plus.png',
+              height: 45,
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              'Benutzer zur Familie hinzufügen',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.grey.shade500,
+                fontSize: 12,
+              ),
+            ),
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Benutzer ID',
+                //TODO: Avoid Bottom Overflow despite SingelChildScrollView
+              ),
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        requestButton,
+        Center(
+          child: Text(
+            'oder',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.grey.shade500,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 15,
+        ),
+        createAccountButton
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -49,7 +157,9 @@ class Family extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: FloatingActionButton.extended(
-                      onPressed: () {},
+                      onPressed: () {
+                        showAlertDialog(context);
+                      },
                       label: Text('Hinzufügen'),
                       icon: Icon(Icons.add),
                     ),
