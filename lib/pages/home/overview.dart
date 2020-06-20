@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gomobie/pages/home/actions/make_transactions.dart';
+import 'package:gomobie/pages/home/groups.dart';
 import 'package:gomobie/util/card_background_painter.dart';
 import 'package:gomobie/util/home_painter.dart';
 import 'package:provider/provider.dart';
@@ -139,10 +140,20 @@ class Overview extends StatelessWidget {
                                     backgroundColor: Color(0xFF505050),
                                   ),
                                 ),
-                                _buildIconButton(
-                                    AssetImage(
-                                        'assets/icon_buttons/money_get.png'),
-                                    null),
+                                InkResponse(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, CollectionGroups.routeName);
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 25,
+                                    child: Image(
+                                        image: AssetImage(
+                                            'assets/icon_buttons/group_icon_button.png'),
+                                        fit: BoxFit.contain),
+                                    backgroundColor: Color(0xFF505050),
+                                  ),
+                                ),
                               ],
                             )
                           ],
