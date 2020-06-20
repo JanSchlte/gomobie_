@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gomobie/pages/home/actions/make_transactions.dart';
 import 'package:gomobie/util/card_background_painter.dart';
 import 'package:gomobie/util/home_painter.dart';
 import 'package:provider/provider.dart';
@@ -110,14 +111,34 @@ class Overview extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                _buildIconButton(
-                                    AssetImage(
-                                        'assets/icon_buttons/money_get.png'),
-                                    null),
-                                _buildIconButton(
-                                    AssetImage(
-                                        'assets/icon_buttons/money_send.png'),
-                                    null),
+                                InkResponse(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, TransactionScreen.routeName);
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 25,
+                                    child: Image(
+                                        image: AssetImage(
+                                            'assets/icon_buttons/money_get.png'),
+                                        fit: BoxFit.contain),
+                                    backgroundColor: Color(0xFF505050),
+                                  ),
+                                ),
+                                InkResponse(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, TransactionScreen.routeName);
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 25,
+                                    child: Image(
+                                        image: AssetImage(
+                                            'assets/icon_buttons/money_send.png'),
+                                        fit: BoxFit.contain),
+                                    backgroundColor: Color(0xFF505050),
+                                  ),
+                                ),
                                 _buildIconButton(
                                     AssetImage(
                                         'assets/icon_buttons/money_get.png'),

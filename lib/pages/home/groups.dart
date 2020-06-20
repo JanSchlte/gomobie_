@@ -11,7 +11,7 @@ class CollectionGroups extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Sammelgruppen',
+          'SAMMELGRUPPEN',
           style: TextStyle(color: Colors.white),
         ),
       ),
