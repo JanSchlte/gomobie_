@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gomobie/provider/auth/auth_bloc.dart';
 import 'package:gomobie/provider/user_data/user_data_bloc.dart';
+import 'package:gomobie/pages/home/actions/make_transactions.dart';
+import 'package:gomobie/pages/home/groups.dart';
+import 'package:gomobie/util/card_background_painter.dart';
 import 'package:gomobie/util/home_painter.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 
 class Overview extends StatelessWidget {
   Color _mainColor = Color(0xFF1ABC9C);
@@ -18,6 +20,8 @@ class Overview extends StatelessWidget {
     fontSize: 20,
     color: Colors.white,
   );
+
+  bool sending;
 
   Widget _buildIconButton(AssetImage icon, VoidCallback onPressed) {
     return InkResponse(
@@ -114,15 +118,50 @@ class Overview extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          _buildIconButton(
-                              AssetImage('assets/icon_buttons/money_get.png'),
-                              null),
-                          _buildIconButton(
-                              AssetImage('assets/icon_buttons/money_send.png'),
-                              null),
-                          _buildIconButton(
-                              AssetImage('assets/icon_buttons/money_get.png'),
-                              null),
+                          InkResponse(
+                                  onTap: () {
+                                    sending = false;
+                                    Navigator.of(context).pushNamed(
+                                        TransactionScreen.routeName,
+                                        arguments: {
+                                          sending: false,
+                                        });
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 25,
+                                    child: Image(
+                              image:AssetImage('assets/icon_buttons/money_get.png'),
+                              fit: BoxFit.contain),
+                                    backgroundColor: Color(0xFF505050),
+                                  ),
+                                ),
+                                InkResponse(
+                                  onTap: () {
+                                    sending = true;
+                                    Navigator.pushNamed(
+                                        context, TransactionScreen.routeName,
+                                        arguments: sending);
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 25,
+                          child: Image(
+                              image:AssetImage('assets/icon_buttons/money_send.png'),
+                              fit: BoxFit.contain),
+                                    backgroundColor: Color(0xFF505050),
+                                  ),
+                                ),
+                                InkResponse(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, CollectionGroups.routeName);
+                          },
+                              child: CircleAvatar(
+                                    radius: 25,
+                                    child: Image(
+                                        image:AssetImage('assets/icon_buttons/group_icon_button.png'),
+                              fit: BoxFit.contain),
+                                    backgroundColor: Color(0xFF505050),
+                                  ),),
                         ],
                       ),
                       //TODO: Add Family stack

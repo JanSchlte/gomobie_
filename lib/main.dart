@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gomobie/pages/home/actions/make_transactions.dart';
+import 'package:gomobie/pages/home/actions/transaction_confirmation.dart';
 import 'package:gomobie/pages/home/groups.dart';
 import 'package:gomobie/pages/home/settings/activation_codes.dart';
 import 'package:gomobie/pages/home/settings/help.dart';
@@ -18,12 +20,17 @@ import 'pages/registration_screens/registration_screen_bank.dart';
 import 'pages/registration_screens/registration_screen_contact_data.dart';
 import 'pages/registration_screens/registration_screen_personal.dart';
 import 'pages/registration_screens/registration_success.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final user = await FirebaseAuth.instance.currentUser();
   GetIt.I.registerSingleton(AuthBloc(user));
   GetIt.I.registerSingleton(UserDataBloc());
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitDown,
+    DeviceOrientation.portraitUp
+  ]);
   runApp(App(
     isLoggedIn: user != null,
   ));
@@ -63,7 +70,9 @@ class App extends StatelessWidget {
         CollectionGroups.routeName: (_) => CollectionGroups(),
         Home.routeName: (_) => Home(),
         ActivationCodes.routeName: (_) => ActivationCodes(),
-        Help.routeName: (_) => Help()
+        Help.routeName: (_) => Help(),
+        TransactionScreen.routeName: (_) => TransactionScreen(),
+        TransactionConfirmation.routeName: (_) => TransactionConfirmation()
       },
       initialRoute: isLoggedIn ? Home.routeName : IntroScreen.routeName,
     );

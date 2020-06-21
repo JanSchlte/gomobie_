@@ -11,7 +11,7 @@ class CollectionGroups extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Sammelgruppen',
+          'SAMMELGRUPPEN',
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -25,8 +25,14 @@ class CollectionGroups extends StatelessWidget {
       body: Center(
         child: Column(
           children: <Widget>[
-            GroupCard('GEBURTSTAG LEON'),
-            GroupCard('HOCHZEIT \n LUKAS UND LAURA'),
+            GroupCard(
+                title: 'GEBURTSTAG LEON',
+                moneyAvailable: 80.44,
+                moneyNeeded: 100.00),
+            GroupCard(
+                title: 'HOCHZEIT \n LUKAS UND LAURA',
+                moneyAvailable: 50.22,
+                moneyNeeded: 250.00),
           ],
         ),
       ),

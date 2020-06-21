@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class GroupCard extends StatelessWidget {
   final String title;
+  final double moneyAvailable;
+  final double moneyNeeded;
 
-  GroupCard(this.title);
+  GroupCard({this.title, this.moneyAvailable, this.moneyNeeded});
 
   Color _mainColor = Color(0xFF1ABC9C);
 
@@ -58,7 +60,6 @@ class GroupCard extends StatelessWidget {
                 ),
                 Expanded(child: Container()),
                 Container(
-                  //TODO: @Dominik Wie spalte ich den Container farblich in 2 Teile auf, so dass ich den FlatButton nicht separat machen muss?
                   width: double.infinity,
                   color: _mainColor,
                   child: FlatButton(
@@ -90,7 +91,7 @@ class GroupCard extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: Colors.white, shape: BoxShape.circle),
                     child: CircularProgressIndicator(
-                      value: 0.85,
+                      value: moneyAvailable / moneyNeeded,
                       strokeWidth: 10,
                       valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
                       backgroundColor: Colors.grey.shade400,
@@ -103,13 +104,13 @@ class GroupCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        '80.00€/',
+                        '$moneyAvailable€/',
                         style: TextStyle(
                           color: Colors.red,
                         ),
                       ),
                       Text(
-                        '100.00€',
+                        '$moneyNeeded€',
                         style: TextStyle(
                           color: Colors.grey.shade800,
                         ),
