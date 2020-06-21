@@ -116,6 +116,7 @@ class Overview extends StatelessWidget {
                               children: [
                                 InkResponse(
                                   onTap: () {
+                                    sending = false;
                                     Navigator.of(context).pushNamed(
                                         TransactionScreen.routeName,
                                         arguments: {
@@ -133,11 +134,10 @@ class Overview extends StatelessWidget {
                                 ),
                                 InkResponse(
                                   onTap: () {
-                                    Navigator.of(context).pushNamed(
-                                        TransactionScreen.routeName,
-                                        arguments: {
-                                          sending: true,
-                                        });
+                                    sending = true;
+                                    Navigator.pushNamed(
+                                        context, TransactionScreen.routeName,
+                                        arguments: sending);
                                   },
                                   child: CircleAvatar(
                                     radius: 25,

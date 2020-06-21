@@ -99,7 +99,6 @@ class TransactionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final routes = ModalRoute.of(context).settings.arguments as Map<bool, bool>;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
