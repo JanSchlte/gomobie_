@@ -5,7 +5,7 @@ class TransactionScreen extends StatelessWidget {
   static const routeName = '/transaction';
 
   /*
-  final String action;
+  final bool action;
   //Sollte herausfinden, ob der Screen zum senden oder recieven benutzt wird. Ist ja schließlich nur ein anderes Wort
   TransactionScreen(this.action);
   */
@@ -99,6 +99,7 @@ class TransactionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final routes = ModalRoute.of(context).settings.arguments as Map<bool, bool>;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -125,7 +126,8 @@ class TransactionScreen extends StatelessWidget {
                     height: MediaQuery.of(context).size.width * 0.05,
                   ),
                   Text(
-                    //'Geld $action',
+                    //TODO: Make the type of the Screen (sending or recieving) dependent from the boolean type arguments (Map-Form)
+                    //routes[sending] == true ?
                     'Geld senden',
                     style: TextStyle(
                       color: Colors.white,

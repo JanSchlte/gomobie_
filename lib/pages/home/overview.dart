@@ -20,6 +20,8 @@ class Overview extends StatelessWidget {
     color: Colors.white,
   );
 
+  bool sending;
+
   Widget _buildIconButton(AssetImage icon, VoidCallback onPressed) {
     return InkResponse(
       //TODO: Add action
@@ -114,8 +116,11 @@ class Overview extends StatelessWidget {
                               children: [
                                 InkResponse(
                                   onTap: () {
-                                    Navigator.pushNamed(
-                                        context, TransactionScreen.routeName);
+                                    Navigator.of(context).pushNamed(
+                                        TransactionScreen.routeName,
+                                        arguments: {
+                                          sending: false,
+                                        });
                                   },
                                   child: CircleAvatar(
                                     radius: 25,
@@ -128,8 +133,11 @@ class Overview extends StatelessWidget {
                                 ),
                                 InkResponse(
                                   onTap: () {
-                                    Navigator.pushNamed(
-                                        context, TransactionScreen.routeName);
+                                    Navigator.of(context).pushNamed(
+                                        TransactionScreen.routeName,
+                                        arguments: {
+                                          sending: true,
+                                        });
                                   },
                                   child: CircleAvatar(
                                     radius: 25,
