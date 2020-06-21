@@ -80,7 +80,9 @@ class Family extends StatelessWidget {
             TextField(
               decoration: InputDecoration(
                 labelText: 'Benutzer ID',
-                //TODO: Avoid Bottom Overflow despite SingelChildScrollView
+                labelStyle:
+                    TextStyle(color: Colors.grey.shade500, fontSize: 13),
+                //TODO: Avoid Bottom Overflow despite usage of SingelChildScrollView
               ),
             ),
           ],
