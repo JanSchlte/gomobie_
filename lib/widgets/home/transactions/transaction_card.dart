@@ -31,9 +31,9 @@ class TransactionCard extends StatelessWidget {
             width: 110,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: transaction.transactionType == TransactionType.outgoing
-                  ? Colors.red.withOpacity(0.3)
-                  : Colors.green.withOpacity(0.3),
+              color: transaction.isIncoming
+                  ? Colors.green.withOpacity(0.3)
+                  : Colors.red.withOpacity(0.3),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -42,22 +42,20 @@ class TransactionCard extends StatelessWidget {
                   height: 17,
                   width: 17,
                   decoration: BoxDecoration(
-                    color:
-                        transaction.transactionType == TransactionType.outgoing
-                            ? Colors.red.withOpacity(0.55)
-                            : Colors.green.withOpacity(0.55),
+                    color: transaction.isIncoming
+                        ? Colors.green.withOpacity(0.55)
+                        : Colors.red.withOpacity(0.55),
                     shape: BoxShape.circle,
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Text(
-                    transaction.transactionType.message(),
+                    transaction.isIncoming ? 'Eingehend' : 'Ausgehend',
                     style: TextStyle(
-                        color: transaction.transactionType ==
-                                TransactionType.outgoing
-                            ? Colors.red.withOpacity(0.8)
-                            : Colors.green.withOpacity(0.8)),
+                        color: transaction.isIncoming
+                            ? Colors.green.withOpacity(0.8)
+                            : Colors.red.withOpacity(0.8)),
                   ),
                 )
               ],

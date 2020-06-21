@@ -1,34 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gomobie/provider/auth/auth_bloc.dart';
 import 'package:gomobie/widgets/home/transactions/transaction_card.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'transaction.g.dart';
 
-enum TransactionType { incoming, outgoing }
-
-extension TranscationTypeX on TransactionType {
-  String message() {
-    switch (this) {
-      case TransactionType.incoming:
-        return 'Erhalten';
-      default:
-        return 'Gesendet';
-    }
-  }
-}
-
 @JsonSerializable()
-class Transaction {
+class Transaction extends Comparable<Transaction> {
   final int amount;
   final String title;
   final String receiver;
   final String sender;
-  final TransactionType transactionType;
   @JsonKey(fromJson: _fromTimeStamp, toJson: _toTimeStamp)
   final DateTime created;
 
-  String get value =>
-      '${transactionType == TransactionType.incoming ? '+' : '-'}'
+  bool get isIncoming => GetIt.I.get<AuthBloc>().state.user?.uid == receiver;
+
+  String get value => '${isIncoming ? '+' : '-'}'
       '${(amount / 100).toStringAsFixed(2)}';
 
   TransactionCard get asWidget => TransactionCard(transaction: this);
@@ -38,12 +27,21 @@ class Transaction {
     this.title,
     this.receiver,
     this.sender,
-    this.transactionType,
     this.created,
   });
 
+  Future<void> create() => Firestore.instance
+      .collection('transactions')
+      .document()
+      .setData(toJson());
+
   factory Transaction.fromJson(Map<String, dynamic> json) =>
       _$TransactionFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TransactionToJson(this);
+
+  @override
+  int compareTo(Transaction other) => created.compareTo(other.created);
 }
 
 //TODO: Put into file

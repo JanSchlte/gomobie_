@@ -25,6 +25,12 @@ class BankAccountUpdateEvent extends UserDataEvent {
   BankAccountUpdateEvent(this.bankAccounts);
 }
 
+class TransactionUpdateEvent extends UserDataEvent {
+  final List<Transaction> transactions;
+
+  TransactionUpdateEvent(this.transactions);
+}
+
 class CreditCardUpdateEvent extends UserDataEvent {
   final List<CreditCard> creditCards;
 

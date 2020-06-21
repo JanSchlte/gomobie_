@@ -1,6 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Transaction;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gomobie/models/snapshot_able.dart';
+import 'package:gomobie/models/transaction.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../extensions/map.dart';
@@ -27,6 +28,8 @@ class UserData extends SnapshotAble<UserData> {
 
   String get name => '$firstName $lastName';
 
+  String get userId => snapshot.documentID;
+
   UserData({
     this.birthday,
     this.city,
@@ -50,6 +53,23 @@ class UserData extends SnapshotAble<UserData> {
   Future<List<UserData>> get children =>
       Future.wait((snapshot.data.get('children') as List ?? [])
           ?.map((e) => UserData.get(e as String)));
+
+  Future<List<Transaction>> get transactions async {
+    final received = await Firestore.instance
+        .collection('transactions')
+        .where('receiver', isEqualTo: snapshot.documentID)
+        .getDocuments();
+    final sent = await Firestore.instance
+        .collection('transactions')
+        .where('sender', isEqualTo: snapshot.documentID)
+        .getDocuments();
+    final r = received.documents.map((e) => Transaction.fromJson(e.data));
+    final s = sent.documents.map((e) => Transaction.fromJson(e.data));
+    final c = r.followedBy(s);
+    final f = c.toList();
+    f.sort();
+    return f;
+  }
 
   static Future<UserData> get(String userId) async {
     final doc =

@@ -4,11 +4,11 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gomobie/models/bank_account.dart';
 import 'package:gomobie/models/credit_card.dart';
+import 'package:gomobie/models/transaction.dart';
 import 'package:gomobie/models/user_data.dart';
 import 'package:meta/meta.dart';
 
 part 'user_data_event.dart';
-
 part 'user_data_state.dart';
 
 class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
@@ -56,6 +56,26 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
         .create((state as UserStandardData).data.snapshot.reference);
   }
 
+  void createTransaction({String receiver, int amount, String title}) async {
+    final s = state as UserStandardData;
+    final transaction = Transaction(
+      title: title,
+      receiver: receiver,
+      sender: s.data.userId,
+      amount: amount,
+      created: DateTime.now(),
+    );
+    await transaction.create();
+    _retrieveTransactions();
+  }
+
+  void _retrieveTransactions() {
+    final d = (state as UserStandardData).data;
+    d.transactions.then((value) {
+      add(TransactionUpdateEvent(value));
+    });
+  }
+
   void _retrieveAccounts() {
     final d = (state as UserStandardData).data;
     d.bankAccounts.then((value) {
@@ -67,6 +87,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     d.children.then((value) {
       add(ChildrenUpdateEvent(value));
     });
+    _retrieveTransactions();
   }
 
   @override
@@ -87,6 +108,9 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     } else if (event is CreditCardUpdateEvent) {
       final s = state as UserStandardData;
       yield s..creditCards = event.creditCards;
+    } else if (event is TransactionUpdateEvent) {
+      final s = state as UserStandardData;
+      yield s..transactions = event.transactions;
     } else {
       yield InitialUserDataState();
     }

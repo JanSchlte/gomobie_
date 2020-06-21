@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:gomobie/models/transaction.dart';
 import 'package:gomobie/pages/registration_screens/registration_screen_bank.dart';
 import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 
@@ -76,11 +75,11 @@ class _TransactionsState extends State<Transactions> {
                                           SizedBox(height: 20),
                                           Text('800,44€'),
                                           SizedBox(height: 20),
-                                    ],
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ))
+                                ))
                             .toList(),
                       );
                     }
@@ -95,36 +94,12 @@ class _TransactionsState extends State<Transactions> {
             'Letzte Transaktionen',
             style: TextStyle(fontSize: 20),
           ),
-          Transaction(
-                  amount: 200,
-                  title: 'Trinkgeld',
-                  transactionType: TransactionType.outgoing,
-                  created: DateTime.now())
-              .asWidget,
-          Transaction(
-                  amount: 200,
-                  title: 'Trinkgeld',
-                  transactionType: TransactionType.outgoing,
-                  created: DateTime.now())
-              .asWidget,
-          Transaction(
-                  amount: 200,
-                  title: 'Trinkgeld',
-                  transactionType: TransactionType.outgoing,
-                  created: DateTime.now())
-              .asWidget,
-          Transaction(
-                  amount: 200,
-                  title: 'Trinkgeld',
-                  transactionType: TransactionType.incoming,
-                  created: DateTime.now())
-              .asWidget,
-          Transaction(
-                  amount: 200,
-                  title: 'Trinkgeld',
-                  transactionType: TransactionType.outgoing,
-                  created: DateTime.now())
-              .asWidget,
+          for (final transaction
+          in (GetIt.I
+              .get<UserDataBloc>()
+              .state as UserStandardData)
+              .transactions)
+            transaction.asWidget
         ],
       ),
     );

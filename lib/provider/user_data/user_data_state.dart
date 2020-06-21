@@ -23,6 +23,7 @@ class UserStandardData extends UserRegisteringData {
   List<BankAccount> bankAccounts;
   List<CreditCard> creditCards;
   List<UserData> children;
+  List<Transaction> transactions;
 
   UserStandardData(UserData data) : super(data);
 
