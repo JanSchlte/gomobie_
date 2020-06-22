@@ -191,6 +191,7 @@ class RegistrationScreenOne extends StatelessWidget {
                                           BirthdayFormField(
                                             controller: _birthdayController,
                                             hint: 'Auswählen',
+                                            hintColor: Colors.red,
                                             validator: (d) {
                                               if (d == null) {
                                                 return 'Auswählen';

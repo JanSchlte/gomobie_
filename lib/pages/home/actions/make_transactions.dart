@@ -41,6 +41,7 @@ class TransactionScreen extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: TextFormField(
+        keyboardType: TextInputType.number,
         controller: _amountController,
         decoration: InputDecoration(
           filled: true,

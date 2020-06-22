@@ -13,6 +13,8 @@ class BirthdayFormField extends FormField<DateTime> {
   final DateTime firstDate;
   final DateTime lastDate;
   final TransitionBuilder dialogBuilder;
+  final Color buttonColor;
+  final Color hintColor;
 
   ///
   BirthdayFormField({
@@ -21,6 +23,8 @@ class BirthdayFormField extends FormField<DateTime> {
     this.hint,
     this.style,
     this.dialogBuilder,
+    this.buttonColor,
+    this.hintColor,
     bool autovalidate = true,
     @required this.initialDate,
     @required this.firstDate,
@@ -28,12 +32,13 @@ class BirthdayFormField extends FormField<DateTime> {
   }) : super(
           builder: (state) {
             return FlatButton(
+              color: buttonColor,
               child: Text(
                 controller.value != null
                     ? DateFormat('dd.MM.yyyy').format(controller.value)
                     : hint,
                 style:
-                    state.hasError ? style?.copyWith(color: Colors.red) : style,
+                    state.hasError ? style?.copyWith(color: hintColor) : style,
               ),
               onPressed: () async {
                 final birthday = await showDatePicker(

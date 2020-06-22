@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gomobie/pages/home/actions/create_groups.dart';
 
 import '../../widgets/home/groups/collection_groups.dart';
 
@@ -15,10 +16,13 @@ class CollectionGroups extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'floating',
         elevation: 5,
         child: Icon(Icons.add),
         onPressed: () {
-          //Diese Funktionalität soll noch nicht in dem MVP enthalten sein
+          Navigator.of(context).pushNamed(
+            CreateGroup.routeName,
+          );
         },
       ),
       body: Center(
