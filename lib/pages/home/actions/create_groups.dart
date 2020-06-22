@@ -1,16 +1,76 @@
 import 'package:flutter/material.dart';
+import 'package:gomobie/pages/home/groups.dart';
 import 'package:gomobie/util/generic_controller.dart';
 import 'package:gomobie/widgets/birthday_form_field.dart';
 
 class CreateGroup extends StatelessWidget {
   static const routeName = '/create_group';
   Color _mainColor = Color(0xFF1ABC9C);
-  int _members = 1;
+  int _members = 2;
   final GenericController<DateTime> _dateController = GenericController();
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _purposeController = TextEditingController();
+
+  showAlertDialog(BuildContext context) {
+    Widget okButton = Padding(
+      padding: EdgeInsets.only(left: 15, right: 15, bottom: 15),
+      child: SizedBox(
+        height: 65,
+        width: 380,
+        child: FlatButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(5),
+            ),
+          ),
+          child: Text(
+            'FERTIG',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          color: Color(0xFF1ABC9C),
+          onPressed: () {
+            Navigator.pushNamed(context, CollectionGroups.routeName);
+          },
+        ),
+      ),
+    );
+
+    AlertDialog alert = AlertDialog(
+      buttonPadding: EdgeInsets.all(15),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(25),
+        ),
+      ),
+      title: Padding(
+        padding: EdgeInsets.all(15),
+        child: Image.asset('assets/general_assets/group.png', height: 150),
+      ),
+      content: Text(
+        'Sammelgruppe \n'
+        'erfolgreich erstellt!',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+        ),
+      ),
+      actions: [
+        //Das Menü der Sammelgruppe ist in dem MVP noch nicht vorgesehen
+        okButton,
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
   Widget _buildNameTextfield() {
     return Padding(
@@ -262,7 +322,11 @@ class CreateGroup extends StatelessWidget {
                         child: RaisedButton(
                           elevation: 30,
                           color: Color(0xFF1ABC9C),
-                          onPressed: _members <= 1 ? null : () {},
+                          onPressed: _members <= 1
+                              ? null
+                              : () {
+                                  showAlertDialog(context);
+                                },
                           child: Text(
                             'GRUPPE ERSTELLEN',
                             style: TextStyle(

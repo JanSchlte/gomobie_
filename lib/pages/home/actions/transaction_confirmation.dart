@@ -30,6 +30,7 @@ class TransactionConfirmation extends StatelessWidget {
     );
 
     AlertDialog alert = AlertDialog(
+      buttonPadding: EdgeInsets.all(15),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(25),
