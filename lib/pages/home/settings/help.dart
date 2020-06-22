@@ -10,7 +10,7 @@ class Help extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Hilfe',
+          'HILFE',
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -19,7 +19,7 @@ class Help extends StatelessWidget {
           children: [
             SizedBox(height: 30),
             Text(
-              'Um ihnen immer die schnellste Hilfe anbieten zu können,\n'
+              'Um Ihnen immer die schnellste Hilfe anbieten zu können,\n'
               'haben sie mehrere Optionen zum Kontakt:',
               textAlign: TextAlign.center,
             ),
@@ -32,7 +32,7 @@ class Help extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.only(left: 20, right: 20, top: 10),
               child: RaisedButton(
                 onPressed: () {
                   //TODO: Alles für den support
@@ -66,9 +66,8 @@ class Help extends StatelessWidget {
             Text('Wenn Ihre Angelegenheit auch von anderen Nutzern\n'
                 'beantwortet werden kann, gehen Sie zu unserer\n'
                 'Kunden-helfen-Kunden-Seite:'),
-            SizedBox(height: 10),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.only(left: 20, right: 20, top: 10),
               child: RaisedButton(
                 onPressed: () {
                   //TODO: https://pub.dev/packages/url_launcher
