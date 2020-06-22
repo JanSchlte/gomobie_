@@ -1,29 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:gomobie/pages/home/actions/transaction_confirmation.dart';
+import 'package:gomobie/widgets/birthday_form_field.dart';
 
-class TransactionScreen extends StatelessWidget {
-  static const routeName = '/transaction';
+class CreateGroup extends StatelessWidget {
+  static const routeName = '/create_group';
+  Color _mainColor = Color(0xFF1ABC9C);
+  int _members = 1;
 
-  /*
-  final bool action;
-  //Sollte herausfinden, ob der Screen zum senden oder recieven benutzt wird. Ist ja schließlich nur ein anderes Wort
-  TransactionScreen(this.action);
-  */
-  //TODO: Figure out whether the user wants to send money or recieve money
-  final TextEditingController _personController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
-  final TextEditingController _useController = TextEditingController();
-  final TextEditingController _messageController = TextEditingController();
+  final TextEditingController _purposeController = TextEditingController();
 
-  Widget _buildPersonTextfield() {
+  Widget _buildNameTextfield() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: TextFormField(
-        controller: _personController,
+        controller: _nameController,
         decoration: InputDecoration(
           filled: true,
           fillColor: Color(0xFF949494).withOpacity(0.5),
-          labelText: 'Person/ID',
+          labelText: 'Gruppenname',
           labelStyle: TextStyle(color: Colors.white),
         ),
         style: TextStyle(color: Colors.white),
@@ -46,7 +41,7 @@ class TransactionScreen extends StatelessWidget {
         decoration: InputDecoration(
           filled: true,
           fillColor: Color(0xFF949494).withOpacity(0.5),
-          labelText: 'Betrag',
+          labelText: 'Zielbetrag (in Euro)',
           labelStyle: TextStyle(color: Colors.white),
         ),
         style: TextStyle(color: Colors.white),
@@ -62,35 +57,42 @@ class TransactionScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildUseTextfield() {
+  Widget _buildDatePicker() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: TextFormField(
-        maxLength: 140,
-        controller: _useController,
-        decoration: InputDecoration(
-          counter: Offstage(),
-          filled: true,
-          fillColor: Color(0xFF949494).withOpacity(0.5),
-          labelText: 'Verwendungszweck',
-          labelStyle: TextStyle(color: Colors.white),
-        ),
-        style: TextStyle(color: Colors.white),
-      ),
-    );
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: Container(
+          color: Color(0xFF949494).withOpacity(0.5),
+          child: Row(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(left: 10),
+                child: Text(
+                  'Enddatum',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              /*BirthdayFormField(
+                //TODO: Make the DatePicker work
+                lastDate: DateTime.now().add(Duration(days: 365)),
+                initialDate: DateTime.now(),
+                firstDate: DateTime.now(),
+              ),*/
+            ],
+          ),
+        ));
   }
 
-  Widget _buildMessageTextfield() {
+  Widget _buildPurposeTextfield() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: TextFormField(
         maxLength: 200,
-        controller: _messageController,
+        controller: _purposeController,
         decoration: InputDecoration(
           counter: Offstage(),
           filled: true,
           fillColor: Color(0xFF949494).withOpacity(0.5),
-          labelText: 'Nachricht',
+          labelText: 'Sammelzweck',
           labelStyle: TextStyle(color: Colors.white),
         ),
         style: TextStyle(color: Colors.white),
@@ -101,15 +103,21 @@ class TransactionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'SAMMELGRUPPE ERSTELLEN',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
       resizeToAvoidBottomInset: false,
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage(
-                    'assets/send_or_recieve_money/send_money_background.png'),
+                image: AssetImage('assets/backgrounds/group_background.png'),
                 fit: BoxFit.fill)),
         child: Material(
-          color: Colors.grey.shade900.withOpacity(0.89),
+          color: Colors.grey.shade800.withOpacity(0.89),
           child: SafeArea(
             child: Center(
               child: Column(
@@ -118,9 +126,36 @@ class TransactionScreen extends StatelessWidget {
                   SizedBox(
                     height: MediaQuery.of(context).size.width * 0.05,
                   ),
-                  Image.asset(
-                    'assets/general_assets/flying_money.png',
-                    height: 150,
+                  CircleAvatar(
+                    radius: 60,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          top: 30,
+                          left: 30,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.add,
+                              color: Colors.grey,
+                              size: 60,
+                            ),
+                            padding: EdgeInsets.only(),
+                            onPressed: () {
+                              //TODO: Add upload image page and upload it to Firebase
+                            },
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment(0, 0.55),
+                          child: Text(
+                            'Bild hinzufügen',
+                            style: Theme.of(context).textTheme.caption,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                    backgroundColor: Colors.white,
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.width * 0.05,
@@ -137,7 +172,7 @@ class TransactionScreen extends StatelessWidget {
                   SizedBox(
                     height: MediaQuery.of(context).size.width * 0.05,
                   ),
-                  _buildPersonTextfield(),
+                  _buildNameTextfield(),
                   SizedBox(
                     height: MediaQuery.of(context).size.width * 0.05,
                   ),
@@ -145,11 +180,31 @@ class TransactionScreen extends StatelessWidget {
                   SizedBox(
                     height: MediaQuery.of(context).size.width * 0.05,
                   ),
-                  _buildUseTextfield(),
+                  _buildDatePicker(),
                   SizedBox(
                     height: MediaQuery.of(context).size.width * 0.05,
                   ),
-                  _buildMessageTextfield(),
+                  _buildPurposeTextfield(),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width * 0.05,
+                  ),
+                  FloatingActionButton(
+                    elevation: 5,
+                    child: Icon(Icons.add),
+                    onPressed: () {
+                      //TODO: Add Group to Firebase
+                    },
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width * 0.02,
+                  ),
+                  Text(
+                    'Mitglieder hinzufügen',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w100,
+                    ),
+                  ),
                   Expanded(
                     child: SizedBox(),
                   ),
@@ -159,13 +214,9 @@ class TransactionScreen extends StatelessWidget {
                     child: RaisedButton(
                       elevation: 30,
                       color: Color(0xFF1ABC9C),
-                      onPressed: () {
-                        Navigator.pushNamed(
-                            context, TransactionConfirmation.routeName);
-                        //TODO: Validate the transaction-data
-                      },
+                      onPressed: _members <= 1 ? null : () {},
                       child: Text(
-                        'ÜBERPRÜFEN',
+                        'GRUPPE ERSTELLEN',
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.w700),
                       ),
