@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gomobie/pages/home/groups.dart';
 import 'package:gomobie/util/generic_controller.dart';
 import 'package:gomobie/widgets/birthday_form_field.dart';
+
+import '../../home.dart';
 
 class CreateGroup extends StatelessWidget {
   static const routeName = '/create_group';
@@ -31,7 +32,7 @@ class CreateGroup extends StatelessWidget {
           ),
           color: Color(0xFF1ABC9C),
           onPressed: () {
-            Navigator.pushNamed(context, CollectionGroups.routeName);
+            Navigator.pushNamed(context, Home.routeName);
           },
         ),
       ),
