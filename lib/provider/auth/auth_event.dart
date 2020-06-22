@@ -20,8 +20,9 @@ class LoginEvent extends AuthEvent {
 
 class RegisterEvent extends LoginEvent {
   final String idNumber;
+  final String phone;
 
-  RegisterEvent(String email, String password, this.idNumber)
+  RegisterEvent(String email, String password, this.idNumber, this.phone)
       : super(email, password);
 }
 

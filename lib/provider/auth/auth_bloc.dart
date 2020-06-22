@@ -8,7 +8,6 @@ import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 import 'package:meta/meta.dart';
 
 part 'auth_event.dart';
-
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
@@ -22,8 +21,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void login({String email, String password}) =>
       add(LoginEvent(email, password));
 
-  void register({String email, String password, String idNumber}) =>
-      add(RegisterEvent(email, password, idNumber));
+  void register(
+          {String email, String password, String idNumber, String phone}) =>
+      add(RegisterEvent(email, password, idNumber, phone));
 
   void logout() => add(LogoutEvent());
 
@@ -37,13 +37,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  void _register({String email, String password, String idNumber}) async {
+  void _register(
+      {String email, String password, String idNumber, String phone}) async {
     try {
       final result = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      await GetIt.I
-          .get<UserDataBloc>()
-          .create(user: result.user, idNumber: idNumber);
+      await GetIt.I.get<UserDataBloc>().create(
+            user: result.user,
+            idNumber: idNumber,
+            email: email,
+            phone: phone,
+          );
       add(LoginResponseEvent(result.user));
     } on PlatformException catch (e) {
       add(LoginFailedEvent());
@@ -67,6 +71,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           email: event.email,
           password: event.password,
           idNumber: event.idNumber,
+            phone: event.phone
         );
       } else {
         _login(email: event.email, password: event.password);

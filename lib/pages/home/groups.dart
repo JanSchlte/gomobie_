@@ -12,7 +12,6 @@ class CollectionGroups extends StatelessWidget {
         centerTitle: true,
         title: Text(
           'SAMMELGRUPPEN',
-          style: TextStyle(color: Colors.white),
         ),
       ),
       floatingActionButton: FloatingActionButton(

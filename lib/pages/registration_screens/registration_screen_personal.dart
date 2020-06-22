@@ -24,10 +24,15 @@ class RegistrationScreenOne extends StatelessWidget {
 
   final GlobalKey<FormState> _formKey = GlobalKey();
 
+  final RegistrationContext registrationContext;
+
+  RegistrationScreenOne(
+      {Key key, this.registrationContext = RegistrationContext.newUser})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: Center(
           child: Column(
@@ -331,15 +336,15 @@ class RegistrationScreenOne extends StatelessWidget {
                                 onPressed: () {
                                   if (_formKey.currentState.validate()) {
                                     GetIt.I.get<UserDataBloc>().setRegisterArgs(
-                                      _firstNameController.text,
-                                      _lastNameController.text,
-                                      int.parse(_postalCodeController.text),
-                                      _cityController.text,
-                                      _streetController.text,
-                                      _countryController.value,
-                                      _titleController.value,
-                                      _birthdayController.value,
-                                    );
+                                          _firstNameController.text,
+                                          _lastNameController.text,
+                                          int.parse(_postalCodeController.text),
+                                          _cityController.text,
+                                          _streetController.text,
+                                          _countryController.value,
+                                          _titleController.value,
+                                          _birthdayController.value,
+                                        );
                                     Navigator.of(context).pushNamed(
                                       RegistrationScreenContactData.routeName,
                                     );

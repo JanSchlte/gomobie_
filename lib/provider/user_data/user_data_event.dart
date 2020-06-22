@@ -10,7 +10,9 @@ class UserEvent extends UserDataEvent {
 }
 
 class RegisterEvent extends UserEvent {
-  RegisterEvent(UserData data) : super(data);
+  final PrivateUserData privateUserData;
+
+  RegisterEvent(UserData data, this.privateUserData) : super(data);
 }
 
 class ChildrenUpdateEvent extends UserDataEvent {

@@ -1,5 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_sentry/flutter_sentry.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gomobie/pages/home/actions/make_transactions.dart';
 import 'package:gomobie/pages/home/actions/transaction_confirmation.dart';
@@ -20,20 +23,31 @@ import 'pages/registration_screens/registration_screen_bank.dart';
 import 'pages/registration_screens/registration_screen_contact_data.dart';
 import 'pages/registration_screens/registration_screen_personal.dart';
 import 'pages/registration_screens/registration_success.dart';
-import 'package:flutter/services.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+Future<void> run() async {
   final user = await FirebaseAuth.instance.currentUser();
   GetIt.I.registerSingleton(AuthBloc(user));
   GetIt.I.registerSingleton(UserDataBloc());
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitDown,
-    DeviceOrientation.portraitUp
-  ]);
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
   runApp(App(
     isLoggedIn: user != null,
   ));
+}
+
+void main() async {
+  if (kReleaseMode) {
+    await FlutterSentry.wrap(run,
+        dsn:
+            'https://9425992bbebd4bba8895fb9002fc44f1@o269649.ingest.sentry.io/5284564');
+  } else {
+    /*
+    FIRESTORE EMULATOR ENVIRONMENT
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firestore.instance
+        .settings(host: '192.168.178.24:8080', sslEnabled: false);*/
+    await run();
+  }
 }
 
 class App extends StatelessWidget {
@@ -46,15 +60,16 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-          textSelectionHandleColor: Color(0xFF1ABC9C),
-          primaryColor: Color(0xFF1ABC9C),
-          cursorColor: Color(0xFF1ABC9C),
-          fontFamily: 'Metropolis',
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          buttonColor: Color(0xFF1ABC9C),
-          floatingActionButtonTheme: FloatingActionButtonThemeData(
-            backgroundColor: Color(0xFF1ABC9C),
-          )),
+        textSelectionHandleColor: Color(0xFF1ABC9C),
+        primaryColor: Color(0xFF1ABC9C),
+        cursorColor: Color(0xFF1ABC9C),
+        fontFamily: 'Metropolis',
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        buttonColor: Color(0xFF1ABC9C),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: Color(0xFF1ABC9C),
+        ),
+      ),
       routes: {
         IntroScreen.routeName: (_) => IntroScreen(),
         LoginScreen.routeName: (_) => LoginScreen(),

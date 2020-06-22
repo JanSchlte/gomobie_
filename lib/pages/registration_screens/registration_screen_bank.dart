@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 
 import 'registration_success.dart';
-
+//TODO: Deny navigate back
 class RegistrationScreenBank extends StatefulWidget {
   static const routeName = '/register/bank';
 
@@ -169,23 +169,6 @@ class _RegistrationScreenBankState extends State<RegistrationScreenBank> {
               Expanded(child: Container()),
               Row(
                 children: <Widget>[
-                  Expanded(
-                    child: RaisedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(),
-                      padding: EdgeInsets.symmetric(vertical: 20),
-                      child: Text(
-                        'Zurück',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      textColor: Colors.grey,
-                      color: Colors.white,
-                    ),
-                  ),
                   Expanded(
                     child: RaisedButton(
                       onPressed: () {

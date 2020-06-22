@@ -41,6 +41,7 @@ dependencies:
   cloud_firestore: ^0.13.7
   json_annotation: ^3.0.1
   qr_flutter: ^3.2.0
+  flutter_sentry: ^0.4.2
 
 dev_dependencies:
   # Install with pub global activate derry

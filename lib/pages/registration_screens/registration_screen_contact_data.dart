@@ -217,6 +217,8 @@ class _RegistrationScreenContactDataState
                                             _passwordController.value.text,
                                         idNumber:
                                             _idNumberController.value.text,
+                                        phone:
+                                            _phoneNumberController.value.text,
                                       );
                                   Navigator.of(context).pushNamed(
                                       RegistrationScreenBank.routeName);

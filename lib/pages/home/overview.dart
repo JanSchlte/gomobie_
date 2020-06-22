@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:gomobie/provider/auth/auth_bloc.dart';
-import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 import 'package:gomobie/pages/home/actions/make_transactions.dart';
 import 'package:gomobie/pages/home/groups.dart';
-import 'package:gomobie/util/card_background_painter.dart';
+import 'package:gomobie/pages/registration_screens/registration_screen_bank.dart';
+import 'package:gomobie/provider/auth/auth_bloc.dart';
+import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 import 'package:gomobie/util/home_painter.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class Overview extends StatelessWidget {
   Color _mainColor = Color(0xFF1ABC9C);
@@ -88,6 +90,10 @@ class Overview extends StatelessWidget {
                       bloc: GetIt.I.get<UserDataBloc>(),
                       builder: (context, state) {
                         if (state is UserStandardData) {
+                          if (state.needsBankAccount) {
+                            Navigator.of(context)
+                                .pushNamed(RegistrationScreenBank.routeName);
+                          }
                           return Text(
                             state.data.name,
                             style: TextStyle(
@@ -119,49 +125,53 @@ class Overview extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           InkResponse(
-                                  onTap: () {
-                                    sending = false;
-                                    Navigator.of(context).pushNamed(
-                                        TransactionScreen.routeName,
-                                        arguments: {
-                                          sending: false,
-                                        });
-                                  },
-                                  child: CircleAvatar(
-                                    radius: 25,
-                                    child: Image(
-                              image:AssetImage('assets/icon_buttons/money_get.png'),
-                              fit: BoxFit.contain),
-                                    backgroundColor: Color(0xFF505050),
-                                  ),
-                                ),
-                                InkResponse(
-                                  onTap: () {
-                                    sending = true;
-                                    Navigator.pushNamed(
-                                        context, TransactionScreen.routeName,
-                                        arguments: sending);
-                                  },
-                                  child: CircleAvatar(
-                                    radius: 25,
-                          child: Image(
-                              image:AssetImage('assets/icon_buttons/money_send.png'),
-                              fit: BoxFit.contain),
-                                    backgroundColor: Color(0xFF505050),
-                                  ),
-                                ),
-                                InkResponse(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, CollectionGroups.routeName);
-                          },
-                              child: CircleAvatar(
-                                    radius: 25,
-                                    child: Image(
-                                        image:AssetImage('assets/icon_buttons/group_icon_button.png'),
-                              fit: BoxFit.contain),
-                                    backgroundColor: Color(0xFF505050),
-                                  ),),
+                            onTap: () {
+                              sending = false;
+                              Navigator.of(context).pushNamed(
+                                  TransactionScreen.routeName,
+                                  arguments: {
+                                    sending: false,
+                                  });
+                            },
+                            child: CircleAvatar(
+                              radius: 25,
+                              child: Image(
+                                  image: AssetImage(
+                                      'assets/icon_buttons/money_get.png'),
+                                  fit: BoxFit.contain),
+                              backgroundColor: Color(0xFF505050),
+                            ),
+                          ),
+                          InkResponse(
+                            onTap: () {
+                              sending = true;
+                              Navigator.pushNamed(
+                                  context, TransactionScreen.routeName,
+                                  arguments: sending);
+                            },
+                            child: CircleAvatar(
+                              radius: 25,
+                              child: Image(
+                                  image: AssetImage(
+                                      'assets/icon_buttons/money_send.png'),
+                                  fit: BoxFit.contain),
+                              backgroundColor: Color(0xFF505050),
+                            ),
+                          ),
+                          InkResponse(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                  context, CollectionGroups.routeName);
+                            },
+                            child: CircleAvatar(
+                              radius: 25,
+                              child: Image(
+                                  image: AssetImage(
+                                      'assets/icon_buttons/group_icon_button.png'),
+                                  fit: BoxFit.contain),
+                              backgroundColor: Color(0xFF505050),
+                            ),
+                          ),
                         ],
                       ),
                       //TODO: Add Family stack
@@ -298,6 +308,8 @@ class Overview extends StatelessWidget {
             builder: (context) {
               final _form = GlobalKey<FormState>();
               return Dialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25))),
                 child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: Column(
@@ -312,18 +324,19 @@ class Overview extends StatelessWidget {
                           )
                         ],
                       ),
-                      //TODO: Needs validation
-                      Form(
-                        key: _form,
-                        child: TextFormField(
-                          decoration: InputDecoration(hintText: 'Benutzer-ID'),
-                          validator: (id) {
-                            if (id.trim().isEmpty) {
-                              return 'Dieses Feld kann nicht leer sein';
-                            }
-                            return null;
-                          },
-                        ),
+                      //TODO: Needs design
+                      Text('Kartennummer'),
+                      Row(
+                        children: <Widget>[
+                          Text('2346 2346 2167 2345'),
+                          IconButton(
+                            icon: Icon(Icons.content_copy),
+                            onPressed: () {
+                              Clipboard.setData(
+                                  ClipboardData(text: '2346 2346 2167 2345'));
+                            },
+                          ),
+                        ],
                       ),
                       SizedBox(height: 10),
                       RaisedButton(

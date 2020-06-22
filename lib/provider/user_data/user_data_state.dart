@@ -10,16 +10,25 @@ class InitialUserDataState extends UserDataState {
   bool get isRegistering => false;
 }
 
-class UserRegisteringData extends UserDataState {
+class LoggedInUserState extends UserDataState {
   final UserData data;
 
-  UserRegisteringData(this.data);
+  LoggedInUserState(this.data);
+
+  @override
+  bool get isRegistering => false;
+}
+
+class UserRegisteringData extends LoggedInUserState {
+  final PrivateUserData privateUserData;
+
+  UserRegisteringData(UserData data, {this.privateUserData}) : super(data);
 
   @override
   bool get isRegistering => true;
 }
 
-class UserStandardData extends UserRegisteringData {
+class UserStandardData extends LoggedInUserState {
   List<BankAccount> bankAccounts;
   List<CreditCard> creditCards;
   List<UserData> children;
@@ -29,6 +38,8 @@ class UserStandardData extends UserRegisteringData {
 
   @override
   bool get isRegistering => false;
+
+  bool get needsBankAccount => (bankAccounts?.isEmpty ?? false);
 }
 
 class CreateChildData extends UserStandardData {

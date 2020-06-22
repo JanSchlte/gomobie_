@@ -8,28 +8,18 @@ part of 'user_data.dart';
 
 UserData _$UserDataFromJson(Map<String, dynamic> json) {
   return UserData(
-    birthday: _fromTimeStamp(json['birthday'] as Timestamp),
-    city: json['city'] as String,
-    country: json['country'] as String,
     firstName: json['firstName'] as String,
     lastName: json['lastName'] as String,
-    postalCode: json['postalCode'] as int,
-    street: json['street'] as String,
-    title: json['title'] as String,
-    idNumber: json['idNumber'] as String,
-    balance: json['balance'] as int,
+    email: json['email'] as String,
+    phone: json['phone'] as String,
+    childOf: (json['childOf'] as List)?.map((e) => e as String)?.toList(),
   );
 }
 
 Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
-      'birthday': _toTimeStamp(instance.birthday),
-      'city': instance.city,
-      'country': instance.country,
       'firstName': instance.firstName,
       'lastName': instance.lastName,
-      'postalCode': instance.postalCode,
-      'street': instance.street,
-      'title': instance.title,
-      'balance': instance.balance,
-      'idNumber': instance.idNumber,
+      'email': instance.email,
+      'phone': instance.phone,
+      'childOf': instance.childOf,
     };

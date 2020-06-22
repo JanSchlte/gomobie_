@@ -4,12 +4,16 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gomobie/models/bank_account.dart';
 import 'package:gomobie/models/credit_card.dart';
+import 'package:gomobie/models/private_user_data.dart';
 import 'package:gomobie/models/transaction.dart';
 import 'package:gomobie/models/user_data.dart';
 import 'package:meta/meta.dart';
 
 part 'user_data_event.dart';
+
 part 'user_data_state.dart';
+
+enum RegistrationContext { newUser, child }
 
 class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   @override
@@ -23,27 +27,45 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     String street,
     String country,
     String title,
-    DateTime birthday,
-  ) {
-    add(UserEvent(UserData(
-      firstName: firstName,
-      lastName: lastName,
-      postalCode: postalCode,
-      city: city,
-      street: street,
-      country: country,
-      title: title,
-      birthday: birthday,
-    )));
+    DateTime birthday, {
+    RegistrationContext context = RegistrationContext.newUser,
+  }) {
+    if (context == RegistrationContext.newUser) {
+      add(
+        RegisterEvent(
+          UserData(
+            firstName: firstName,
+            lastName: lastName,
+          ),
+          PrivateUserData(
+            postalCode: postalCode,
+            city: city,
+            street: street,
+            country: country,
+            title: title,
+            birthday: birthday,
+          ),
+        ),
+      );
+    }
   }
 
   void logout() => add(UserDataEvent());
 
-  Future<void> create({FirebaseUser user, String idNumber}) =>
-      (state as UserStandardData).data.create(user, idNumber).then((value) {
-        add(UserEvent(value));
-        return;
-      });
+  Future<void> create({
+    FirebaseUser user,
+    String idNumber,
+    String email,
+    String phone,
+  }) {
+    final s = (state as UserRegisteringData);
+    return s.data
+        .create(user, s.privateUserData..idNumber = idNumber, email, phone)
+        .then((value) {
+      add(RegisterEvent(value, null));
+      return;
+    });
+  }
 
   Future<void> login({FirebaseUser user}) =>
       UserData.get(user.uid).then((value) {
@@ -92,13 +114,16 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
 
   @override
   Stream<UserDataState> mapEventToState(UserDataEvent event) async* {
-    if (event is UserEvent) {
-      yield UserStandardData(event.data);
-      _retrieveAccounts();
-    } else if (event is RegisterEvent) {
-      yield UserRegisteringData(event.data);
+    if (event is RegisterEvent) {
+      yield UserRegisteringData(event.data,
+          privateUserData: event.privateUserData);
     } else if (event is ChildCreationEvent) {
       yield CreateChildData((state as UserStandardData).data, event.data);
+    } else if (event is UserEvent) {
+      yield UserStandardData(event.data);
+      if (event.data.snapshot != null) {
+        _retrieveAccounts();
+      }
     } else if (event is BankAccountUpdateEvent) {
       final s = state as UserStandardData;
       yield s..bankAccounts = event.bankAccounts;

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gomobie/pages/home/transactions.dart';
+import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 import 'package:gomobie/widgets/home/family/family_card.dart';
 
 class Family extends StatelessWidget {
@@ -137,24 +140,29 @@ class Family extends StatelessWidget {
               Stack(
                 fit: StackFit.loose,
                 children: [
-                  Padding(
+                  Container(
                     padding:
                         const EdgeInsets.only(left: 16, right: 16, bottom: 35),
+                    width: double.infinity,
                     child: Card(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20))),
                       elevation: 3,
-                      child: Column(
-                        children: [
-                          //TODO: Fetch from firebase
-                          FamilyCard(
-                              name: 'Tobias Henning', type: AccountType.owner),
-                          FamilyCard(
-                              name: 'Emma Henning', type: AccountType.owner),
-                          FamilyCard(
-                              name: 'Mattis Henning', type: AccountType.child),
-                        ],
-                      ),
+                      child: BlocBuilder<UserDataBloc, UserDataState>(
+                          bloc: GetIt.I.get<UserDataBloc>(),
+                          builder: (context, snapshot) {
+                            if (snapshot is UserStandardData) {
+                              return Column(
+                                children: [
+                                  for (final child in snapshot.children)
+                                    FamilyCard(
+                                        name: child.name,
+                                        type: AccountType.child)
+                                ],
+                              );
+                            }
+                            return Container();
+                          }),
                     ),
                   ),
                   Positioned.fill(
