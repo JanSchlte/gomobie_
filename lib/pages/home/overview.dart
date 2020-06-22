@@ -5,7 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:gomobie/provider/auth/auth_bloc.dart';
 import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 import 'package:gomobie/pages/home/actions/make_transactions.dart';
-import 'package:gomobie/pages/home/groups.dart';
+import 'package:gomobie/pages/home/actions/create_groups.dart';
 import 'package:gomobie/util/home_painter.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -155,7 +155,7 @@ class Overview extends StatelessWidget {
                           InkResponse(
                             onTap: () {
                               Navigator.pushNamed(
-                                  context, CollectionGroups.routeName);
+                                  context, CreateGroup.routeName);
                             },
                             child: CircleAvatar(
                               radius: 25,

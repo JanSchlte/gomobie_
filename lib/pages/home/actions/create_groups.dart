@@ -294,7 +294,7 @@ class CreateGroup extends StatelessWidget {
                                 elevation: 5,
                                 child: Icon(Icons.add),
                                 onPressed: () {
-                                  //TODO: Add Group to Firebase
+                                  //TODO: Backend: Now people must be includable to the group
                                 },
                               ),
                               SizedBox(
@@ -325,6 +325,7 @@ class CreateGroup extends StatelessWidget {
                           onPressed: _members <= 1
                               ? null
                               : () {
+                                  //TODO: Gruppe in Firebase hinzufügen und auf den Sammelgruppen-Screen zeigen
                                   showAlertDialog(context);
                                 },
                           child: Text(
