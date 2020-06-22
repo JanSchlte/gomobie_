@@ -186,6 +186,7 @@ class RegistrationScreenOne extends StatelessWidget {
                                           BirthdayFormField(
                                             controller: _birthdayController,
                                             hint: 'Auswählen',
+                                            hintColor: Colors.red,
                                             validator: (d) {
                                               if (d == null) {
                                                 return 'Auswählen';
@@ -331,15 +332,15 @@ class RegistrationScreenOne extends StatelessWidget {
                                 onPressed: () {
                                   if (_formKey.currentState.validate()) {
                                     GetIt.I.get<UserDataBloc>().setRegisterArgs(
-                                      _firstNameController.text,
-                                      _lastNameController.text,
-                                      int.parse(_postalCodeController.text),
-                                      _cityController.text,
-                                      _streetController.text,
-                                      _countryController.value,
-                                      _titleController.value,
-                                      _birthdayController.value,
-                                    );
+                                          _firstNameController.text,
+                                          _lastNameController.text,
+                                          int.parse(_postalCodeController.text),
+                                          _cityController.text,
+                                          _streetController.text,
+                                          _countryController.value,
+                                          _titleController.value,
+                                          _birthdayController.value,
+                                        );
                                     Navigator.of(context).pushNamed(
                                       RegistrationScreenContactData.routeName,
                                     );

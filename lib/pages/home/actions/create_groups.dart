@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:gomobie/util/generic_controller.dart';
 import 'package:gomobie/widgets/birthday_form_field.dart';
 
 class CreateGroup extends StatelessWidget {
   static const routeName = '/create_group';
   Color _mainColor = Color(0xFF1ABC9C);
   int _members = 1;
+  final GenericController<DateTime> _dateController = GenericController();
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
@@ -57,26 +59,65 @@ class CreateGroup extends StatelessWidget {
     );
   }
 
-  Widget _buildDatePicker() {
+  Widget _buildDatePickerField() {
     return Padding(
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Container(
-          color: Color(0xFF949494).withOpacity(0.5),
+          decoration: BoxDecoration(
+            color: Color(0xFF949494).withOpacity(0.5),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(4),
+              topRight: Radius.circular(4),
+            ),
+          ),
+          height: 55,
           child: Row(
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(left: 10),
+                padding: EdgeInsets.only(left: 14),
                 child: Text(
                   'Enddatum',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.5,
+                  ),
                 ),
               ),
-              /*BirthdayFormField(
-                //TODO: Make the DatePicker work
-                lastDate: DateTime.now().add(Duration(days: 365)),
-                initialDate: DateTime.now(),
-                firstDate: DateTime.now(),
-              ),*/
+              Expanded(child: Container()),
+              Padding(
+                padding: EdgeInsets.only(right: 10),
+                child: BirthdayFormField(
+                  controller: _dateController,
+                  buttonColor: Colors.white,
+                  hintColor: Colors.black,
+                  hint: 'Auswählen',
+                  validator: (d) {
+                    if (d == null) {
+                      return 'Auswählen';
+                    }
+                    return null;
+                  },
+                  dialogBuilder: (BuildContext context, Widget child) {
+                    return Theme(
+                      data: ThemeData.light().copyWith(
+                        primaryColor: const Color(0xFF1ABC9C),
+                        accentColor: const Color(0xFF1ABC9C),
+                        colorScheme: ColorScheme.light(
+                          primary: const Color(0xFF1ABC9C),
+                        ),
+                        buttonTheme:
+                            ButtonThemeData(textTheme: ButtonTextTheme.primary),
+                      ),
+                      child: child,
+                    );
+                  },
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime.now(),
+                  lastDate:
+                      DateTime.now().add(Duration(days: (365.25 * 4).ceil())),
+                  style: TextStyle(color: Colors.grey.shade800, fontSize: 15.0),
+                ),
+              ),
             ],
           ),
         ));
@@ -121,10 +162,11 @@ class CreateGroup extends StatelessWidget {
           child: SafeArea(
             child: Center(
               child: Column(
+                //TODO: Make this column scrollable
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   SizedBox(
-                    height: MediaQuery.of(context).size.width * 0.05,
+                    height: MediaQuery.of(context).size.width * 0.1,
                   ),
                   CircleAvatar(
                     radius: 60,
@@ -145,32 +187,19 @@ class CreateGroup extends StatelessWidget {
                             },
                           ),
                         ),
-                        Align(
-                          alignment: Alignment(0, 0.55),
-                          child: Text(
-                            'Bild hinzufügen',
-                            style: Theme.of(context).textTheme.caption,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
                       ],
                     ),
                     backgroundColor: Colors.white,
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.width * 0.05,
+                    height: MediaQuery.of(context).size.width * 0.03,
                   ),
                   Text(
-                    //TODO: Make the type of the Screen (sending or recieving) dependent from the boolean type arguments (Map-Form)
-                    //routes[sending] == true ?
-                    'Geld senden',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
+                    'Profilbild hinzufügen',
+                    style: TextStyle(color: Colors.white),
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.width * 0.05,
+                    height: MediaQuery.of(context).size.width * 0.1,
                   ),
                   _buildNameTextfield(),
                   SizedBox(
@@ -180,7 +209,7 @@ class CreateGroup extends StatelessWidget {
                   SizedBox(
                     height: MediaQuery.of(context).size.width * 0.05,
                   ),
-                  _buildDatePicker(),
+                  _buildDatePickerField(),
                   SizedBox(
                     height: MediaQuery.of(context).size.width * 0.05,
                   ),
@@ -188,39 +217,61 @@ class CreateGroup extends StatelessWidget {
                   SizedBox(
                     height: MediaQuery.of(context).size.width * 0.05,
                   ),
-                  FloatingActionButton(
-                    elevation: 5,
-                    child: Icon(Icons.add),
-                    onPressed: () {
-                      //TODO: Add Group to Firebase
-                    },
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.width * 0.02,
-                  ),
-                  Text(
-                    'Mitglieder hinzufügen',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w100,
-                    ),
-                  ),
                   Expanded(
                     child: SizedBox(),
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.width * 0.17,
-                    child: RaisedButton(
-                      elevation: 30,
-                      color: Color(0xFF1ABC9C),
-                      onPressed: _members <= 1 ? null : () {},
-                      child: Text(
-                        'GRUPPE ERSTELLEN',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w700),
+                  Column(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          //TODO: Hier die Profilbilder aller Member platzieren, sobald welche hinzugefügt wurden
+                          Column(
+                            children: <Widget>[
+                              FloatingActionButton(
+                                heroTag: 'floating',
+                                elevation: 5,
+                                child: Icon(Icons.add),
+                                onPressed: () {
+                                  //TODO: Add Group to Firebase
+                                },
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.width * 0.03,
+                              ),
+                              Text(
+                                'Mitglieder hinzufügen',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w100,
+                                ),
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.width * 0.04,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ),
+                      SizedBox(
+                        width: double.infinity,
+                        height: MediaQuery.of(context).size.width * 0.17,
+                        child: RaisedButton(
+                          elevation: 30,
+                          color: Color(0xFF1ABC9C),
+                          onPressed: _members <= 1 ? null : () {},
+                          child: Text(
+                            'GRUPPE ERSTELLEN',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
