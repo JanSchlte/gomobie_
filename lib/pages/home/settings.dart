@@ -9,7 +9,7 @@ class Settings extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Einstellungen',
+          'EINSTELLUNGEN',
           style: TextStyle(color: Colors.white),
         ),
       ),

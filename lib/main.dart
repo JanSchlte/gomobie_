@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gomobie/pages/home/actions/make_transactions.dart';
 import 'package:gomobie/pages/home/actions/transaction_confirmation.dart';
+import 'package:gomobie/pages/home/details/group_details.dart';
 import 'package:gomobie/pages/home/groups.dart';
 import 'package:gomobie/pages/home/settings/activation_codes.dart';
 import 'package:gomobie/pages/home/settings/help.dart';
@@ -74,7 +75,7 @@ class App extends StatelessWidget {
         TransactionScreen.routeName: (_) => TransactionScreen(),
         TransactionConfirmation.routeName: (_) => TransactionConfirmation(),
         CreateGroup.routeName: (_) => CreateGroup(),
-        Transactions.routeName: (_) => Transactions()
+        Transactions.routeName: (_) => Transactions(),
       },
       initialRoute: isLoggedIn ? Home.routeName : IntroScreen.routeName,
     );
