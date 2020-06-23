@@ -212,7 +212,6 @@ class CreateGroup extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      resizeToAvoidBottomInset: false,
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
@@ -222,124 +221,123 @@ class CreateGroup extends StatelessWidget {
           color: Colors.grey.shade800.withOpacity(0.89),
           child: SafeArea(
             child: Center(
-              child: Column(
-                //TODO: Make this column scrollable
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  SizedBox(
-                    height: MediaQuery.of(context).size.width * 0.1,
-                  ),
-                  CircleAvatar(
-                    radius: 60,
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          top: 30,
-                          left: 30,
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.add,
-                              color: Colors.grey,
-                              size: 60,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  //TODO: Make this column scrollable
+                  children: <Widget>[
+                    SizedBox(
+                      height: MediaQuery.of(context).size.width * 0.1,
+                    ),
+                    CircleAvatar(
+                      radius: 60,
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            top: 30,
+                            left: 30,
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.add,
+                                color: Colors.grey,
+                                size: 60,
+                              ),
+                              padding: EdgeInsets.only(),
+                              onPressed: () {
+                                //TODO: Add upload image page and upload it to Firebase
+                              },
                             ),
-                            padding: EdgeInsets.only(),
-                            onPressed: () {
-                              //TODO: Add upload image page and upload it to Firebase
-                            },
+                          ),
+                        ],
+                      ),
+                      backgroundColor: Colors.white,
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.width * 0.03,
+                    ),
+                    Text(
+                      'Profilbild hinzufügen',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.width * 0.1,
+                    ),
+                    _buildNameTextfield(),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                    _buildAmountTextfield(),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                    _buildDatePickerField(),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                    _buildPurposeTextfield(),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.width * 0.05,
+                    ),
+                    Column(
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            //TODO: Hier die Profilbilder aller Member platzieren, sobald welche hinzugefügt wurden
+                            Column(
+                              children: <Widget>[
+                                FloatingActionButton(
+                                  heroTag: 'floating',
+                                  elevation: 5,
+                                  child: Icon(Icons.add),
+                                  onPressed: () {
+                                    //TODO: Backend: Now people must be includable to the group
+                                  },
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.03,
+                                ),
+                                Text(
+                                  'Mitglieder hinzufügen',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w100,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.04,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          height: MediaQuery.of(context).size.width * 0.17,
+                          child: RaisedButton(
+                            elevation: 30,
+                            color: Color(0xFF1ABC9C),
+                            onPressed: _members <= 1
+                                ? null
+                                : () {
+                                    //TODO: Gruppe in Firebase hinzufügen und auf den Sammelgruppen-Screen zeigen
+                                    showAlertDialog(context);
+                                  },
+                            child: Text(
+                              'GRUPPE ERSTELLEN',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700),
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    backgroundColor: Colors.white,
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.width * 0.03,
-                  ),
-                  Text(
-                    'Profilbild hinzufügen',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.width * 0.1,
-                  ),
-                  _buildNameTextfield(),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.width * 0.05,
-                  ),
-                  _buildAmountTextfield(),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.width * 0.05,
-                  ),
-                  _buildDatePickerField(),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.width * 0.05,
-                  ),
-                  _buildPurposeTextfield(),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.width * 0.05,
-                  ),
-                  Expanded(
-                    child: SizedBox(),
-                  ),
-                  Column(
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          //TODO: Hier die Profilbilder aller Member platzieren, sobald welche hinzugefügt wurden
-                          Column(
-                            children: <Widget>[
-                              FloatingActionButton(
-                                heroTag: 'floating',
-                                elevation: 5,
-                                child: Icon(Icons.add),
-                                onPressed: () {
-                                  //TODO: Backend: Now people must be includable to the group
-                                },
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.width * 0.03,
-                              ),
-                              Text(
-                                'Mitglieder hinzufügen',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w100,
-                                ),
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.width * 0.04,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        height: MediaQuery.of(context).size.width * 0.17,
-                        child: RaisedButton(
-                          elevation: 30,
-                          color: Color(0xFF1ABC9C),
-                          onPressed: _members <= 1
-                              ? null
-                              : () {
-                                  //TODO: Gruppe in Firebase hinzufügen und auf den Sammelgruppen-Screen zeigen
-                                  showAlertDialog(context);
-                                },
-                          child: Text(
-                            'GRUPPE ERSTELLEN',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
