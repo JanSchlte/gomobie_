@@ -43,11 +43,5 @@
         <meta-data
                 android:name="flutterEmbedding"
                 android:value="2"/>
-        <meta-data
-                android:name="io.sentry.dsn"
-                android:value="https://9425992bbebd4bba8895fb9002fc44f1@o269649.ingest.sentry.io/5284564"/>
-        <meta-data
-                android:name="io.sentry.session-tracking.enable"
-                android:value="true"/>
     </application>
 </manifest>

@@ -1,8 +1,10 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_sentry/flutter_sentry.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gomobie/pages/home/actions/create_groups.dart';
 import 'package:gomobie/pages/home/actions/make_transactions.dart';
@@ -27,6 +29,7 @@ import 'pages/registration_screens/registration_success.dart';
 
 Future<void> run() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Crashlytics.instance.crash();
   final user = await FirebaseAuth.instance.currentUser();
   GetIt.I.registerSingleton(AuthBloc(user));
   GetIt.I.registerSingleton(UserDataBloc());
@@ -37,19 +40,19 @@ Future<void> run() async {
   ));
 }
 
-void main() async {
-  if (kReleaseMode) {
-    await FlutterSentry.wrap(run,
-        dsn:
-            'https://9425992bbebd4bba8895fb9002fc44f1@o269649.ingest.sentry.io/5284564');
-  } else {
-    /*
-    FIRESTORE EMULATOR ENVIRONMENT
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firestore.instance
-        .settings(host: '192.168.178.24:8080', sslEnabled: false);*/
-    await run();
-  }
+void main() {
+  FlutterError.onError = Crashlytics.instance.recordFlutterError;
+  runZonedGuarded(
+    () async {
+      if (kDebugMode) {
+        WidgetsFlutterBinding.ensureInitialized();
+        //await Firestore.instance
+        //   .settings(host: '192.168.178.24:8080', sslEnabled: false);
+      }
+      await run();
+    },
+    Crashlytics.instance.recordError,
+  );
 }
 
 class App extends StatelessWidget {

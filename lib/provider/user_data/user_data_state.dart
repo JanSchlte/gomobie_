@@ -36,9 +36,6 @@ class UserStandardData extends LoggedInUserState {
 
   UserStandardData(UserData data) : super(data);
 
-  @override
-  bool get isRegistering => false;
-
   bool get needsBankAccount => (bankAccounts?.isEmpty ?? false);
 }
 
