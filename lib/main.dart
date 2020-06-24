@@ -29,7 +29,6 @@ import 'pages/registration_screens/registration_success.dart';
 
 Future<void> run() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Crashlytics.instance.crash();
   final user = await FirebaseAuth.instance.currentUser();
   GetIt.I.registerSingleton(AuthBloc(user));
   GetIt.I.registerSingleton(UserDataBloc());

@@ -16,13 +16,23 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _currentIndex = 2;
 
-  final List<Widget> _pages = [
-    CollectionGroups(),
-    Transactions(),
-    Overview(),
-    Family(),
-    Settings(),
-  ];
+  List<Widget> _pages;
+
+  @override
+  void initState() {
+    _pages = [
+      CollectionGroups(),
+      Transactions(),
+      Overview(changeIndex: () {
+        setState(() {
+          _currentIndex = 1;
+        });
+      }),
+      Family(),
+      Settings(),
+    ];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

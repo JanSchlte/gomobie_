@@ -9,6 +9,10 @@ class LoginResponseEvent extends AuthEvent {
   LoginResponseEvent(this.user);
 }
 
+class RegisterResponseEvent extends LoginResponseEvent {
+  RegisterResponseEvent(FirebaseUser user) : super(user);
+}
+
 class LoginFailedEvent extends AuthEvent {}
 
 class LoginEvent extends AuthEvent {

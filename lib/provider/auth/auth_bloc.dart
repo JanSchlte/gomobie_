@@ -48,7 +48,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             email: email,
             phone: phone,
           );
-      add(LoginResponseEvent(result.user));
+      add(RegisterResponseEvent(result.user));
     } on PlatformException catch (e) {
       add(LoginFailedEvent());
     }
@@ -68,16 +68,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield AuthState.working();
       if (event is RegisterEvent) {
         _register(
-          email: event.email,
-          password: event.password,
-          idNumber: event.idNumber,
-            phone: event.phone
-        );
+            email: event.email,
+            password: event.password,
+            idNumber: event.idNumber,
+            phone: event.phone);
       } else {
         _login(email: event.email, password: event.password);
       }
     } else if (event is LoginFailedEvent) {
       yield AuthState.failed();
+    } else if (event is RegisterResponseEvent) {
+      if (event.user != null) {
+        yield AuthState.loggedIn(event.user);
+      }
     } else if (event is LoginResponseEvent) {
       if (event.user != null) {
         yield AuthState.loggedIn(event.user);

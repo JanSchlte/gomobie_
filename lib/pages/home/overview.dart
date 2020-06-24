@@ -22,8 +22,11 @@ class Overview extends StatelessWidget {
     fontSize: 20,
     color: Colors.white,
   );
+  final VoidCallback changeIndex;
 
   bool sending;
+
+  Overview({Key key, this.changeIndex}) : super(key: key);
 
   Widget _buildIconButton(AssetImage icon, VoidCallback onPressed) {
     return InkResponse(
@@ -263,37 +266,40 @@ class Overview extends StatelessWidget {
     );
   }
 
-  Card _buildMockBillCard(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(25),
+  InkWell _buildMockBillCard(BuildContext context) {
+    return InkWell(
+      onTap: changeIndex,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(25),
+          ),
         ),
-      ),
-      color: _mainColor,
-      child: Container(
-        width: MediaQuery.of(context).size.width * 0.44,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child: Text(
-                'Offene Rechnungen',
-                style: _headlinesWhite,
-                textAlign: TextAlign.center,
+        color: _mainColor,
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.44,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 10,
               ),
-            ),
-            Container(
-                height: 150,
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
                 child: Text(
-                  '34.99€',
+                  'Offene Rechnungen',
                   style: _headlinesWhite,
-                )),
-          ],
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Container(
+                  height: 150,
+                  child: Text(
+                    '34.99€',
+                    style: _headlinesWhite,
+                  )),
+            ],
+          ),
         ),
       ),
     );
