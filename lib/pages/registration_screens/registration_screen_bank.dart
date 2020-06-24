@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gomobie/provider/bank_account/bank_account_bloc.dart';
 import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 
 import 'registration_success.dart';
-//TODO: Deny navigate back
+
 class RegistrationScreenBank extends StatefulWidget {
   static const routeName = '/register/bank';
 
@@ -173,13 +174,13 @@ class _RegistrationScreenBankState extends State<RegistrationScreenBank> {
                     child: RaisedButton(
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          GetIt.I.get<UserDataBloc>().addBankAccount(
+                          GetIt.I.get<BankAccountBloc>().addBankAccount(
                               owner: _accountHolderController.value.text,
                               iban: _ibanController.value.text,
                               bic: _bicController.value.text);
                           if (GetIt.I.get<UserDataBloc>().state.isRegistering) {
-                            Navigator.of(context)
-                                .pushNamed(RegistrationSuccess.routeName);
+                            Navigator.of(context).pushReplacementNamed(
+                                RegistrationSuccess.routeName);
                           } else {
                             Navigator.of(context).pop();
                           }

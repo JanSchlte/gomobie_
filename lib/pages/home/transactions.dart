@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gomobie/pages/registration_screens/registration_screen_bank.dart';
-import 'package:gomobie/provider/user_data/user_data_bloc.dart';
+import 'package:gomobie/provider/bank_account/bank_account_bloc.dart';
+import 'package:gomobie/provider/transaction/transaction_bloc.dart';
 
 //TODO: Add to UserData
 enum AccountType { owner, child }
@@ -20,6 +21,7 @@ extension AccountTypeX on AccountType {
 
 class Transactions extends StatefulWidget {
   static const routeName = '/transactions';
+
   @override
   _TransactionsState createState() => _TransactionsState();
 }
@@ -43,48 +45,45 @@ class _TransactionsState extends State<Transactions> {
                   },
                   child: Icon(Icons.add),
                 ),
-                BlocBuilder<UserDataBloc, UserDataState>(
-                  bloc: GetIt.I.get<UserDataBloc>(),
+                BlocBuilder<BankAccountBloc, BankAccountState>(
+                  bloc: GetIt.I.get<BankAccountBloc>(),
                   builder: (context, state) {
-                    if (state is UserStandardData) {
-                      //TODO: Move into own widget
-                      return Row(
-                        children: state.bankAccounts
-                            .map((e) => Card(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(bottom: 10),
-                                    child: SizedBox(
-                                      width: 140,
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Expanded(child: Container()),
-                                              Column(
-                                                children: [
-                                                  Icon(
-                                                      Icons
-                                                          .account_balance_wallet,
-                                                      size: 45),
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                          Text(e.iban,
-                                              style: TextStyle(fontSize: 12)),
-                                          SizedBox(height: 20),
-                                          Text('800,44€'),
-                                          SizedBox(height: 20),
-                                        ],
-                                      ),
+                    //TODO: Move into own widget
+                    return Row(
+                      children: state.accounts
+                          .map((e) => Card(
+                                child: Padding(
+                                  padding: EdgeInsets.only(bottom: 10),
+                                  child: SizedBox(
+                                    width: 140,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Expanded(child: Container()),
+                                            Column(
+                                              children: [
+                                                Icon(
+                                                    Icons
+                                                        .account_balance_wallet,
+                                                    size: 45),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                        Text(e.iban,
+                                            style: TextStyle(fontSize: 12)),
+                                        SizedBox(height: 20),
+                                        Text('800,44€'),
+                                        SizedBox(height: 20),
+                                      ],
                                     ),
                                   ),
-                                ))
-                            .toList(),
-                      );
-                    }
-                    return Container();
+                                ),
+                              ))
+                          .toList(),
+                    );
                   },
                 ),
               ],
@@ -95,10 +94,13 @@ class _TransactionsState extends State<Transactions> {
             'Letzte Transaktionen',
             style: TextStyle(fontSize: 20),
           ),
-          for (final transaction
-              in (GetIt.I.get<UserDataBloc>().state as UserStandardData)
-                  .transactions)
-            transaction.asWidget
+          BlocBuilder<TransactionBloc, TransactionState>(
+            bloc: GetIt.I.get<TransactionBloc>(),
+            builder: (context, state) {
+              return Column(
+                  children: state.transactions.map((e) => e.asWidget).toList());
+            },
+          ),
         ],
       ),
     );

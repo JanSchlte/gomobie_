@@ -22,8 +22,13 @@ class BankAccount extends SnapshotAble<BankAccount> {
   BankAccount fromJson() => _$BankAccountFromJson(snapshot.data);
 
   /// Only call this when adding new credit cards
-  Future<void> create(DocumentReference user) async {
-    await user.collection('bankAccounts').document().setData(toJson());
+  Future<void> create(String userId) {
+    return Firestore.instance
+        .collection('users')
+        .document(userId)
+        .collection('bankAccounts')
+        .document()
+        .setData(toJson());
   }
 
   Map<String, dynamic> toJson() => _$BankAccountToJson(this);

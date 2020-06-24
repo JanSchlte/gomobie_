@@ -20,6 +20,12 @@ class UserData extends SnapshotAble<UserData> {
 
   String get name => '$firstName $lastName';
 
+  Future<int> get balance async {
+    final snap =
+        await Firestore.instance.collection('private').document(userId).get();
+    return snap.data['balance'] as int;
+  }
+
   String get userId => snapshot.documentID;
 
   UserData({
@@ -37,8 +43,12 @@ class UserData extends SnapshotAble<UserData> {
   Future<List<CreditCard>> get creditCards =>
       CreditCard.get(snapshot.reference);
 
+  bool get isChild => childOf.isNotEmpty;
+
+  String get collection => isChild ? 'children' : 'users';
+
   Future<List<UserData>> get children async {
-    if (childOf.isNotEmpty) return [];
+    if (isChild) return [];
     final snap = await Firestore.instance
         .collection('children')
         .where('childOf', arrayContains: snapshot.documentID)
@@ -65,30 +75,31 @@ class UserData extends SnapshotAble<UserData> {
 
   Future<PrivateUserData> get private async {
     final doc =
-        await Firestore.instance.collection('private').document(userId).get();
+    await Firestore.instance.collection('private').document(userId).get();
     return PrivateUserData.fromJson(doc.data);
   }
 
-  static Future<UserData> get(String userId) async {
-    final doc =
-        await Firestore.instance.collection('users').document(userId).get();
+  static Future<UserData> get(String userId, {bool child = false}) async {
+    final doc = await Firestore.instance
+        .collection(child ? 'children' : 'users')
+        .document(userId)
+        .get();
     return UserData(snapshot: doc).fromJson();
   }
 
   /// This method should only be called ONCE when registering!
-  Future<UserData> create(FirebaseUser user, PrivateUserData privateUserData,
+  Future<void> create(FirebaseUser user, PrivateUserData privateUserData,
       String email, String phone) async {
     this.email = email;
     this.phone = phone;
     await Firestore.instance
-        .collection('users')
+        .collection(collection)
         .document(user.uid)
         .setData(toJson());
     Firestore.instance
         .collection('private')
         .document(user.uid)
         .setData(privateUserData.toJson());
-    return get(user.uid);
   }
 
   // Keep the snapshot for bankAccounts and creditCards

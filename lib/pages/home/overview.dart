@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gomobie/pages/home/actions/create_groups.dart';
 import 'package:gomobie/pages/home/actions/make_transactions.dart';
-import 'package:gomobie/pages/registration_screens/registration_screen_bank.dart';
 import 'package:gomobie/provider/auth/auth_bloc.dart';
 import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 import 'package:gomobie/util/home_painter.dart';
@@ -92,13 +91,9 @@ class Overview extends StatelessWidget {
                   BlocBuilder<UserDataBloc, UserDataState>(
                       bloc: GetIt.I.get<UserDataBloc>(),
                       builder: (context, state) {
-                        if (state is UserStandardData) {
-                          if (state.needsBankAccount) {
-                            Navigator.of(context)
-                                .pushNamed(RegistrationScreenBank.routeName);
-                          }
+                        if (state is LoggedInUserState) {
                           return Text(
-                            state.data.name,
+                            state.name,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500,
@@ -316,8 +311,7 @@ class Overview extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(25))),
                 child: Padding(
-                  padding: const EdgeInsets.all(8),
-                    child: HiddenCardData()),
+                    padding: const EdgeInsets.all(8), child: HiddenCardData()),
               );
             });
       },
@@ -330,11 +324,6 @@ class Overview extends StatelessWidget {
         color: _mainColor.withOpacity(0.5),
         child: Container(
           decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.scaleDown,
-              image: AssetImage(
-                  'assets/registration_screens/registration_head.png'),
-            ),
             color: _mainColor.withOpacity(0.8),
             borderRadius: BorderRadius.all(
               Radius.circular(25),

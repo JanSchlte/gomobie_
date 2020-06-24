@@ -3,6 +3,7 @@ import 'package:flutter/painting.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gomobie/pages/registration_screens/registration_screen_bank.dart';
 import 'package:gomobie/provider/auth/auth_bloc.dart';
+import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 
 import '../../util/validators.dart' as validators;
 
@@ -25,6 +26,9 @@ class _RegistrationScreenContactDataState
 
   @override
   Widget build(BuildContext context) {
+    //TODO: Impl
+    final registrationContext =
+        ModalRoute.of(context).settings.arguments as RegistrationContext;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -51,7 +55,7 @@ class _RegistrationScreenContactDataState
                       ),
                       Text(
                         'Können auch die des Erziehungsberechtigten\n'
-                        'sein',
+                            'sein',
                         style: TextStyle(color: Colors.grey),
                         textAlign: TextAlign.center,
                       ),
@@ -74,7 +78,7 @@ class _RegistrationScreenContactDataState
                                     children: [
                                       TextFormField(
                                         keyboardType:
-                                            TextInputType.emailAddress,
+                                        TextInputType.emailAddress,
                                         controller: _emailController,
                                         decoration: InputDecoration(
                                             hintText: 'Email',
@@ -148,7 +152,7 @@ class _RegistrationScreenContactDataState
                                             fontSize: 15,
                                           ),
                                           suffixIcon:
-                                              _buildPasswordVisibility(),
+                                          _buildPasswordVisibility(),
                                         ),
                                         validator: (password) {
                                           final security = validators
@@ -170,7 +174,7 @@ class _RegistrationScreenContactDataState
                                             fontSize: 15,
                                           ),
                                           suffixIcon:
-                                              _buildPasswordVisibility(),
+                                          _buildPasswordVisibility(),
                                         ),
                                         validator: (password) {
                                           if (password !=
@@ -212,15 +216,15 @@ class _RegistrationScreenContactDataState
                               onPressed: () {
                                 if (_formKey.currentState.validate()) {
                                   GetIt.I.get<AuthBloc>().register(
-                                        email: _emailController.value.text,
-                                        password:
-                                            _passwordController.value.text,
-                                        idNumber:
-                                            _idNumberController.value.text,
-                                        phone:
-                                            _phoneNumberController.value.text,
-                                      );
-                                  Navigator.of(context).pushNamed(
+                                    email: _emailController.value.text,
+                                    password:
+                                    _passwordController.value.text,
+                                    idNumber:
+                                    _idNumberController.value.text,
+                                    phone:
+                                    _phoneNumberController.value.text,
+                                  );
+                                  Navigator.of(context).pushReplacementNamed(
                                       RegistrationScreenBank.routeName);
                                 }
                               },

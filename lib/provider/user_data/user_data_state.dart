@@ -10,37 +10,47 @@ class InitialUserDataState extends UserDataState {
   bool get isRegistering => false;
 }
 
-class LoggedInUserState extends UserDataState {
-  final UserData data;
-
-  LoggedInUserState(this.data);
-
+class LoggedInUserState extends UserData implements UserDataState {
   @override
   bool get isRegistering => false;
+
+  LoggedInUserState(
+    String firstName,
+    String lastName,
+    String email,
+    String phone, {
+    List<String> childOf = const [],
+    DocumentSnapshot snapshot,
+  }) : super(
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          phone: phone,
+          childOf: childOf,
+          snapshot: snapshot,
+        );
 }
 
 class UserRegisteringData extends LoggedInUserState {
   final PrivateUserData privateUserData;
 
-  UserRegisteringData(UserData data, {this.privateUserData}) : super(data);
+  UserRegisteringData(String firstName,
+      String lastName,
+      String email,
+      String phone, {
+        this.privateUserData,
+      }) : super(firstName, lastName, email, phone);
 
   @override
   bool get isRegistering => true;
 }
 
-class UserStandardData extends LoggedInUserState {
-  List<BankAccount> bankAccounts;
-  List<CreditCard> creditCards;
-  List<UserData> children;
-  List<Transaction> transactions;
-
-  UserStandardData(UserData data) : super(data);
-
-  bool get needsBankAccount => (bankAccounts?.isEmpty ?? false);
-}
-
-class CreateChildData extends UserStandardData {
+class CreateChildData extends LoggedInUserState {
   final UserData childData;
 
-  CreateChildData(UserData data, this.childData) : super(data);
+  CreateChildData(String firstName,
+      String lastName,
+      String email,
+      String phone,
+      this.childData,) : super(firstName, lastName, email, phone);
 }

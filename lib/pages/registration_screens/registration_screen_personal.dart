@@ -348,7 +348,7 @@ class RegistrationScreenOne extends StatelessWidget {
                                         );
                                     Navigator.of(context).pushNamed(
                                       RegistrationScreenContactData.routeName,
-                                    );
+                                      arguments: registrationContext);
                                   }
                                 },
                                 elevation: 0,

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gomobie/provider/auth/auth_bloc.dart';
 import 'package:gomobie/widgets/home/transactions/transaction_card.dart';
@@ -7,6 +8,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'transaction.g.dart';
 
 @JsonSerializable()
+@immutable
 class Transaction extends Comparable<Transaction> {
   final int amount;
   final String title;
@@ -14,6 +16,25 @@ class Transaction extends Comparable<Transaction> {
   final String sender;
   @JsonKey(fromJson: _fromTimeStamp, toJson: _toTimeStamp)
   final DateTime created;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Transaction &&
+          runtimeType == other.runtimeType &&
+          amount == other.amount &&
+          title == other.title &&
+          receiver == other.receiver &&
+          sender == other.sender &&
+          created == other.created;
+
+  @override
+  int get hashCode =>
+      amount.hashCode ^
+      title.hashCode ^
+      receiver.hashCode ^
+      sender.hashCode ^
+      created.hashCode;
 
   bool get isIncoming => GetIt.I.get<AuthBloc>().state.user?.uid == receiver;
 

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -9,18 +10,16 @@ import 'package:get_it/get_it.dart';
 import 'package:gomobie/pages/home/actions/create_groups.dart';
 import 'package:gomobie/pages/home/actions/make_transactions.dart';
 import 'package:gomobie/pages/home/actions/transaction_confirmation.dart';
-import 'package:gomobie/pages/home/details/group_details.dart';
 import 'package:gomobie/pages/home/groups.dart';
 import 'package:gomobie/pages/home/settings/activation_codes.dart';
 import 'package:gomobie/pages/home/settings/help.dart';
 import 'package:gomobie/pages/home/transactions.dart';
 import 'package:gomobie/provider/auth/auth_bloc.dart';
+import 'package:gomobie/provider/bank_account/bank_account_bloc.dart';
+import 'package:gomobie/provider/children/children_bloc.dart';
+import 'package:gomobie/provider/transaction/transaction_bloc.dart';
 import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 
-import 'pages/create_child_account/child_account_bank.dart';
-import 'pages/create_child_account/child_account_contact_data.dart';
-import 'pages/create_child_account/child_account_personal.dart';
-import 'pages/create_child_account/child_account_success.dart';
 import 'pages/home.dart';
 import 'pages/intro_screen.dart';
 import 'pages/login_screen.dart';
@@ -32,8 +31,11 @@ import 'pages/registration_screens/registration_success.dart';
 Future<void> run() async {
   WidgetsFlutterBinding.ensureInitialized();
   final user = await FirebaseAuth.instance.currentUser();
-  GetIt.I.registerSingleton(AuthBloc(user));
+  GetIt.I.registerSingleton(TransactionBloc());
+  GetIt.I.registerSingleton(ChildrenBloc());
+  GetIt.I.registerSingleton(BankAccountBloc());
   GetIt.I.registerSingleton(UserDataBloc());
+  GetIt.I.registerSingleton(AuthBloc(user));
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
   runApp(App(
@@ -47,8 +49,8 @@ void main() {
     () async {
       if (kDebugMode) {
         WidgetsFlutterBinding.ensureInitialized();
-        //await Firestore.instance
-        //   .settings(host: '192.168.178.24:8080', sslEnabled: false);
+        await Firestore.instance
+            .settings(host: '192.168.178.24:8080', sslEnabled: false);
       }
       await run();
     },
@@ -66,6 +68,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        appBarTheme: AppBarTheme(iconTheme: IconThemeData(color: Colors.white)),
         textSelectionHandleColor: Color(0xFF1ABC9C),
         primaryColor: Color(0xFF1ABC9C),
         cursorColor: Color(0xFF1ABC9C),
@@ -84,10 +87,6 @@ class App extends StatelessWidget {
         RegistrationSuccess.routeName: (_) => RegistrationSuccess(),
         RegistrationScreenContactData.routeName: (_) =>
             RegistrationScreenContactData(),
-        ChildAccountPersonal.routeName: (_) => ChildAccountPersonal(),
-        ChildAccountContactData.routeName: (_) => ChildAccountContactData(),
-        ChildAccountBank.routeName: (_) => ChildAccountBank(),
-        ChildRegistrationSuccess.routeName: (_) => ChildRegistrationSuccess(),
         CollectionGroups.routeName: (_) => CollectionGroups(),
         Home.routeName: (_) => Home(),
         ActivationCodes.routeName: (_) => ActivationCodes(),

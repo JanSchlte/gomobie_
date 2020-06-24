@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gomobie/pages/home/transactions.dart';
+import 'package:gomobie/provider/children/children_bloc.dart';
 import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 import 'package:gomobie/widgets/home/family/family_card.dart';
 
@@ -148,10 +149,10 @@ class Family extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20))),
                       elevation: 3,
-                      child: BlocBuilder<UserDataBloc, UserDataState>(
-                          bloc: GetIt.I.get<UserDataBloc>(),
+                      child: BlocBuilder<ChildrenBloc, ChildrenState>(
+                          bloc: GetIt.I.get<ChildrenBloc>(),
                           builder: (context, snapshot) {
-                            if (snapshot is UserStandardData) {
+                            if (snapshot is LoggedInUserState) {
                               return Column(
                                 children: [
                                   for (final child in snapshot.children)
