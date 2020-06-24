@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -9,6 +8,7 @@ import 'package:gomobie/pages/registration_screens/registration_screen_bank.dart
 import 'package:gomobie/provider/auth/auth_bloc.dart';
 import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 import 'package:gomobie/util/home_painter.dart';
+import 'package:gomobie/widgets/home/overview/hidden_card_data.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class Overview extends StatelessWidget {
@@ -312,55 +312,12 @@ class Overview extends StatelessWidget {
         showDialog(
             context: context,
             builder: (context) {
-              final _form = GlobalKey<FormState>();
               return Dialog(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(25))),
                 child: Padding(
                   padding: const EdgeInsets.all(8),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(child: Container()),
-                          IconButton(
-                            icon: Icon(Icons.close),
-                            onPressed: () => Navigator.of(context).pop(),
-                          )
-                        ],
-                      ),
-                      //TODO: Needs design
-                      Text('Kartennummer'),
-                      Row(
-                        children: <Widget>[
-                          Text('2346 2346 2167 2345'),
-                          IconButton(
-                            icon: Icon(Icons.content_copy),
-                            onPressed: () {
-                              Clipboard.setData(
-                                  ClipboardData(text: '2346 2346 2167 2345'));
-                            },
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      RaisedButton(
-                        child: Text('Anfrage senden'),
-                        textColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6)),
-                        elevation: 8,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 92, vertical: 20),
-                        onPressed: () {
-                          //TODO: Add route
-                          _form.currentState.validate();
-                        },
-                      )
-                    ],
-                  ),
-                ),
+                    child: HiddenCardData()),
               );
             });
       },
@@ -373,11 +330,6 @@ class Overview extends StatelessWidget {
         color: _mainColor.withOpacity(0.5),
         child: Container(
           decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.scaleDown,
-              image: AssetImage(
-                  'assets/registration_screens/registration_head.png'),
-            ),
             color: _mainColor.withOpacity(0.8),
             borderRadius: BorderRadius.all(
               Radius.circular(25),
@@ -389,12 +341,12 @@ class Overview extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
-                Icons.add,
+                Icons.credit_card,
                 color: Colors.white,
                 size: 42,
               ),
               Text(
-                'Freund hinzufügen',
+                'Karte Anzeigen',
                 style: TextStyle(color: Colors.white),
               )
             ],
