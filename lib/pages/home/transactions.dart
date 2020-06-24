@@ -19,6 +19,7 @@ extension AccountTypeX on AccountType {
 }
 
 class Transactions extends StatefulWidget {
+  static const routeName = '/transactions';
   @override
   _TransactionsState createState() => _TransactionsState();
 }
@@ -95,10 +96,8 @@ class _TransactionsState extends State<Transactions> {
             style: TextStyle(fontSize: 20),
           ),
           for (final transaction
-          in (GetIt.I
-              .get<UserDataBloc>()
-              .state as UserStandardData)
-              .transactions)
+              in (GetIt.I.get<UserDataBloc>().state as UserStandardData)
+                  .transactions)
             transaction.asWidget
         ],
       ),
@@ -146,13 +145,13 @@ class _TransactionsState extends State<Transactions> {
                     child: Text(
                       'Mein Konto',
                       style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     textColor: _accountType == AccountType.child
                         ? Colors.grey
                         : Colors.white,
                     color:
-                    _accountType == AccountType.child ? Colors.white : null,
+                        _accountType == AccountType.child ? Colors.white : null,
                   ),
                 ),
                 Expanded(
@@ -167,13 +166,13 @@ class _TransactionsState extends State<Transactions> {
                     child: Text(
                       'Kinderkonten',
                       style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     textColor: _accountType == AccountType.child
                         ? Colors.white
                         : Colors.grey,
                     color:
-                    _accountType == AccountType.owner ? Colors.white : null,
+                        _accountType == AccountType.owner ? Colors.white : null,
                   ),
                 )
               ],

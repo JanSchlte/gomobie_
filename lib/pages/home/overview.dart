@@ -330,6 +330,11 @@ class Overview extends StatelessWidget {
         color: _mainColor.withOpacity(0.5),
         child: Container(
           decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.scaleDown,
+              image: AssetImage(
+                  'assets/registration_screens/registration_head.png'),
+            ),
             color: _mainColor.withOpacity(0.8),
             borderRadius: BorderRadius.all(
               Radius.circular(25),

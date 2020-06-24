@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gomobie/pages/home/details/group_details.dart';
 
 class GroupCard extends StatelessWidget {
   final String title;
@@ -66,7 +67,15 @@ class GroupCard extends StatelessWidget {
                     padding: EdgeInsets.zero,
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     color: _mainColor,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              GroupDetails(title, moneyAvailable, moneyNeeded),
+                        ),
+                      );
+                    },
                     child: Align(
                       alignment: Alignment(0.49, 0),
                       child: Text(
