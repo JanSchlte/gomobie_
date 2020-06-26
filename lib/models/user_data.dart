@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart' hide Transaction;
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gomobie/models/private_user_data.dart';
 import 'package:gomobie/models/snapshot_able.dart';
 import 'package:gomobie/models/transaction.dart';
+import 'package:gomobie/provider/auth/auth_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'bank_account.dart';
@@ -26,7 +28,8 @@ class UserData extends SnapshotAble<UserData> {
     return snap.data['balance'] as int;
   }
 
-  String get userId => snapshot.documentID;
+  String get userId =>
+      snapshot?.documentID ?? GetIt.I.get<AuthBloc>().state.user.uid;
 
   UserData({
     this.firstName,
@@ -75,7 +78,7 @@ class UserData extends SnapshotAble<UserData> {
 
   Future<PrivateUserData> get private async {
     final doc =
-    await Firestore.instance.collection('private').document(userId).get();
+        await Firestore.instance.collection('private').document(userId).get();
     return PrivateUserData.fromJson(doc.data);
   }
 

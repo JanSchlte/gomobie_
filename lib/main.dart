@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -47,11 +46,6 @@ void main() {
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
   runZonedGuarded(
     () async {
-      if (kDebugMode) {
-        WidgetsFlutterBinding.ensureInitialized();
-        await Firestore.instance
-            .settings(host: '192.168.178.24:8080', sslEnabled: false);
-      }
       await run();
     },
     Crashlytics.instance.recordError,
@@ -68,13 +62,25 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        appBarTheme: AppBarTheme(iconTheme: IconThemeData(color: Colors.white)),
+        appBarTheme: AppBarTheme(
+          iconTheme: IconThemeData(color: Colors.white),
+          textTheme: TextTheme(
+            headline6: Theme.of(context)
+                .primaryTextTheme
+                .headline6
+                .copyWith(color: Colors.white, fontFamily: 'Metropolis'),
+          ),
+        ),
         textSelectionHandleColor: Color(0xFF1ABC9C),
         primaryColor: Color(0xFF1ABC9C),
         cursorColor: Color(0xFF1ABC9C),
         fontFamily: 'Metropolis',
         visualDensity: VisualDensity.adaptivePlatformDensity,
         buttonColor: Color(0xFF1ABC9C),
+        buttonTheme: ButtonThemeData(
+          buttonColor: Color(0xFF1ABC9C),
+          textTheme: ButtonTextTheme.accent,
+        ),
         floatingActionButtonTheme: FloatingActionButtonThemeData(
           backgroundColor: Color(0xFF1ABC9C),
         ),

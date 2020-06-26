@@ -100,65 +100,71 @@ class TransactionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(
-                    'assets/send_or_recieve_money/send_money_background.png'),
-                fit: BoxFit.fill)),
-        child: Material(
-          color: Colors.grey.shade900.withOpacity(0.89),
-          child: SafeArea(
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  SizedBox(
-                    height: MediaQuery.of(context).size.width * 0.05,
+    //TODO: Apply on other screens
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+        image: AssetImage(
+            'assets/send_or_recieve_money/send_money_background.png'),
+        fit: BoxFit.fill,
+      )),
+      child: Scaffold(
+        backgroundColor: Colors.grey.shade900.withOpacity(0.89),
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(
+          child: Center(
+            child: Stack(
+              fit: StackFit.expand,
+              children: <Widget>[
+                SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      SizedBox(
+                        height: MediaQuery.of(context).size.width * 0.05,
+                      ),
+                      Image.asset(
+                        'assets/general_assets/flying_money.png',
+                        height: 150,
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.width * 0.05,
+                      ),
+                      Text(
+                        //TODO: Make the type of the Screen (sending or recieving) dependent from the boolean type arguments (Map-Form)
+                        //routes[sending] == true ?
+                        'Geld senden',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                        ),
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.width * 0.05,
+                      ),
+                      _buildPersonTextfield(),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.width * 0.05,
+                      ),
+                      _buildAmountTextfield(),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.width * 0.05,
+                      ),
+                      _buildUseTextfield(),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.width * 0.05,
+                      ),
+                      _buildMessageTextfield(),
+                    ],
                   ),
-                  Image.asset(
-                    'assets/general_assets/flying_money.png',
-                    height: 150,
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.width * 0.05,
-                  ),
-                  Text(
-                    //TODO: Make the type of the Screen (sending or recieving) dependent from the boolean type arguments (Map-Form)
-                    //routes[sending] == true ?
-                    'Geld senden',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.width * 0.05,
-                  ),
-                  _buildPersonTextfield(),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.width * 0.05,
-                  ),
-                  _buildAmountTextfield(),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.width * 0.05,
-                  ),
-                  _buildUseTextfield(),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.width * 0.05,
-                  ),
-                  _buildMessageTextfield(),
-                  Expanded(
-                    child: SizedBox(),
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.width * 0.17,
+                ),
+                Positioned(
+                  bottom: 0,
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width * 0.17,
+                  child: SizedBox(
                     child: RaisedButton(
                       elevation: 30,
-                      color: Color(0xFF1ABC9C),
                       onPressed: () {
                         Navigator.pushNamed(
                             context, TransactionConfirmation.routeName);
@@ -171,8 +177,8 @@ class TransactionScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

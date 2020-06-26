@@ -12,7 +12,6 @@ import 'package:gomobie/provider/transaction/transaction_bloc.dart';
 import 'package:meta/meta.dart';
 
 part 'user_data_event.dart';
-
 part 'user_data_state.dart';
 
 enum RegistrationContext { newUser, child }
@@ -79,9 +78,13 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   @override
   Stream<UserDataState> mapEventToState(UserDataEvent event) async* {
     if (event is RegisterEvent) {
-      yield UserRegisteringData(event.data.firstName, event.data.lastName,
-          event.data.email, event.data.phone,
-          privateUserData: event.privateUserData);
+      yield UserRegisteringData(
+        event.data.firstName,
+        event.data.lastName,
+        event.data.email,
+        event.data.phone,
+        privateUserData: event.privateUserData,
+      );
     } else if (event is UserEvent) {
       yield LoggedInUserState(
         event.data.firstName,

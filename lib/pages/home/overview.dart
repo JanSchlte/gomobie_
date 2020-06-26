@@ -1,10 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gomobie/pages/home/actions/create_groups.dart';
 import 'package:gomobie/pages/home/actions/make_transactions.dart';
+import 'package:gomobie/pages/registration_screens/registration_screen_bank.dart';
 import 'package:gomobie/provider/auth/auth_bloc.dart';
+import 'package:gomobie/provider/bank_account/bank_account_bloc.dart';
 import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 import 'package:gomobie/util/home_painter.dart';
 import 'package:gomobie/widgets/home/overview/hidden_card_data.dart';
@@ -41,6 +45,12 @@ class Overview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (GetIt.I.get<BankAccountBloc>().state.needsBankAccount) {
+      Timer(
+          Duration(milliseconds: 100),
+          () => Navigator.of(context)
+              .pushNamed(RegistrationScreenBank.routeName));
+    }
     return Container(
         decoration: BoxDecoration(
           image: DecorationImage(

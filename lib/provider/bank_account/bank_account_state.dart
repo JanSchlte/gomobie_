@@ -4,7 +4,7 @@ part of 'bank_account_bloc.dart';
 class BankAccountState {
   final List<BankAccount> accounts;
 
-  BankAccountState({this.accounts = const []});
+  BankAccountState({this.accounts});
 
-  bool get needsBankAccount => accounts.isEmpty;
+  bool get needsBankAccount => (accounts?.isEmpty ?? false);
 }
