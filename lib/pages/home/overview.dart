@@ -321,7 +321,7 @@ class Overview extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(25))),
                 child: Padding(
-                    padding: const EdgeInsets.all(8), child: HiddenCardData()),
+                    padding: const EdgeInsets.all(17), child: HiddenCardData()),
               );
             });
       },

@@ -12,6 +12,10 @@ class _HiddenCardDataState extends State<HiddenCardData> {
   final String cardNumber = '1234 5678 9012 3456';
   final String cvc = '371';
 
+  TextStyle titleStyle = TextStyle(
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+  );
   bool hide = true;
 
   @override
@@ -29,13 +33,15 @@ class _HiddenCardDataState extends State<HiddenCardData> {
             )
           ],
         ),
-        //TODO: Needs design
-        Text('Kartennummer'),
+        Text('Kartennummer', style: titleStyle),
         Row(
           children: <Widget>[
             Text(hide
                 ? cardNumber.replaceRange(2, 17, '** **** **** **')
                 : cardNumber),
+            Expanded(
+              child: Container(),
+            ),
             IconButton(
               icon: Icon(Icons.content_copy),
               onPressed: () {
@@ -44,10 +50,13 @@ class _HiddenCardDataState extends State<HiddenCardData> {
             ),
           ],
         ),
-        Text('Karteninhaber'),
+        Text('Karteninhaber', style: titleStyle),
         Row(
           children: <Widget>[
             Text('Dominik Schuwa'),
+            Expanded(
+              child: Container(),
+            ),
             IconButton(
               icon: Icon(Icons.content_copy),
               onPressed: () {
@@ -56,10 +65,13 @@ class _HiddenCardDataState extends State<HiddenCardData> {
             ),
           ],
         ),
-        Text('Gültig bis'),
+        Text('Gültig bis', style: titleStyle),
         Row(
           children: <Widget>[
             Text('12/21'),
+            Expanded(
+              child: Container(),
+            ),
             IconButton(
               icon: Icon(Icons.content_copy),
               onPressed: () {
@@ -68,10 +80,13 @@ class _HiddenCardDataState extends State<HiddenCardData> {
             ),
           ],
         ),
-        Text('CVC'),
+        Text('CVC', style: titleStyle),
         Row(
           children: <Widget>[
             Text(hide ? '***' : cvc),
+            Expanded(
+              child: Container(),
+            ),
             IconButton(
               icon: Icon(Icons.content_copy),
               onPressed: () {
