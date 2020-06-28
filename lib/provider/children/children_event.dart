@@ -9,6 +9,8 @@ class UpdateChildrenEvent extends ChildrenEvent {
   UpdateChildrenEvent(this.children);
 }
 
+class NeedsRefreshEvent extends ChildrenEvent {}
+
 class AddChildEvent extends ChildrenEvent {
   final UserData childData;
   final PrivateUserData privateChildData;

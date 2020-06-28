@@ -55,7 +55,7 @@ class _RegistrationScreenContactDataState
                       ),
                       Text(
                         'Können auch die des Erziehungsberechtigten\n'
-                            'sein',
+                        'sein',
                         style: TextStyle(color: Colors.grey),
                         textAlign: TextAlign.center,
                       ),
@@ -87,7 +87,9 @@ class _RegistrationScreenContactDataState
                                               fontSize: 15,
                                             )),
                                         validator: (email) {
-                                          if (email.trim().isEmpty) {
+                                          if (email
+                                              .trim()
+                                              .isEmpty) {
                                             return 'Dieses Feld darf nicht leer sein';
                                           } else if (!validators
                                               .isValidEmail(email)) {
@@ -215,15 +217,20 @@ class _RegistrationScreenContactDataState
                             child: RaisedButton(
                               onPressed: () {
                                 if (_formKey.currentState.validate()) {
-                                  GetIt.I.get<AuthBloc>().register(
-                                    email: _emailController.value.text,
-                                    password:
-                                    _passwordController.value.text,
-                                    idNumber:
-                                    _idNumberController.value.text,
-                                    phone:
-                                    _phoneNumberController.value.text,
-                                  );
+                                  if (registrationContext ==
+                                      RegistrationContext.newUser) {
+                                    GetIt.I.get<AuthBloc>().register(
+                                      email: _emailController.value.text,
+                                      password:
+                                      _passwordController.value.text,
+                                      idNumber:
+                                      _idNumberController.value.text,
+                                      phone:
+                                      _phoneNumberController.value.text,
+                                    );
+                                  } else {
+
+                                  }
                                   Navigator.of(context).pushReplacementNamed(
                                       RegistrationScreenBank.routeName);
                                 }

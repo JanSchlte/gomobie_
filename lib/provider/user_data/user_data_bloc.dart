@@ -28,27 +28,24 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     String street,
     String country,
     String title,
-    DateTime birthday, {
-    RegistrationContext context = RegistrationContext.newUser,
-  }) {
-    if (context == RegistrationContext.newUser) {
-      add(
-        RegisterEvent(
-          UserData(
-            firstName: firstName,
-            lastName: lastName,
-          ),
-          PrivateUserData(
-            postalCode: postalCode,
-            city: city,
-            street: street,
-            country: country,
-            title: title,
-            birthday: birthday,
-          ),
+    DateTime birthday,
+  ) {
+    add(
+      RegisterEvent(
+        UserData(
+          firstName: firstName,
+          lastName: lastName,
         ),
-      );
-    }
+        PrivateUserData(
+          postalCode: postalCode,
+          city: city,
+          street: street,
+          country: country,
+          title: title,
+          birthday: birthday,
+        ),
+      ),
+    );
   }
 
   void logout() => add(UserDataEvent());

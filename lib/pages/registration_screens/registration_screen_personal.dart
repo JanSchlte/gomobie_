@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gomobie/pages/registration_screens/registration_screen_contact_data.dart';
+import 'package:gomobie/provider/children/children_bloc.dart';
 import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 import 'package:gomobie/util/generic_controller.dart';
 import 'package:gomobie/widgets/birthday_form_field.dart';
@@ -336,19 +337,39 @@ class RegistrationScreenOne extends StatelessWidget {
                               child: RaisedButton(
                                 onPressed: () {
                                   if (_formKey.currentState.validate()) {
-                                    GetIt.I.get<UserDataBloc>().setRegisterArgs(
-                                          _firstNameController.text,
-                                          _lastNameController.text,
-                                          int.parse(_postalCodeController.text),
-                                          _cityController.text,
-                                          _streetController.text,
-                                          _countryController.value,
-                                          _titleController.value,
-                                          _birthdayController.value,
-                                        );
+                                    if (registrationContext ==
+                                        RegistrationContext.newUser) {
+                                      GetIt.I
+                                          .get<UserDataBloc>()
+                                          .setRegisterArgs(
+                                            _firstNameController.text,
+                                            _lastNameController.text,
+                                            int.parse(
+                                                _postalCodeController.text),
+                                            _cityController.text,
+                                            _streetController.text,
+                                            _countryController.value,
+                                            _titleController.value,
+                                            _birthdayController.value,
+                                          );
+                                    } else {
+                                      GetIt.I
+                                          .get<ChildrenBloc>()
+                                          .setRegisterArgs(
+                                            _firstNameController.text,
+                                            _lastNameController.text,
+                                            int.parse(
+                                                _postalCodeController.text),
+                                            _cityController.text,
+                                            _streetController.text,
+                                            _countryController.value,
+                                            _titleController.value,
+                                            _birthdayController.value,
+                                          );
+                                    }
                                     Navigator.of(context).pushNamed(
-                                      RegistrationScreenContactData.routeName,
-                                      arguments: registrationContext);
+                                        RegistrationScreenContactData.routeName,
+                                        arguments: registrationContext);
                                   }
                                 },
                                 elevation: 0,
