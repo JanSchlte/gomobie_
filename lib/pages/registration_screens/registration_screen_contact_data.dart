@@ -3,9 +3,11 @@ import 'package:flutter/painting.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gomobie/pages/registration_screens/registration_screen_bank.dart';
 import 'package:gomobie/provider/auth/auth_bloc.dart';
+import 'package:gomobie/provider/children/children_bloc.dart';
 import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 
 import '../../util/validators.dart' as validators;
+import '../home.dart';
 
 class RegistrationScreenContactData extends StatefulWidget {
   static const routeName = '/register/contact';
@@ -78,7 +80,7 @@ class _RegistrationScreenContactDataState
                                     children: [
                                       TextFormField(
                                         keyboardType:
-                                        TextInputType.emailAddress,
+                                            TextInputType.emailAddress,
                                         controller: _emailController,
                                         decoration: InputDecoration(
                                             hintText: 'Email',
@@ -87,9 +89,7 @@ class _RegistrationScreenContactDataState
                                               fontSize: 15,
                                             )),
                                         validator: (email) {
-                                          if (email
-                                              .trim()
-                                              .isEmpty) {
+                                          if (email.trim().isEmpty) {
                                             return 'Dieses Feld darf nicht leer sein';
                                           } else if (!validators
                                               .isValidEmail(email)) {
@@ -220,19 +220,24 @@ class _RegistrationScreenContactDataState
                                   if (registrationContext ==
                                       RegistrationContext.newUser) {
                                     GetIt.I.get<AuthBloc>().register(
-                                      email: _emailController.value.text,
-                                      password:
-                                      _passwordController.value.text,
-                                      idNumber:
-                                      _idNumberController.value.text,
-                                      phone:
-                                      _phoneNumberController.value.text,
+                                      email: _emailController.text,
+                                      password: _passwordController.text,
+                                      idNumber: _idNumberController.text,
+                                      phone: _phoneNumberController.text,
                                     );
+                                    Navigator.of(context).pushReplacementNamed(
+                                        RegistrationScreenBank.routeName);
                                   } else {
-
+                                    GetIt.I.get<ChildrenBloc>().registerChild(
+                                      email: _emailController.text,
+                                      phone: _phoneNumberController.text,
+                                      password: _passwordController.text,
+                                      idNumber: _idNumberController.text,
+                                    );
+                                    Navigator.of(context).pushReplacementNamed(
+                                      Home.routeName,
+                                    );
                                   }
-                                  Navigator.of(context).pushReplacementNamed(
-                                      RegistrationScreenBank.routeName);
                                 }
                               },
                               elevation: 0,

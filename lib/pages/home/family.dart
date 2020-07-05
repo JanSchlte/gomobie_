@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gomobie/pages/home/transactions.dart';
+import 'package:gomobie/pages/registration_screens/registration_screen_personal.dart';
 import 'package:gomobie/provider/children/children_bloc.dart';
 import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 import 'package:gomobie/widgets/home/family/family_card.dart';
@@ -51,7 +52,10 @@ class Family extends StatelessWidget {
           ),
           color: Color(0xFF1ABC9C),
           onPressed: () {
-            //TODO: Zum Kinderkonto-Erstellen Screen navigieren
+            Navigator.of(context).pushNamed(
+              RegistrationScreenOne.routeName,
+              arguments: RegistrationContext.child,
+            );
           },
         ),
       ),
@@ -152,7 +156,7 @@ class Family extends StatelessWidget {
                       child: BlocBuilder<ChildrenBloc, ChildrenState>(
                           bloc: GetIt.I.get<ChildrenBloc>(),
                           builder: (context, snapshot) {
-                            if (snapshot is LoggedInUserState) {
+                            if (snapshot.children.isNotEmpty) {
                               return Column(
                                 children: [
                                   for (final child in snapshot.children)

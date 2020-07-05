@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart' hide Transaction;
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gomobie/models/private_user_data.dart';
 import 'package:gomobie/models/snapshot_able.dart';
@@ -91,17 +90,22 @@ class UserData extends SnapshotAble<UserData> {
   }
 
   /// This method should only be called ONCE when registering!
-  Future<void> create(FirebaseUser user, PrivateUserData privateUserData,
-      String email, String phone) async {
+  Future<void> create(
+      PrivateUserData privateUserData, String email, String phone,
+      {String password, String user}) async {
     this.email = email;
     this.phone = phone;
+    final json = toJson();
+    if (isChild) {
+      json.putIfAbsent('password', () => password);
+    }
     await Firestore.instance
         .collection(collection)
-        .document(user.uid)
-        .setData(toJson());
+        .document(user)
+        .setData(json);
     Firestore.instance
         .collection('private')
-        .document(user.uid)
+        .document(user)
         .setData(privateUserData.toJson());
   }
 

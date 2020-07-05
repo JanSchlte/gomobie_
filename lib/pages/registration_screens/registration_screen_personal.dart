@@ -25,14 +25,12 @@ class RegistrationScreenOne extends StatelessWidget {
 
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  final RegistrationContext registrationContext;
-
-  RegistrationScreenOne(
-      {Key key, this.registrationContext = RegistrationContext.newUser})
-      : super(key: key);
+  RegistrationScreenOne({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final registrationContext =
+        ModalRoute.of(context).settings.arguments as RegistrationContext;
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -201,18 +199,18 @@ class RegistrationScreenOne extends StatelessWidget {
                                             },
                                             dialogBuilder:
                                                 (BuildContext context,
-                                                    Widget child) {
+                                                Widget child) {
                                               return Theme(
                                                 data:
-                                                    ThemeData.light().copyWith(
+                                                ThemeData.light().copyWith(
                                                   primaryColor:
-                                                      const Color(0xFF1ABC9C),
+                                                  const Color(0xFF1ABC9C),
                                                   accentColor:
-                                                      const Color(0xFF1ABC9C),
+                                                  const Color(0xFF1ABC9C),
                                                   colorScheme:
-                                                      ColorScheme.light(
+                                                  ColorScheme.light(
                                                     primary:
-                                                        const Color(0xFF1ABC9C),
+                                                    const Color(0xFF1ABC9C),
                                                   ),
                                                   buttonTheme: ButtonThemeData(
                                                       textTheme: ButtonTextTheme
@@ -223,16 +221,16 @@ class RegistrationScreenOne extends StatelessWidget {
                                             },
                                             initialDate: DateTime.now()
                                                 .subtract(Duration(
-                                                    days:
-                                                        (365.25 * 18).ceil())),
+                                                days:
+                                                (365.25 * 18).ceil())),
                                             firstDate: DateTime.now().subtract(
                                                 Duration(
                                                     days:
-                                                        (365.25 * 125).ceil())),
+                                                    (365.25 * 125).ceil())),
                                             lastDate: DateTime.now().subtract(
                                                 Duration(
                                                     days:
-                                                        (365.25 * 18).ceil())),
+                                                    (365.25 * 18).ceil())),
                                             style: TextStyle(
                                                 color: Colors.grey.shade500,
                                                 fontSize: 15.0),
@@ -264,7 +262,7 @@ class RegistrationScreenOne extends StatelessWidget {
                                             )),
                                         validator: (postalCode) {
                                           final parsed =
-                                              int.tryParse(postalCode);
+                                          int.tryParse(postalCode);
                                           if (parsed == null ||
                                               parsed < 1067 ||
                                               parsed > 99998) {
@@ -342,30 +340,30 @@ class RegistrationScreenOne extends StatelessWidget {
                                       GetIt.I
                                           .get<UserDataBloc>()
                                           .setRegisterArgs(
-                                            _firstNameController.text,
-                                            _lastNameController.text,
-                                            int.parse(
-                                                _postalCodeController.text),
-                                            _cityController.text,
-                                            _streetController.text,
-                                            _countryController.value,
-                                            _titleController.value,
-                                            _birthdayController.value,
-                                          );
+                                        _firstNameController.text,
+                                        _lastNameController.text,
+                                        int.parse(
+                                            _postalCodeController.text),
+                                        _cityController.text,
+                                        _streetController.text,
+                                        _countryController.value,
+                                        _titleController.value,
+                                        _birthdayController.value,
+                                      );
                                     } else {
                                       GetIt.I
                                           .get<ChildrenBloc>()
                                           .setRegisterArgs(
-                                            _firstNameController.text,
-                                            _lastNameController.text,
-                                            int.parse(
-                                                _postalCodeController.text),
-                                            _cityController.text,
-                                            _streetController.text,
-                                            _countryController.value,
-                                            _titleController.value,
-                                            _birthdayController.value,
-                                          );
+                                        _firstNameController.text,
+                                        _lastNameController.text,
+                                        int.parse(
+                                            _postalCodeController.text),
+                                        _cityController.text,
+                                        _streetController.text,
+                                        _countryController.value,
+                                        _titleController.value,
+                                        _birthdayController.value,
+                                      );
                                     }
                                     Navigator.of(context).pushNamed(
                                         RegistrationScreenContactData.routeName,

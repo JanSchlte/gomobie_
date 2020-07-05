@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gomobie/models/private_user_data.dart';
 import 'package:gomobie/models/user_data.dart';
+import 'package:gomobie/provider/auth/auth_bloc.dart';
 import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -24,12 +25,10 @@ class ChildrenBloc extends Bloc<ChildrenEvent, ChildrenState> {
     String title,
     DateTime birthday,
   ) {
+    final id = GetIt.I.get<AuthBloc>().state.user.uid;
     add(
       AddChildEvent(
-        UserData(
-          firstName: firstName,
-          lastName: lastName,
-        ),
+        UserData(firstName: firstName, lastName: lastName, childOf: [id]),
         privateChildData: PrivateUserData(
           postalCode: postalCode,
           city: city,
@@ -42,7 +41,14 @@ class ChildrenBloc extends Bloc<ChildrenEvent, ChildrenState> {
     );
   }
 
-  void registerChild() {}
+  void registerChild(
+      {String email, String phone, String password, String idNumber}) async {
+    final s = state as ChildRegisterState;
+    await s.childData.create(
+        s.privateChildData..idNumber = idNumber, email, phone,
+        password: password);
+    refresh();
+  }
 
   void refresh() {
     add(NeedsRefreshEvent());

@@ -8,6 +8,7 @@ import 'package:gomobie/models/credit_card.dart';
 import 'package:gomobie/models/private_user_data.dart';
 import 'package:gomobie/models/user_data.dart';
 import 'package:gomobie/provider/bank_account/bank_account_bloc.dart';
+import 'package:gomobie/provider/children/children_bloc.dart';
 import 'package:gomobie/provider/transaction/transaction_bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -58,7 +59,8 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   }) {
     final s = (state as UserRegisteringData);
     //TODO: Refactor create into UserRegisteringData
-    return s.create(user, s.privateUserData..idNumber = idNumber, email, phone);
+    return s.create(s.privateUserData..idNumber = idNumber, email, phone,
+        user: user.uid);
   }
 
   Future<void> login({FirebaseUser user}) =>
@@ -70,6 +72,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
   void _retrieveAccounts() {
     GetIt.I.get<BankAccountBloc>().refresh();
     GetIt.I.get<TransactionBloc>().refresh();
+    GetIt.I.get<ChildrenBloc>().refresh();
   }
 
   @override
