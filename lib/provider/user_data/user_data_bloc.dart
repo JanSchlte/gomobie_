@@ -57,6 +57,7 @@ class UserDataBloc extends Bloc<UserDataEvent, UserDataState> {
     String email,
     String phone,
   }) {
+    //TODO: Split into seperate bloc
     final s = (state as UserRegisteringData);
     //TODO: Refactor create into UserRegisteringData
     return s.create(s.privateUserData..idNumber = idNumber, email, phone,

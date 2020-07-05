@@ -10,11 +10,3 @@ class TransactionUpdateEvent extends TransactionEvent {
 
   TransactionUpdateEvent(this.transactions);
 }
-
-class CreateTransactionEvent extends TransactionEvent {
-  final int amount;
-  final String title;
-  final String receiver;
-
-  CreateTransactionEvent({this.amount, this.title, this.receiver});
-}

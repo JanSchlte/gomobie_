@@ -7,7 +7,6 @@ import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 import 'package:meta/meta.dart';
 
 part 'transaction_event.dart';
-
 part 'transaction_state.dart';
 
 class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
@@ -16,23 +15,6 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
   void refresh() {
     add(NeedsRefreshEvent());
-  }
-
-  void createTransaction({String title, String receiver, int amount}) {
-    add(CreateTransactionEvent(
-        title: title, receiver: receiver, amount: amount));
-  }
-
-  void _createTransaction(CreateTransactionEvent event) async {
-    final s = GetIt.I.get<UserDataBloc>().state as LoggedInUserState;
-    await Transaction(
-      amount: event.amount,
-      title: event.title,
-      receiver: event.receiver,
-      sender: s.userId,
-      created: DateTime.now(),
-    ).create();
-    _retrieveTransactions();
   }
 
   void _retrieveTransactions() async {
@@ -47,8 +29,6 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       yield TransactionState(transactions: event.transactions);
     } else if (event is NeedsRefreshEvent) {
       _retrieveTransactions();
-    } else if (event is CreateTransactionEvent) {
-      _createTransaction(event);
     }
   }
 }

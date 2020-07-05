@@ -6,7 +6,7 @@ class TransactionScreen extends StatelessWidget {
 
   /*
   final bool action;
-  //Sollte herausfinden, ob der Screen zum senden oder recieven benutzt wird. Ist ja schließlich nur ein anderes Wort
+  //TODO: Sollte herausfinden, ob der Screen zum senden oder recieven benutzt wird. Ist ja schließlich nur ein anderes Wort
   TransactionScreen(this.action);
   */
   //TODO: Figure out whether the user wants to send money or recieve money

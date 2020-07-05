@@ -8,7 +8,6 @@ import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 import 'package:meta/meta.dart';
 
 part 'bank_account_event.dart';
-
 part 'bank_account_state.dart';
 
 class BankAccountBloc extends Bloc<BankAccountEvent, BankAccountState> {
@@ -24,6 +23,7 @@ class BankAccountBloc extends Bloc<BankAccountEvent, BankAccountState> {
   }
 
   void _createBankAccount(BankAccountCreationEvent event) async {
+    //TODO: Split into seperate bloc
     final s = GetIt.I.get<UserDataBloc>().state as LoggedInUserState;
     await BankAccount(iban: event.iban, owner: event.owner, bic: event.bic)
         .create(s.userId);

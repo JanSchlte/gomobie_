@@ -43,6 +43,7 @@ class ChildrenBloc extends Bloc<ChildrenEvent, ChildrenState> {
 
   void registerChild(
       {String email, String phone, String password, String idNumber}) async {
+    //TODO: Split into seperate bloc
     final s = state as ChildRegisterState;
     await s.childData.create(
         s.privateChildData..idNumber = idNumber, email, phone,
