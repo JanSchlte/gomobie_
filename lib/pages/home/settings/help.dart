@@ -19,18 +19,13 @@ class Help extends StatelessWidget {
           children: [
             SizedBox(height: 30),
             Text(
-              'Um Ihnen immer die schnellste Hilfe anbieten zu können,\n'
-              'haben sie mehrere Optionen zum Kontakt:',
+              'Schreiben Sie uns gerne eine Mail, sofern Sie Fragen, Wünsche oder Probleme mit unserer App haben.',
               textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 18,
+              ),
             ),
             SizedBox(height: 30),
-            Row(
-              children: [
-                SizedBox(width: 20),
-                Text('Sofortige Hilfe:'),
-                Expanded(child: Container())
-              ],
-            ),
             Padding(
               padding: EdgeInsets.only(left: 20, right: 20, top: 10),
               child: RaisedButton(
@@ -40,7 +35,7 @@ class Help extends StatelessWidget {
                 child: Row(
                   children: [
                     SizedBox(width: 10),
-                    Text('24/7 Chat Support',
+                    Text('support@gomobie.de',
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 18)),
                     Expanded(child: Container()),
@@ -55,47 +50,13 @@ class Help extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 20),
               ),
             ),
-            SizedBox(height: 20),
-            Text('Oder rufen Sie uns einfach an:'),
-            SizedBox(height: 10),
+            SizedBox(height: 40),
             Text(
-              '0800 646854684',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-            ),
-            SizedBox(height: 20),
-            Text('Wenn Ihre Angelegenheit auch von anderen Nutzern\n'
-                'beantwortet werden kann, gehen Sie zu unserer\n'
-                'Kunden-helfen-Kunden-Seite:'),
-            Padding(
-              padding: EdgeInsets.only(left: 20, right: 20, top: 10),
-              child: RaisedButton(
-                onPressed: () {
-                  //TODO: https://pub.dev/packages/url_launcher
-                },
-                child: Row(
-                  children: [
-                    SizedBox(width: 10),
-                    Text('https://forum.gomobie.de/faq',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 18)),
-                    Expanded(child: Container()),
-                    Icon(Icons.arrow_forward),
-                    SizedBox(width: 10),
-                  ],
-                ),
-                textColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6)),
-                elevation: 8,
-                padding: EdgeInsets.symmetric(vertical: 20),
+              'Wir melden uns so schnell wie möglich bei Ihnen.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 18,
               ),
-            ),
-            SizedBox(height: 20),
-            Text('Sie können auch unseren E-Mail Support kontaktieren:'),
-            SizedBox(height: 10),
-            Text(
-              'support@gomobie.de',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
             ),
           ],
         ),
