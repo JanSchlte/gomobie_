@@ -21,7 +21,7 @@ class ActivationCodes extends StatelessWidget {
               width: 200,
             ),
             Text(
-              'Momentan sind keine\nAktivierungscodes vorhanden',
+              'Dieses Feature ist bald verfügbar',
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w500),
             )

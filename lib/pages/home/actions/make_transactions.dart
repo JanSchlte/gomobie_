@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gomobie/pages/home/actions/transaction_confirmation.dart';
+import 'package:gomobie/provider/create_transaction/create_transaction_bloc.dart';
 
 class TransactionScreen extends StatelessWidget {
   static const routeName = '/transaction';
@@ -166,9 +168,15 @@ class TransactionScreen extends StatelessWidget {
                     child: RaisedButton(
                       elevation: 30,
                       onPressed: () {
+                        GetIt.I.get<CreateTransactionBloc>().createTransaction(
+                              amount:
+                                  (double.parse(_amountController.text) * 100)
+                                      .round(),
+                              title: _messageController.text,
+                              receiver: _personController.text,
+                            );
                         Navigator.pushNamed(
                             context, TransactionConfirmation.routeName);
-                        //TODO: Validate the transaction-data
                       },
                       child: Text(
                         'ÜBERPRÜFEN',

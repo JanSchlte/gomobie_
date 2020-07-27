@@ -28,7 +28,7 @@ class TransactionCard extends StatelessWidget {
           Text(DateFormat('dd-MM-yyyy').format(transaction.created)),
           //TODO: Maybe change color theme to improve readability
           Container(
-            width: 110,
+            width: 120,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(10)),
               color: transaction.isIncoming

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:gomobie/models/transaction.dart';
 import 'package:gomobie/pages/registration_screens/registration_screen_bank.dart';
 import 'package:gomobie/provider/bank_account/bank_account_bloc.dart';
+import 'package:gomobie/provider/children/children_bloc.dart';
 import 'package:gomobie/provider/transaction/transaction_bloc.dart';
+import 'package:gomobie/widgets/home/transactions/transaction_card.dart';
 
 //TODO: Add to UserData
 enum AccountType { owner, child }
@@ -108,9 +111,68 @@ class _TransactionsState extends State<Transactions> {
 
   Widget _buildChildrenAccounts() {
     return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: Text(
+              'Kinderkonten',
+              style: TextStyle(fontSize: 34),
+            ),
+          ),
+          SizedBox(height: 30),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: BlocBuilder<ChildrenBloc, ChildrenState>(
+                  bloc: GetIt.I.get(),
+                  builder: (context, snapshot) {
+                    return Row(
+                      children: snapshot.children
+                          .map((e) => Column(
+                                children: <Widget>[
+                                  CircleAvatar(
+                                    child: Icon(Icons.add),
+                                  ),
+                                  Text(e.name)
+                                ],
+                              ))
+                          .toList(),
+                    );
+                  }),
+            ),
+          ),
+          SizedBox(height: 40),
+          Text('Letzte Transaktionen'),
+          BlocBuilder<ChildrenBloc, ChildrenState>(
+              bloc: GetIt.I.get(),
+              builder: (context, snapshot) {
+                final all = <Future<List<Transaction>>>[];
+                for (final child in snapshot.children) {
+                  all.add(child.transactions);
+                }
+                return FutureBuilder<List<List<Transaction>>>(
+                  future: Future.wait(all),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      final flatten = <Transaction>[];
+                      snapshot.data.forEach(flatten.addAll);
+                      flatten.sort();
+                      return Column(
+                        children: flatten
+                            .map((e) => TransactionCard(
+                                  transaction: e,
+                                ))
+                            .toList(),
+                      );
+                    } else {
+                      return Text('Loading');
+                    }
+                  },
+                );
+              })
+        ],
       ),
     );
   }

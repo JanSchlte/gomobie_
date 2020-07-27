@@ -188,7 +188,7 @@ class Overview extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     padding: EdgeInsets.only(top: 20),
-                    color: Color(0xFF474747),
+                    color: Color(0xFF474747).withOpacity(0.6),
                     child: Wrap(
                       alignment: WrapAlignment.center,
                       children: [

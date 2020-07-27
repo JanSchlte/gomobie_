@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:get_it/get_it.dart';
 import 'package:gomobie/provider/auth/auth_bloc.dart';
+import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 
 import '../util/validators.dart' as validators;
 import 'home.dart';
@@ -157,7 +158,8 @@ class LoginScreen extends StatelessWidget {
         ),
         FlatButton(
           onPressed: () {
-            Navigator.of(context).pushNamed(RegistrationScreenOne.routeName);
+            Navigator.of(context).pushNamed(RegistrationScreenOne.routeName,
+                arguments: RegistrationContext.newUser);
           },
           child: Text(
             'Hier registrieren',

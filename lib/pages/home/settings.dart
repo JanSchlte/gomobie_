@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gomobie/pages/home/settings/activation_codes.dart';
 import 'package:gomobie/pages/home/settings/help.dart';
 
 class Settings extends StatelessWidget {
@@ -27,23 +26,19 @@ class Settings extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            title: Text('Geschäftskonto eröffnen'),
-            trailing: Icon(Icons.arrow_forward),
-          ),
-          Divider(),
-          ListTile(
             title: Text('Hilfe'),
             trailing: Icon(Icons.arrow_forward),
             onTap: () => Navigator.of(context).pushNamed(Help.routeName),
           ),
           Divider(),
+          /*
           ListTile(
             title: Text('Aktivierungscodes'),
             trailing: Icon(Icons.arrow_forward),
             onTap: () =>
                 Navigator.of(context).pushNamed(ActivationCodes.routeName),
           ),
-          Divider(),
+          Divider(),*/
         ],
       ),
     );

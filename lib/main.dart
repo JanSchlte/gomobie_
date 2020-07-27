@@ -16,6 +16,7 @@ import 'package:gomobie/pages/home/transactions.dart';
 import 'package:gomobie/provider/auth/auth_bloc.dart';
 import 'package:gomobie/provider/bank_account/bank_account_bloc.dart';
 import 'package:gomobie/provider/children/children_bloc.dart';
+import 'package:gomobie/provider/create_transaction/create_transaction_bloc.dart';
 import 'package:gomobie/provider/transaction/transaction_bloc.dart';
 import 'package:gomobie/provider/user_data/user_data_bloc.dart';
 
@@ -30,6 +31,7 @@ import 'pages/registration_screens/registration_success.dart';
 Future<void> run() async {
   WidgetsFlutterBinding.ensureInitialized();
   final user = await FirebaseAuth.instance.currentUser();
+  GetIt.I.registerSingleton(CreateTransactionBloc());
   GetIt.I.registerSingleton(TransactionBloc());
   GetIt.I.registerSingleton(ChildrenBloc());
   GetIt.I.registerSingleton(BankAccountBloc());

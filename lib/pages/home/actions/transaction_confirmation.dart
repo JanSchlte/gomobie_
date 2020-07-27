@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:gomobie/pages/home.dart';
+import 'package:gomobie/provider/create_transaction/create_transaction_bloc.dart';
 
 class TransactionConfirmation extends StatelessWidget {
   static const routeName = '/confirmation';
@@ -100,6 +102,8 @@ class TransactionConfirmation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final data = GetIt.I.get<CreateTransactionBloc>().state
+        as DataCreateTransactionsState;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -121,14 +125,14 @@ class TransactionConfirmation extends StatelessWidget {
               CircleAvatar(
                 radius: 59,
                 backgroundImage: AssetImage(
-                    //TODO: Add the specific Firebase Image of the Transaction-Partner
+                  //TODO: Add the specific Firebase Image of the Transaction-Partner
                     'assets/fake_backend/fake_avatar.jpg'),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.width * 0.03,
               ),
               Text(
-                '30.00 €',
+                '${(data.amount / 100).toStringAsFixed(2)} €',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 27,
@@ -161,7 +165,7 @@ class TransactionConfirmation extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.all(17),
                       child: Text(
-                        'Harold ( ID: 546 654 455 )',
+                        '${data.receiver}',
                         style: TextStyle(
                           fontSize: 20,
                           color: Colors.grey.shade400,
@@ -176,17 +180,26 @@ class TransactionConfirmation extends StatelessWidget {
               ),
               _buildHeader('Verwendungszweck:'),
               SizedBox(
-                height: MediaQuery.of(context).size.width * 0.03,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .width * 0.03,
               ),
               _buildMinorTextBox('Schulden'),
               SizedBox(
-                height: MediaQuery.of(context).size.width * 0.03,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .width * 0.03,
               ),
               _buildHeader('Nachricht:'),
               SizedBox(
-                height: MediaQuery.of(context).size.width * 0.03,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .width * 0.03,
               ),
-              _buildMinorTextBox('Danke für den schönen Ausflug ;)'),
+              _buildMinorTextBox('${data.title}'),
               Expanded(
                 child: SizedBox(),
               ),
@@ -213,8 +226,10 @@ class TransactionConfirmation extends StatelessWidget {
                     Expanded(
                       child: RaisedButton(
                         onPressed: () {
+                          GetIt.I
+                              .get<CreateTransactionBloc>()
+                              .confirmTransaction();
                           showAlertDialog(context);
-                          //TODO: Confirm the transaction (backend)
                         },
                         elevation: 10,
                         padding: EdgeInsets.symmetric(vertical: 20),
