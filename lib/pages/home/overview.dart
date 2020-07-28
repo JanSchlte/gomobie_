@@ -376,9 +376,18 @@ class Overview extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(width: 20),
-                        Text('QR-Code'),
+                        Text(
+                          'QR-Code',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
                         IconButton(
-                          icon: Icon(Icons.close),
+                          icon: Icon(
+                            Icons.close,
+                            color: Colors.white,
+                          ),
                           onPressed: () => Navigator.of(context).pop(),
                         )
                       ],

@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Help extends StatelessWidget {
   static const routeName = '/settings/help';
+  String mail = 'support@gomobie.de';
 
   @override
+  _writeMail() async {
+    if (await canLaunch('mailto:$mail')) {
+      await launch('mailto:$mail');
+    } else {
+      throw 'Could not launch $mail';
+    }
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +40,7 @@ class Help extends StatelessWidget {
               padding: EdgeInsets.only(left: 20, right: 20, top: 10),
               child: RaisedButton(
                 onPressed: () {
-                  //TODO: Alles für den support
+                  _writeMail();
                 },
                 child: Row(
                   children: [
