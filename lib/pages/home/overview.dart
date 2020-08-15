@@ -124,7 +124,8 @@ class Overview extends StatelessWidget {
                           child: Container(
                             width: double.infinity,
                             child: Column(
-                              children: [SizedBox(height: 50), Text('Hello')],
+                              children: [SizedBox(height: 50), Text('')],
+                              //TODO: Add whatever you intented to put there
                             ),
                           ),
                         ),
@@ -206,6 +207,7 @@ class Overview extends StatelessWidget {
   }
 
   Card _buildMockCollectionGroupCard(BuildContext context) {
+    //TODO: Direct to Sammelgruppen Page
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(

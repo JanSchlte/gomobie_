@@ -33,146 +33,156 @@ class _TransactionsState extends State<Transactions> {
   AccountType _accountType = AccountType.owner;
 
   Widget _buildAccountDisplay() {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                FloatingActionButton(
-                  onPressed: () {
-                    Navigator.of(context)
-                        .pushNamed(RegistrationScreenBank.routeName);
-                  },
-                  child: Icon(Icons.add),
-                ),
-                BlocBuilder<BankAccountBloc, BankAccountState>(
-                  bloc: GetIt.I.get<BankAccountBloc>(),
-                  builder: (context, state) {
-                    //TODO: Move into own widget
-                    return Row(
-                      children: state.accounts
-                          .map((e) => Card(
-                                child: Padding(
-                                  padding: EdgeInsets.only(bottom: 10),
-                                  child: SizedBox(
-                                    width: 140,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Expanded(child: Container()),
-                                            Column(
-                                              children: [
-                                                Icon(
-                                                    Icons
-                                                        .account_balance_wallet,
-                                                    size: 45),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                        Text(e.iban,
-                                            style: TextStyle(fontSize: 12)),
-                                        SizedBox(height: 20),
-                                        Text('800,44€'),
-                                        SizedBox(height: 20),
-                                      ],
+    return Padding(
+      padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.035),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  FloatingActionButton(
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed(RegistrationScreenBank.routeName);
+                    },
+                    child: Icon(Icons.add),
+                  ),
+                  BlocBuilder<BankAccountBloc, BankAccountState>(
+                    bloc: GetIt.I.get<BankAccountBloc>(),
+                    builder: (context, state) {
+                      //TODO: Move into own widget
+                      return Row(
+                        children: state.accounts
+                            .map((e) => Card(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(bottom: 10),
+                                    child: SizedBox(
+                                      width: 140,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Expanded(child: Container()),
+                                              Column(
+                                                children: [
+                                                  Icon(
+                                                      Icons
+                                                          .account_balance_wallet,
+                                                      size: 45),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                          Text(e.iban,
+                                              style: TextStyle(fontSize: 12)),
+                                          SizedBox(height: 20),
+                                          Text('800,44€'),
+                                          SizedBox(height: 20),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ))
-                          .toList(),
-                    );
-                  },
-                ),
-              ],
+                                ))
+                            .toList(),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: 10),
-          Text(
-            'Letzte Transaktionen',
-            style: TextStyle(fontSize: 20),
-          ),
-          BlocBuilder<TransactionBloc, TransactionState>(
-            bloc: GetIt.I.get<TransactionBloc>(),
-            builder: (context, state) {
-              return Column(
-                  children: state.transactions.map((e) => e.asWidget).toList());
-            },
-          ),
-        ],
+            SizedBox(height: 10),
+            Text(
+              'Letzte Transaktionen',
+              style: TextStyle(fontSize: 20),
+            ),
+            BlocBuilder<TransactionBloc, TransactionState>(
+              bloc: GetIt.I.get<TransactionBloc>(),
+              builder: (context, state) {
+                return Column(
+                    children:
+                        state.transactions.map((e) => e.asWidget).toList());
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildChildrenAccounts() {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: Text(
-              'Kinderkonten',
-              style: TextStyle(fontSize: 34),
+    return Padding(
+      padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.035),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Text(
+                'Kinderkonten',
+                style: TextStyle(fontSize: 34),
+              ),
             ),
-          ),
-          SizedBox(height: 30),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: BlocBuilder<ChildrenBloc, ChildrenState>(
-                  bloc: GetIt.I.get(),
-                  builder: (context, snapshot) {
-                    return Row(
-                      children: snapshot.children
-                          .map((e) => Column(
-                                children: <Widget>[
-                                  CircleAvatar(
-                                    child: Icon(Icons.add),
-                                  ),
-                                  Text(e.name)
-                                ],
-                              ))
-                          .toList(),
-                    );
-                  }),
-            ),
-          ),
-          SizedBox(height: 40),
-          Text('Letzte Transaktionen'),
-          BlocBuilder<ChildrenBloc, ChildrenState>(
-              bloc: GetIt.I.get(),
-              builder: (context, snapshot) {
-                final all = <Future<List<Transaction>>>[];
-                for (final child in snapshot.children) {
-                  all.add(child.transactions);
-                }
-                return FutureBuilder<List<List<Transaction>>>(
-                  future: Future.wait(all),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      final flatten = <Transaction>[];
-                      snapshot.data.forEach(flatten.addAll);
-                      flatten.sort();
-                      return Column(
-                        children: flatten
-                            .map((e) => TransactionCard(
-                                  transaction: e,
+            SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: BlocBuilder<ChildrenBloc, ChildrenState>(
+                    bloc: GetIt.I.get(),
+                    builder: (context, snapshot) {
+                      return Row(
+                        children: snapshot.children
+                            .map((e) => Column(
+                                  children: <Widget>[
+                                    CircleAvatar(
+                                      child: Icon(Icons.add),
+                                    ),
+                                    Text(e.name)
+                                  ],
                                 ))
                             .toList(),
                       );
-                    } else {
-                      return Text('Loading');
-                    }
-                  },
-                );
-              })
-        ],
+                    }),
+              ),
+            ),
+            SizedBox(height: 40),
+            Text(
+              'Letzte Transaktionen',
+              style: TextStyle(fontSize: 20),
+            ),
+            BlocBuilder<ChildrenBloc, ChildrenState>(
+                bloc: GetIt.I.get(),
+                builder: (context, snapshot) {
+                  final all = <Future<List<Transaction>>>[];
+                  for (final child in snapshot.children) {
+                    all.add(child.transactions);
+                  }
+                  return FutureBuilder<List<List<Transaction>>>(
+                    future: Future.wait(all),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final flatten = <Transaction>[];
+                        snapshot.data.forEach(flatten.addAll);
+                        flatten.sort();
+                        return Column(
+                          children: flatten
+                              .map((e) => TransactionCard(
+                                    transaction: e,
+                                  ))
+                              .toList(),
+                        );
+                      } else {
+                        return Text('Loading');
+                      }
+                    },
+                  );
+                })
+          ],
+        ),
       ),
     );
   }

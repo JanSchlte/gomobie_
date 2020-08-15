@@ -45,10 +45,14 @@ class Help extends StatelessWidget {
                 child: Row(
                   children: [
                     SizedBox(width: 10),
-                    Text('support@gomobie.de',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 18)),
-                    Expanded(child: Container()),
+                    Text(
+                      'support@gomobie.de',
+                      style:
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+                    ),
+                    Expanded(
+                      child: Container(),
+                    ),
                     Icon(Icons.arrow_forward),
                     SizedBox(width: 10),
                   ],

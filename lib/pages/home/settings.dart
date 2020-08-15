@@ -31,6 +31,13 @@ class Settings extends StatelessWidget {
             onTap: () => Navigator.of(context).pushNamed(Help.routeName),
           ),
           Divider(),
+          ListTile(
+            title: Text(
+              'Abmelden',
+            ),
+            trailing: Icon(Icons.arrow_forward),
+            //onTap: () => TODO: Log Firebase User out
+          ),
           /*
           ListTile(
             title: Text('Aktivierungscodes'),

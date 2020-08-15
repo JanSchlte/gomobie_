@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:gomobie/provider/user_data/user_data_bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 class HiddenCardData extends StatefulWidget {
+  // ignore: public_member_api_docs
   HiddenCardData({Key key}) : super(key: key);
 
   @override
@@ -19,6 +26,19 @@ class _HiddenCardDataState extends State<HiddenCardData> {
   bool hide = true;
 
   @override
+  String getUserName() {
+    BlocBuilder<UserDataBloc, UserDataState>(
+        bloc: GetIt.I.get<UserDataBloc>(),
+        builder: (context, state) {
+          if (state is LoggedInUserState) {
+            return Text(
+              state.name,
+            );
+          }
+          return Text('Error');
+        });
+  }
+
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,14 +73,14 @@ class _HiddenCardDataState extends State<HiddenCardData> {
         Text('Karteninhaber', style: titleStyle),
         Row(
           children: <Widget>[
-            Text('Dominik Schuwa'),
+            Text('${getUserName()}'),
             Expanded(
               child: Container(),
             ),
             IconButton(
               icon: Icon(Icons.content_copy),
               onPressed: () {
-                Clipboard.setData(ClipboardData(text: 'Dominik Schuwa'));
+                Clipboard.setData(ClipboardData(text: '${getUserName()}'));
               },
             ),
           ],
