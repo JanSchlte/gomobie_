@@ -105,6 +105,7 @@ class App extends StatelessWidget {
         Transactions.routeName: (_) => Transactions(),
       },
       initialRoute: isLoggedIn ? Home.routeName : IntroScreen.routeName,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
